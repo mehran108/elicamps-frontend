@@ -29,19 +29,20 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
   @Output() onStudentRegistration: EventEmitter<any> = new EventEmitter<any>();
   public paymentinfoform: FormGroup;
   public submitted = false;
-  public agentList: Agent[] = [];
+  @Input() agentList: Agent[] = [];
   @Input() student: Student;
-  @Output() studentEvent: EventEmitter<any> = new EventEmitter();
+  @Output() studentPayment: EventEmitter<any> = new EventEmitter();
   public groupReuestModel: Group;
   public studentId: number;
-  public isEdit = false;
+  @Input() isEdit = false;
   public selectedAgent: Agent;
   public loading = false;
-  public groupPaymentList = [];
+  @Input() groupPaymentList = [];
   private gridApi: any;
   public columnDefs = STUDENT_PAYMENT_COL_DEFS;
   public gridOptions: any;
   public modules = AllCommunityModules;
+  @Input() studentForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -79,26 +80,6 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
     this.columnDefs = [];
     this.columnDefs.push(...STUDENT_PAYMENT_COL_DEFS, buttonRenderer as any);
     this.initializeForm();
-    this.getParams();
-    this.initializeDropDowns();
-    this.f.valueChanges.subscribe(res => {
-      this.shared.setpaymentInfoState(this.f.value);
-    });
-    if (this.student) {
-      this.isEdit = true;
-      this.populateStudentForm(this.student);
-    }
-    this.shared.getGroupInfoState().subscribe(res => {
-      if (res) {
-        this.populateStudentFormWithGroupValues(res);
-      }
-    });
-    this.shared.getObservable().subscribe(res => {
-      if (res) {
-        this.populateNumberOfNights(res);
-      }
-    });
-    this.populateNumberOfNights(this.student);
   }
   openRemovePaymentDialog(group: any): void {
     // tslint:disable-next-line: no-use-before-declare
@@ -120,56 +101,12 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
     this.spinner.show();
     this.listService.activatePaymentStudent(row).subscribe(res => {
       this.spinner.hide();
-      this.getStudentPayments(this.studentId);
+      this.studentPayment.emit();
     }, error => {
       this.spinner.hide();
     });
   }
-  populateStudentFormWithGroupValues(res: any) {
-    //   Object.keys(this.f.controls).forEach(key => {
-    //     // if (key === 'totalGrossPrice' && res.perStudent) {
-    //     //   this.f.controls[key].setValue(res.perStudent);
-    //     // }
-    //     if (key === 'numberOfNights' && res.numberOfNights) {
-    //       this.f.controls[key].setValue(res.numberOfNights);
-    //     }
-    //     // if (key === 'paid' && res.paid) {
-    //     //   const singlePayment = res.paid / (res.numOfStudents + res.numOfGrpLeaders);
-    //     //   this.f.controls[key].setValue(singlePayment);
-    //     // }
-    //   });
-  }
   ngOnChanges(change: SimpleChanges) {
-    if (this.f) {
-      this.populateStudentForm(change.student.currentValue);
-    }
-
-  }
-  public populateNumberOfNights = (student) => {
-    if (student && student.programeStartDate && student.programeEndDate) {
-      const date1 = new Date(student.programeStartDate);
-      const date2 = new Date(student.programeEndDate);
-      const timeDiff = Math.abs(date2.getTime() - date1.getTime());
-      const numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      if (this.f && this.f.controls) {
-        this.f.controls.numberOfNights.setValue(numberOfNights);
-      }
-    }
-  }
-  public getParams() {
-    this.route.queryParams.subscribe(params => {
-      if (params && params.studentId) {
-        this.studentId = Number(atob(params.studentId));
-        if (this.studentId) {
-          this.isEdit = true;
-          this.getSelectedAgent(this.studentId);
-          this.getStudentPayments(this.studentId);
-        }
-      } else {
-        const regFee = this.storage.get(Keys.REG_FEE);
-        this.f.controls.registrationFee.setValue(regFee);
-      }
-    });
   }
   public getStudentPayments = (studentId: number) => {
     this.studentService.getAllPaymentStudentByStudentId(studentId).subscribe(res => {
@@ -197,22 +134,8 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
       }
     });
   }
-  public initializeDropDowns = () => {
-    this.listService.getAllAgent({ active: true }).subscribe(res => {
-      this.agentList = res.data;
-    });
-  }
   initializeForm() {
     this.paymentinfoform = this.formBuilder.group({
-      numberOfNights: [0],
-      totalGrossPrice: [0],
-      paid: [0],
-      commision: [0],
-      commissionAddins: [0],
-      netPrice: [0],
-      totalAddins: [0],
-      balance: [0],
-      registrationFee: [0],
       studentEmail: [],
       files: [],
       isAgentInvoice: [false],
@@ -227,64 +150,10 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
       emailType: [null]
     });
   }
-
-  Cancel_Click() {
-    this.router.navigate(['/students']);
-  }
-  onSubmit() {
-    if (this.f.valid) {
-      const keys = ['totalGrossPrice', 'paid', 'commision', 'commissionAddins', 'balance'];
-      keys.forEach(key => {
-        if (!this.f.controls[key].value) {
-          this.f.controls[key].setValue(0);
-        }
-      });
-      if (this.isEdit === false) {
-        this.submitted = true;
-        this.loading = true;
-        const selectedIndex = 7;
-        // this.onStudentRegistration.emit(selectedIndex);
-        this.shared.setpaymentInfoState(this.f.value);
-        this.shared.saveRecord(true);
-      } else if (this.isEdit === true) {
-        const model = {
-          ...this.student,
-          ...this.f.value
-        };
-        this.listService.updateStudentInfo(model).subscribe(res => {
-          const Index = 7;
-          this.toastr.success('Payment Information Section Updated', 'Success');
-          // this.onStudentRegistration.emit(Index);
-        });
-      }
-
-    }
-  }
-
-  public populateStudentForm = (student: any) => {
-    const keys = ['arrivalTime', 'flightDepartureTime'];
-    Object.keys(this.f.controls).forEach(key => {
-      if (student[key] !== null && !keys.includes(key)) {
-        this.f.controls[key].setValue(student[key]);
-      }
-    });
-    if (student.programeStartDate && student.programeEndDate) {
-      const startDate = new Date(student.programeStartDate);
-      const endDate = new Date(student.programeEndDate);
-      if (startDate && endDate) {
-        const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
-        const numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        this.paymentinfoform.controls.numberOfNights.setValue(numberOfNights);
-      }
-    }
-    this.shared.setpaymentInfoState(this.f.value);
-    this.calculate();
-  }
   public navigateByURL = (url: string, priceSection: boolean) => {
     // window.open(
     //   `${environment.appURL}/#/registerStudent/${url}?studentId=${btoa(this.studentId.toString())}&section=${priceSection}`, '_blank');
     const model = {
-      studentId: this.studentId,
       isAgentInvoice: url === 'agent-invoice' ? true : false,
       isStudentInvoice: url === 'student-Loa' ? true : false,
       isLoaInvoice: url === 'loa-invoice-with-price' ? true : false,
@@ -294,7 +163,8 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
       isAirportInvoice: url === 'student-Airport-Invoice' ? true : false,
       isLoaGroupInvoice: url === 'loa-group-invoice' ? true : false,
       studentEmail: '',
-      registrationFee: this.f.value.registrationFee
+      registrationFee: this.studentForm.controls.registrationFee.value,
+      studentId: this.studentForm.controls.id.value
     };
     this.spinner.show();
     this.studentService.documentGetByStudentId(model).subscribe((res: any) => {
@@ -310,7 +180,7 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
   public sendEmail = () => {
     if (this.f.controls.studentEmail.value) {
       const model = {
-        studentID: this.student.id,
+        studentId: this.studentForm.controls.id.value,
         ...this.f.value,
         emailBody: ''
       };
@@ -358,29 +228,34 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
     this.f.controls.studentEmail.setValue(null);
   }
   calculate = () => {
-    let totalGross = this.f.controls.totalGrossPrice.value;
-    if (totalGross && !this.f.controls.netPrice.value) {
-      this.f.controls.netPrice.setValue(totalGross);
-      this.f.controls.balance.setValue(totalGross);
+    let totalGross = this.studentForm.controls.totalGrossPrice.value;
+    if (totalGross && !this.studentForm.controls.netPrice.value) {
+      this.studentForm.controls.netPrice.setValue(totalGross);
+      this.studentForm.controls.balance.setValue(totalGross);
     }
-    if (this.f.controls.totalAddins.value && !this.f.controls.commision.value) {
-      totalGross = totalGross + this.f.controls.totalAddins.value;
-      this.f.controls.netPrice.setValue(totalGross);
+    if (this.studentForm.controls.totalAddins.value && !this.studentForm.controls.commision.value) {
+      totalGross = totalGross + this.studentForm.controls.totalAddins.value;
+      this.studentForm.controls.netPrice.setValue(totalGross);
     }
-    const commisionToSubtract = ((this.f.controls.commision.value / 100) * totalGross);
+    const commisionToSubtract = ((this.studentForm.controls.commision.value / 100) * totalGross);
     if (commisionToSubtract > -1) {
       let calculatedCommission = totalGross - commisionToSubtract;
-      calculatedCommission = calculatedCommission + this.f.controls.totalAddins.value;
+      calculatedCommission = calculatedCommission + this.studentForm.controls.totalAddins.value;
       if (calculatedCommission) {
-        this.f.controls.netPrice.setValue(calculatedCommission);
+        this.studentForm.controls.netPrice.setValue(calculatedCommission);
       }
     }
-    if (this.f.controls.commissionAddins.value) {
-      const setTotalNetValue = this.f.controls.netPrice.value - this.f.controls.commissionAddins.value;
-      this.f.controls.netPrice.setValue(setTotalNetValue);
+    if (this.studentForm.controls.commissionAddins.value) {
+      const setTotalNetValue = this.studentForm.controls.netPrice.value - this.studentForm.controls.commissionAddins.value;
+      this.studentForm.controls.netPrice.setValue(setTotalNetValue);
     }
-    if (this.f.controls.netPrice.value) {
-      this.f.controls.balance.setValue(this.f.controls.netPrice.value - this.f.controls.paid.value);
+    if (this.studentForm.controls.netPrice.value) {
+      const total = this.studentForm.controls.netPrice.value + this.studentForm.controls.registrationFee.value;
+      const cummulativeValue = total - this.studentForm.controls.paid.value;
+      this.studentForm.controls.balance.setValue(Math.round(cummulativeValue));
+    } else {
+      const balance = this.studentForm.controls.registrationFee.value - this.studentForm.controls.paid.value
+      this.studentForm.controls.balance.setValue(balance)
     }
   }
   onCellClicked = ($event) => {
@@ -396,46 +271,12 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         dialogRef.close();
-        this.studentEvent.emit(true);
-        this.calculate();
-        this.getStudentPayments(this.studentId);
+        this.studentPayment.emit();
       }
     });
   }
   onGridReady(params) {
     this.gridApi = params.api;
     // params.api.sizeColumnsToFit();
-  }
-  public saveAndClose = () => {
-    const data = this.shared.getCompleteState();
-    data.arrivalTime = data.arrivalTime ? moment(data.arrivalTime).format('YYYY-MM-DD HH:mm:ss') : '';
-    data.flightDepartureTime =
-      data.flightDepartureTime ? moment(data.flightDepartureTime).format('YYYY-MM-DD HH:mm:ss') : '';
-    data.programeStartDate = data.programeStartDate ? moment(data.programeStartDate).format('MM/DD/YYYY') : '';
-    data.programeEndDate = data.programeEndDate ? moment(data.programeEndDate).format('MM/DD/YYYY') : '';
-    data.arrivalDate = data.arrivalDate ? moment(data.arrivalDate).format('MM/DD/YYYY') : '';
-    data.departureDate = data.departureDate ? moment(data.departureDate).format('MM/DD/YYYY') : '';
-    if (!this.isEdit) {
-      const studentInfo = this.shared.getStudentInfoState();
-      const flightInfo = this.shared.getflightInfotate();
-      const medicalInfo = this.shared.getmedicalInfotate();
-      const programInfo = this.shared.getProgramInfoState();
-      const model = {
-        ...studentInfo,
-        ...flightInfo,
-        ...medicalInfo,
-        ...programInfo,
-      };
-      this.listService.addStudentInfo(model).subscribe(res => {
-        data.id = res;
-        this.listService.updateStudentInfo(data).subscribe(update => {
-          this.location.back();
-        });
-      });
-    } else {
-      this.listService.updateStudentInfo(data).subscribe(res => {
-        this.location.back();
-      });
-    }
   }
 }

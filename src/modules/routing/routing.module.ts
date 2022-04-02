@@ -47,6 +47,7 @@ import { PaymentReportComponent } from 'src/EliCamps/components/Reports/student-
 import { InsuranceReportComponent } from 'src/EliCamps/components/Reports/insurance-report/insurance-report.component';
 import { AirportTransferReportComponent } from 'src/EliCamps/components/Reports/airport-transfer-report/airport-transfer-report.component';
 import { ConfigComponent } from 'src/EliCamps/components/config/config.component';
+import { StudentRegistrationWrapperComponent } from 'src/EliCamps/components/students/student-registration/student-registration-wrapper/student-registration.component-wrapper';
 const routes: Routes = [
   { path: 'registerStudent/agent-invoice', canActivate: [AppMasterGuard], component: AgentInvoiceComponent },
   { path: 'registerStudent/student-certificate', canActivate: [AppMasterGuard], component: StudentCertificateComponent },
@@ -78,7 +79,8 @@ const routes: Routes = [
       { path: 'addCampus', canActivate: [AppMasterGuard], component: CampusAddEditComponent, data: { title: 'Campus Form' } },
       { path: 'addHomeStay', canActivate: [AppMasterGuard], component: AddEditHomestayComponent, data: { title: 'Homestay Form' } },
       { path: 'students', canActivate: [AppMasterGuard], component: StudentsComponent, data: { title: 'Eli Individual' } },
-      { path: 'registerStudent', canActivate: [AppMasterGuard], component: StudentRegistrationComponent, data: { title: 'Register Student' } },
+      { path: 'registerStudent', canActivate: [AppMasterGuard], component: StudentRegistrationWrapperComponent, data: { title: 'Register Student' } },
+      // { path: 'registerStudentWrapper', canActivate: [AppMasterGuard], component: StudentRegistrationWrapperComponent, data: { title: 'Register Student' } },
       { path: 'programs', canActivate: [AppMasterGuard], component: ProgramComponent, data: { title: 'Programs' } },
       { path: 'addProgram', canActivate: [AppMasterGuard], component: AddEditProgramComponent, data: { title: 'Program Form' } },
       { path: 'subPrograms', canActivate: [AppMasterGuard], component: SubProgramComponent, data: { title: 'Sub Programs' } },

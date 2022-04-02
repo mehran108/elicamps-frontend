@@ -58,7 +58,7 @@ export interface Student {
   year: string;
   reg_Ref: string;
   grpRef: string;
-  groupRef: string;
+  groupRef: number;
   camps: number;
   gender: string;
   firstName: string;
@@ -103,7 +103,7 @@ export interface Student {
   extraNotes: string;
   extraNotesHTML: string;
   status: string;
-  homestayOrResi: string;
+  homestayOrResi: number;
   homestayID: number;
   roomID: number;
   roomSearchCampus: number;

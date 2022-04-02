@@ -18,6 +18,7 @@ export class TripsManagerComponent implements OnInit {
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onStudentRegistration: EventEmitter<any> = new EventEmitter<any>();
   @Input() student: Student;
+  @Input() studentForm: FormGroup;
   public tripForm: FormGroup;
   public tripList: Trip[] = [];
   public submitted = false;
@@ -28,7 +29,7 @@ export class TripsManagerComponent implements OnInit {
   public TripsModel: any;
   public selection = [];
   private gridApi: any;
-  public isEdit = false;
+  @Input() isEdit = false;
   public selectedIndex = 8;
   public studentId: number;
   constructor(
@@ -47,15 +48,6 @@ export class TripsManagerComponent implements OnInit {
 
   ngOnInit() {
     this.getTripList();
-    this.initializeForm();
-    this.getParams();
-    this.groupService.getTripsMangerState().subscribe(res => {
-      if (res) {
-        this.TripsModel = res;
-        this.tripForm.controls.studentTrips.setValue(this.TripsModel.groupTrips);
-        this.shared.setTripsManagerInfoState(this.tripForm.value);
-      }
-    });
   }
   public getTripList = () => {
     this.listService.getAllTrips().subscribe(res => {
@@ -73,14 +65,9 @@ export class TripsManagerComponent implements OnInit {
   Cancel_Click() {
     this.router.navigate(['/students']);
   }
-  initializeForm() {
-    this.tripForm = this.formBuilder.group({
-      studentTrips: []
-    });
-  }
   public addToList = () => {
-    if (this.tripForm.controls.studentTrips.value) {
-      this.tripForm.controls.studentTrips.value.forEach(id => {
+    if (this.studentForm.controls.studentTrips.value) {
+      this.studentForm.controls.studentTrips.value.forEach(id => {
         const selectedTrip = this.tripList.find(res => res.id === id);
         this.selectedTripList.push(selectedTrip);
       });
@@ -90,16 +77,6 @@ export class TripsManagerComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     // params.api.sizeColumnsToFit();
-  }
-  public getParams() {
-    this.route.queryParams.subscribe(params => {
-      if (params && params.studentId) {
-        this.studentId = Number(atob(params.studentId));
-        if (this.studentId) {
-          this.isEdit = true;
-        }
-      }
-    });
   }
   public onSubmit = () => {
     this.submitted = true;

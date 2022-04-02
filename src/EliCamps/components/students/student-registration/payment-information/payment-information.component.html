@@ -1,7 +1,7 @@
 <!-- Main Content area -->
 <mat-card class="example-card">
   <mat-card-content>
-    <form [formGroup]="paymentinfoform" (ngSubmit)="onSubmit()" class="form-fields">
+    <form [formGroup]="studentForm" class="form-fields">
       <div class="row">
         <div class="col-md-4 form-group">
           <mat-form-field>
@@ -83,6 +83,9 @@
           </div>
         </div>
       </div>
+    </form>
+
+      <form [formGroup]="paymentinfoform">
       <div class="row">
         <div class="col-md-6 form-group">
           <mat-checkbox formControlName="isStudentInvoice" class="col-md-2">Student Invoice</mat-checkbox>
@@ -125,7 +128,7 @@
             type="button" class="btn btn-secondary" color="primary">Add Payment</button>
         </div>
       </div>
-    </form>
+  </form>
     <div class="all-show-grid" style="margin-top: 65px;height: 200px;overflow: auto !important;">
       <ag-grid-angular style="width: 1100px; height: 100%; min-width: 1100px;" class="ag-theme-material"
         [enableColResize]="true" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection
@@ -134,15 +137,4 @@
         [rowData]="groupPaymentList" #grid></ag-grid-angular>
     </div>
   </mat-card-content>
-  <mat-card-actions>
-    <div class="action-btns">
-      <button mat-raised-button class="btn btn-primary m-left" (click)="onSubmit()"
-        color="primary">Save</button>
-        <button mat-raised-button class="btn btn-primary m-left" color="primary"
-        (click)="saveAndClose()">Save & Close </button>
-      <button mat-raised-button class="btn btn-secondary m-left" color="warn" (click)="Cancel_Click()">Cancel</button>
-      <!-- Student Invoices -->
-      <!-- Student Invoices -->
-    </div>
-  </mat-card-actions>
 </mat-card>

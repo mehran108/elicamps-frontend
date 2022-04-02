@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-file-manager',
@@ -13,6 +14,7 @@ export class FileManagerComponent implements OnInit {
     uploadUrl: this.hostUrl + 'api/FileManager/Upload',
     downloadUrl: this.hostUrl + 'api/FileManager/Download'
   };
+  @Input() studentForm: FormGroup;
   constructor() { }
 
   ngOnInit() {

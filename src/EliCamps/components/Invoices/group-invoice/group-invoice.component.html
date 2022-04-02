@@ -79,6 +79,7 @@
               </td>
               <td *ngIf="groupInvoice" style="width: 10%;">{{group?.perStudent | currency}}</td>
             </tr>
+            {{getList() | json}}
             <tr *ngFor="let payment of getList(); let i=index">
               <td style="width: 50%;">Group Leader&nbsp;{{i+1}}</td>
               <td style="width: 10%;">{{payment.amount | currency}}</td>

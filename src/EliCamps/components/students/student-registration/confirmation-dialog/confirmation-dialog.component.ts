@@ -32,44 +32,10 @@ export class ConfirmationDialogComponent implements OnInit {
     });
   }
   public saveAndClose = () => {
-    this.data.arrivalTime = this.data.arrivalTime ? moment(this.data.arrivalTime).format('YYYY-MM-DD HH:mm:ss') : '';
-    this.data.flightDepartureTime =
-      this.data.flightDepartureTime ? moment(this.data.flightDepartureTime).format('YYYY-MM-DD HH:mm:ss') : '';
-    this.data.programeStartDate = this.data.programeStartDate ? moment(this.data.programeStartDate).format('MM/DD/YYYY') : '';
-    this.data.programeEndDate = this.data.programeEndDate ? moment(this.data.programeEndDate).format('MM/DD/YYYY') : '';
-    this.data.arrivalDate = this.data.arrivalDate ? moment(this.data.arrivalDate).format('MM/DD/YYYY') : '';
-    this.data.departureDate = this.data.departureDate ? moment(this.data.departureDate).format('MM/DD/YYYY') : '';
-    if (!this.isEdit) {
-      const studentInfo = this.shared.getStudentInfoState();
-      const flightInfo = this.shared.getflightInfotate();
-      const medicalInfo = this.shared.getmedicalInfotate();
-      const programInfo = this.shared.getProgramInfoState();
-      const model = {
-        ...studentInfo,
-        ...flightInfo,
-        ...medicalInfo,
-        ...programInfo,
-      };
-      this.groupService.addStudentInfo(model).subscribe(res => {
-        this.data.id = res;
-        this.groupService.updateStudentInfo(this.data).subscribe(update => {
-          this.dialogRef.close();
-          this.router.navigate(['students']);
-        });
-      });
-    } else {
-      this.data.id = this.data.id ? this.data.id : this.studentId;
-      this.groupService.updateStudentInfo(this.data).subscribe(res => {
-        this.dialogRef.close();
-        this.router.navigate(['students']);
-      });
-    }
+    this.dialogRef.close(true)
   }
   public onNoClick = () => {
-    this.dialogRef.close();
-    this.shared.setObservable(null);
-    this.shared.setgroupInfoState(null);
-    this.shared.setCompleteStateToNull();
     this.router.navigate(['students']);
+    this.dialogRef.close();
   }
 }

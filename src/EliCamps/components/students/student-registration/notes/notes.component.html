@@ -1,18 +1,9 @@
 <mat-card class="example-card">
   <mat-card-content>
-    <form class="form-fields" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <form class="form-fields" [formGroup]="studentForm">
       <div class="row">
         <ckeditor style="width: 100%;" [editor]="Editor" formControlName="extraNotes"></ckeditor>
       </div>
     </form>
   </mat-card-content>
-  <mat-card-actions>
-    <div class="action-btns">
-      <button mat-raised-button class="btn btn-primary m-left" color="primary"
-        (click)="onSubmit()">Save</button>
-        <button mat-raised-button class="btn btn-primary m-left" color="primary"
-        (click)="saveAndClose()">Save & Close </button>
-      <button mat-raised-button class="btn btn-secondary m-left" color="warn" (click)="Cancel_Click()">Cancel</button>
-    </div>
-  </mat-card-actions>
 </mat-card>

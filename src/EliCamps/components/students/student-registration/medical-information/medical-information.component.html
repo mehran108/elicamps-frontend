@@ -1,7 +1,7 @@
 <!-- Main Content area -->
 <mat-card class="example-card">
   <mat-card-content>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-fields">
+    <form [formGroup]="studentForm" class="form-fields">
       <div class="row">
         <div class="col-md-4 form-group">
           <textarea cols="50" rows="5" class="text-area" class="form-control" formControlName="dietaryNeeds"
@@ -22,13 +22,4 @@
       </div>
     </form>
   </mat-card-content>
-  <mat-card-actions>
-    <div class="action-btns">
-      <button mat-raised-button class="btn btn-primary m-left" color="primary"
-        (click)="onSubmit()">Save</button>
-        <button mat-raised-button class="btn btn-primary m-left" color="primary"
-        (click)="saveAndClose()">Save & Close </button>
-      <button mat-raised-button class="btn btn-secondary m-left" color="warn" (click)="Cancel_Click()">Cancel</button>
-    </div>
-  </mat-card-actions>
 </mat-card>

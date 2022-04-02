@@ -1,13 +1,13 @@
 <ngx-loading [show]="loading"></ngx-loading>
 <mat-card class="example-card">
   <mat-card-content>
-    <form [formGroup]="studentRegisterForm" (ngSubmit)="onSubmit()" class="form-fields">
+    <form [formGroup]="studentForm" class="form-fields">
       <div class="row">
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input readonly matInput formControlName="reg_Ref" placeholder="Student Number"
-              [required]="submitted && studentRegisterForm.controls['reg_Ref'].hasError('required')">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['reg_Ref'].hasError('required') ">
+              [required]="submitted && studentForm.controls['reg_Ref'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['reg_Ref'].hasError('required') ">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -19,14 +19,14 @@
                 {{res.name}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['year'].hasError('required') ">
+            <mat-error *ngIf="submitted && studentForm.controls['year'].hasError('required') ">
               *Required Field
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col-md-4 form-group">
           <mat-form-field>
-            <mat-select placeholder="Group Ref #" formControlName="groupID">
+            <mat-select placeholder="Group Ref #" formControlName="groupRef">
               <mat-option [value]="0">Select Group</mat-option>
               <mat-option *ngFor="let res of groupList; let i = index" [value]="res.id">
                 {{res.agencyRef}}
@@ -40,8 +40,8 @@
           <mat-form-field style="width: auto;
           margin-left: 10px;">
             <input matInput formControlName="passportNumber" placeholder="Passport Number"
-              [required]="submitted && studentRegisterForm.controls['passportNumber'].hasError('required')">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['passportNumber'].hasError('required') ">
+              [required]="submitted && studentForm.controls['passportNumber'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['passportNumber'].hasError('required') ">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -50,9 +50,9 @@
       <div class="row">
         <div class="col-md-4 form-group">
           <mat-form-field>
-            <input matInput formControlName="firstName" placeholder="First Name"
-              [required]="submitted && studentRegisterForm.controls['firstName'].hasError('required')">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['firstName  '].hasError('required') ">
+            <input id="formContainer"  matInput formControlName="firstName" placeholder="First Name"
+              [required]="submitted && studentForm.controls['firstName'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['firstName  '].hasError('required') ">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -60,7 +60,7 @@
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input matInput formControlName="lastName" placeholder="Last Name">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['lastName'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['lastName'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -72,7 +72,7 @@
                 {{obj.name}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['gender'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['gender'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -87,14 +87,14 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-          <mat-error *ngIf="submitted && studentRegisterForm.controls['dob'].hasError('required')">
+          <mat-error *ngIf="submitted && studentForm.controls['dob'].hasError('required')">
             *Required Field
           </mat-error>
         </div>
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input matInput formControlName="age" placeholder="Age" type="number">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['age'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['age'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -102,7 +102,7 @@
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input matInput formControlName="homeAddress" placeholder="Home Address">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['homeAddress'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['homeAddress'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -112,7 +112,7 @@
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input matInput formControlName="city" placeholder="City">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['city'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['city'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -120,8 +120,8 @@
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input matInput formControlName="state" placeholder="Province/State"
-              [required]="submitted && studentRegisterForm.controls['state'].hasError('required')">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['state'].hasError('required')">
+              [required]="submitted && studentForm.controls['state'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['state'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -129,7 +129,7 @@
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input matInput formControlName="country" placeholder="Country">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['country'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['country'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -139,7 +139,7 @@
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input matInput formControlName="postCode" placeholder="Postal Code">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['postCode'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['postCode'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -147,7 +147,7 @@
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input matInput formControlName="phone" placeholder="Phone Number">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['phone'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['phone'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -155,7 +155,7 @@
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input matInput formControlName="email" placeholder="Email">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['email'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['email'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -165,7 +165,7 @@
         <div class="col-md-4 form-group">
           <mat-form-field>
             <input matInput formControlName="emergencyContact" placeholder="Emergency Contact">
-            <mat-error *ngIf="submitted && studentRegisterForm.controls['emergencyContact'].hasError('required')">
+            <mat-error *ngIf="submitted && studentForm.controls['emergencyContact'].hasError('required')">
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -205,13 +205,4 @@
       </div>
     </form>
   </mat-card-content>
-  <mat-card-actions>
-    <div class="action-btns">
-      <button mat-raised-button class="btn btn-primary m-left" color="primary"
-        (click)="onSubmit()">Save</button>
-      <button mat-raised-button class="btn btn-primary m-left" color="primary" (click)="saveAndClose()">Save & Close
-      </button>
-      <button mat-raised-button class="btn btn-secondary m-left" color="warn" (click)="Cancel_Click()">Cancel</button>
-    </div>
-  </mat-card-actions>
 </mat-card>

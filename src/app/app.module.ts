@@ -79,6 +79,7 @@ import { InsuranceReportComponent } from 'src/EliCamps/components/Reports/insura
 import { AirportTransferReportComponent } from 'src/EliCamps/components/Reports/airport-transfer-report/airport-transfer-report.component';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { ConfigComponent } from 'src/EliCamps/components/config/config.component';
+import { StudentRegistrationWrapperComponent } from 'src/EliCamps/components/students/student-registration/student-registration-wrapper/student-registration.component-wrapper';
 
 @NgModule({
   declarations: [
@@ -141,7 +142,8 @@ import { ConfigComponent } from 'src/EliCamps/components/config/config.component
     PaymentReportComponent,
     InsuranceReportComponent,
     AirportTransferReportComponent,
-    ConfigComponent
+    ConfigComponent,
+    StudentRegistrationWrapperComponent
   ],
   imports: [
     BrowserModule,

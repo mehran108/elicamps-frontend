@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TRIP_COL_DEFS } from '../../common/elicamps-column-definitions';
 import { Router } from '@angular/router';
 import { Trip } from '../../EliCamps-Models/Elicamps';
@@ -18,6 +18,7 @@ export class TripsComponent implements OnInit {
   public tripList: Trip[];
   public modules = AllCommunityModules;
   public gridColumnApi: any;
+  @Input() public isEdit = false;
   constructor(public router: Router, public listService: ListService) {
     this.gridOptions = {
       frameworkComponents: {

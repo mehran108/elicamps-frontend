@@ -150,6 +150,7 @@ export const STUDENT_COL_DEFS = [
   {
     headerName: 'Last Name',
     field: 'lastName',
+    tooltipField: 'lastName',
     minWidth: 50,
     maxWidth: 150,
     resizable: true
@@ -209,6 +210,7 @@ export const STUDENT_COL_DEFS = [
   {
     headerName: 'Agency',
     field: 'agentName',
+    tooltipField: 'agentName',
     minWidth: 50,
     maxWidth: 150,
     resizable: true
@@ -216,6 +218,7 @@ export const STUDENT_COL_DEFS = [
   {
     headerName: 'Agency Ref #',
     field: 'agencyRef',
+    tooltipField: 'agencyRef',
     minWidth: 50,
     maxWidth: 150,
     resizable: true
@@ -223,6 +226,7 @@ export const STUDENT_COL_DEFS = [
   {
     headerName: 'Format',
     field: 'formatName',
+    tooltipField: 'formatName',
     minWidth: 50,
     maxWidth: 100,
     resizable: true
