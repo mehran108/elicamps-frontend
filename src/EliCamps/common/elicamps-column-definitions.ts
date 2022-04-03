@@ -133,18 +133,11 @@ export const GROUPS_COL_DEFS = [
   },
 ];
 export const STUDENT_COL_DEFS = [
-  // {
-  //   headerName: 'Campus',
-  //   field: 'campusName',
-  //   minWidth: 50,
-  //   maxWidth: 150,
-  //   resizable: true
-  // },
   {
     headerName: 'First Name',
     field: 'firstName',
     minWidth: 50,
-    maxWidth: 150,
+    // maxWidth: 150,
     resizable: true
   },
   {
@@ -152,21 +145,21 @@ export const STUDENT_COL_DEFS = [
     field: 'lastName',
     tooltipField: 'lastName',
     minWidth: 50,
-    maxWidth: 150,
+    // maxWidth: 150,
     resizable: true
   },
   {
     headerName: 'Gender',
     field: 'gender',
     minWidth: 50,
-    maxWidth: 150,
+    // maxWidth: 150,
     resizable: true
   },
   {
     headerName: 'Arrival Date',
     field: 'programeStartDate',
     minWidth: 50,
-    maxWidth: 150,
+    // maxWidth: 150,
     resizable: true,
     cellRenderer: (params) => {
       return params.value
@@ -178,7 +171,7 @@ export const STUDENT_COL_DEFS = [
     headerName: 'Departure Date',
     field: 'programeEndDate',
     minWidth: 50,
-    maxWidth: 150,
+    // maxWidth: 150,
     resizable: true,
     cellRenderer: (params) => {
       return params.value
@@ -190,21 +183,21 @@ export const STUDENT_COL_DEFS = [
     headerName: 'Number of Nights',
     field: 'numberOfNights',
     minWidth: 50,
-    maxWidth: 150,
+    // maxWidth: 150,
     resizable: true,
   },
   {
     headerName: 'Country',
     field: 'country',
     minWidth: 50,
-    maxWidth: 150,
+    // maxWidth: 150,
     resizable: true,
   },
   {
     headerName: 'Age',
     field: 'age',
     minWidth: 50,
-    maxWidth: 150,
+    // maxWidth: 150,
     resizable: true
   },
   {
@@ -212,7 +205,7 @@ export const STUDENT_COL_DEFS = [
     field: 'agentName',
     tooltipField: 'agentName',
     minWidth: 50,
-    maxWidth: 150,
+    // maxWidth: 150,
     resizable: true
   },
   {
@@ -220,7 +213,7 @@ export const STUDENT_COL_DEFS = [
     field: 'agencyRef',
     tooltipField: 'agencyRef',
     minWidth: 50,
-    maxWidth: 150,
+    // maxWidth: 150,
     resizable: true
   },
   {
@@ -228,14 +221,14 @@ export const STUDENT_COL_DEFS = [
     field: 'formatName',
     tooltipField: 'formatName',
     minWidth: 50,
-    maxWidth: 100,
+    // maxWidth: 100,
     resizable: true
   },
   {
     headerName: 'Room ID',
     field: 'roomID',
     minWidth: 50,
-    maxWidth: 100,
+    // maxWidth: 100,
     resizable: true
   },
   {
@@ -244,10 +237,20 @@ export const STUDENT_COL_DEFS = [
     pinned: 'right',
     minWidth: 50,
     resizable: true,
-    cellRenderer: (params) => params.value === true ? 'Active' : 'Inactive',
+    cellRenderer: (params) => {
+      if (params.data.active === true && new Date(params.data.programeEndDate) <= new Date()) {
+        return 'Passed'
+      } else if (params.data.active === true) {
+        return 'Active'
+      } else {
+        return 'Cancelled'
+      }
+    },
     cellStyle: (params) => {
       if (params.value === false) {
         return { color: 'red', 'font-weight': '600' };
+      } else if (params.data.active === true && new Date(params.data.programeEndDate) <= new Date()) {
+        return { color: 'orange', 'font-weight': '500' };
       } else {
         return { color: 'green', 'font-weight': '500' };
       }

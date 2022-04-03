@@ -80,6 +80,7 @@ import { AirportTransferReportComponent } from 'src/EliCamps/components/Reports/
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { ConfigComponent } from 'src/EliCamps/components/config/config.component';
 import { StudentRegistrationWrapperComponent } from 'src/EliCamps/components/students/student-registration/student-registration-wrapper/student-registration.component-wrapper';
+import { CheckInOutReportComponent } from 'src/EliCamps/components/Reports/check-in-out-report/check-in-out-report.component';
 
 @NgModule({
   declarations: [
@@ -143,7 +144,8 @@ import { StudentRegistrationWrapperComponent } from 'src/EliCamps/components/stu
     InsuranceReportComponent,
     AirportTransferReportComponent,
     ConfigComponent,
-    StudentRegistrationWrapperComponent
+    StudentRegistrationWrapperComponent,
+    CheckInOutReportComponent
   ],
   imports: [
     BrowserModule,
