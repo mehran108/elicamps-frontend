@@ -93,8 +93,23 @@ export class StudentsComponent implements OnInit {
     };
     this.groupService.getAllElicampsStudents(params).subscribe((studentList: Student[]) => {
       this.studentList = ((studentList as any).data || []).sort((a, b) => a.active > b.active ? -1 : 0);
+      this.studentList = this.studentList.map(row => {
+        return {
+          ...row,
+          status: this.getStatus(row)
+        }
+      })
       this.autoSizeAll(false);
     });
+  }
+  public getStatus(row) {
+    if (row.active === true && new Date(row.programeEndDate) <= new Date()) {
+      return 'Passed'
+    } else if (row.active === true) {
+      return 'Active'
+    } else {
+      return 'Cancelled'
+    }
   }
   onGridReady(params) {
     this.gridApi = params.api;

@@ -8,5 +8,5 @@ export const environment = {
   appStudent: `${env}/Student`,
   appFile: `${env}/FileManager`,
   appReporting: `${env}/Reporting`,
-  appURL: `http://elicamps-001-site3.dtempurl.com`
+  appURL: `http://db.elicamps.com/`
 };

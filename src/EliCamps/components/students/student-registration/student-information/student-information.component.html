@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-4 form-group">
           <mat-form-field>
-            <mat-select placeholder="Group Ref #" formControlName="groupRef">
+            <mat-select placeholder="Group Ref #" formControlName="groupID">
               <mat-option [value]="0">Select Group</mat-option>
               <mat-option *ngFor="let res of groupList; let i = index" [value]="res.id">
                 {{res.agencyRef}}

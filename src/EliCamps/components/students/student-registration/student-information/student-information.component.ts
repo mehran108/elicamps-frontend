@@ -30,14 +30,14 @@ export class StudentInformationComponent implements OnInit, OnChanges, OnDestroy
   @Input() groupList = [];
   public studentRegisterForm: FormGroup;
   public submitted = false;
-  public agentList: Agent[] = [];
+  @Input() agentList: Agent[] = [];
   public documentId = null;
   public selectedGroup: Group;
   public studentId: number;
   @Input() isEdit = false;
   public loading = false;
   public selectedStudent: Student;
-  public campList: LookupTable[] = [];
+  @Input() campList: LookupTable[] = [];
   public yearList = [{ value: 2020, name: '2020' }, { value: 2021, name: '2021' }];
   public genderList = [{ value: 1, name: 'Male' }, { value: 2, name: 'Female' }];
   fileData: File = null;
@@ -73,20 +73,11 @@ ngOnDestroy(): void {}
     if (value) {
       const agentToFind = this.agentList.find(agent => agent.id === value);
       if (agentToFind) {
-        this.f.controls.country.setValue(agentToFind.country);
+        this.studentForm.controls.country.setValue(agentToFind.country);
       }
     }
   }
   public initializeDropDowns = () => {
-    const params = {
-      active: true
-    };
-    this.listService.getAllAgent(params).subscribe(res => {
-      this.agentList = res.data;
-    });
-    this.listService.getAll(LookupEnum.CAMPS).subscribe(res => {
-      this.campList = res;
-    });
   }
   public getBygroupId = () => {
     this.getBygroup.emit(true);

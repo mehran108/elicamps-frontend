@@ -233,23 +233,14 @@ export const STUDENT_COL_DEFS = [
   },
   {
     headerName: 'Status',
-    field: 'active',
+    field: 'status',
     pinned: 'right',
     minWidth: 50,
     resizable: true,
-    cellRenderer: (params) => {
-      if (params.data.active === true && new Date(params.data.programeEndDate) <= new Date()) {
-        return 'Passed'
-      } else if (params.data.active === true) {
-        return 'Active'
-      } else {
-        return 'Cancelled'
-      }
-    },
     cellStyle: (params) => {
-      if (params.value === false) {
+      if (params.value === 'Cancelled') {
         return { color: 'red', 'font-weight': '600' };
-      } else if (params.data.active === true && new Date(params.data.programeEndDate) <= new Date()) {
+      } else if (params.value === 'Passed') {
         return { color: 'orange', 'font-weight': '500' };
       } else {
         return { color: 'green', 'font-weight': '500' };

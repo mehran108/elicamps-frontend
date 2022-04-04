@@ -109,7 +109,7 @@ export class CheckInOutReportComponent implements OnInit {
     let total = 0;
    dates.forEach((date) => {
      let row = {
-       date: date.toLocaleDateString(),
+       date: date.toDateString(),
        in: res.filter(el => moment(el.programeStartDate).format('MM/DD/YYYY') ===  moment(date).format('MM/DD/YYYY')).length,
        out: res.filter(el => moment(el.programeEndDate).format('MM/DD/YYYY') ===  moment(date).format('MM/DD/YYYY')).length,
        total: total

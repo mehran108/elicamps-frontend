@@ -55,6 +55,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
   public roomList = [];
   public agentList = [];
   public groupPaymentList = [];
+  public campList = [];
   public dateKeys = ['arrivalTime', 'arrivalDate', 'departureDate', 'flightDepartureTime', 'programeStartDate', 'programeEndDate']
   @ViewChild('paymentInfo') paymentInf: PaymentInformationComponent;
   @ViewChild('studentInfo') studentInfo: StudentInformationComponent;
@@ -107,6 +108,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
       agencyID: [''],
       agentId: [''],
       agencyRef: [''],
+      groupID: [''],
       active: [true],
       // Student Information
 
@@ -307,7 +309,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
     });
   }
   public getBygroupId = (flag: boolean) => {
-    const groupId = this.studentForm.controls.groupRef.value;
+    const groupId = this.studentForm.controls.groupID.value;
     this.loading = true;
     this.groupService.getElicampsGroup(groupId).subscribe((group: Group) => {
       if (group) {
@@ -357,6 +359,9 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
     });
     this.listService.getAll(LookupEnum.CHAPPROGRAM).subscribe(res => {
       this.chapProgramList = res;
+    });
+    this.listService.getAll(LookupEnum.CAMPS).subscribe(res => {
+      this.campList = res;
     });
     this.listService.getAllHomeStay().subscribe(res => {
       this.homeStayList = res.data;
@@ -432,6 +437,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
           agentId: data.agentId,
           agencyRef: data.agencyRef,
           active: data.active,
+          groupID: data.groupID,
           // Student Information
 
            // Flight Information
@@ -476,7 +482,6 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
               ...apiModel,
               id: studentId
             }
-              delete updateMode.programeAddins
               this.listService.updateStudentInfo(updateMode).subscribe(res => {
                 this.router.navigate(['registerStudent'], {
                   queryParams: {
@@ -497,7 +502,8 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
           ...data,
           documentId: this.studentInfo.documentId
         };
-        this.listService.updateStudentInfo(model).subscribe(res => {
+        let apiModel = this.clean(data);
+        this.listService.updateStudentInfo(apiModel).subscribe(res => {
           if (isClose) {
             this.router.navigate(['/students'])
           } else {
