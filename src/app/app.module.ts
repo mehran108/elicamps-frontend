@@ -81,6 +81,8 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { ConfigComponent } from 'src/EliCamps/components/config/config.component';
 import { StudentRegistrationWrapperComponent } from 'src/EliCamps/components/students/student-registration/student-registration-wrapper/student-registration.component-wrapper';
 import { CheckInOutReportComponent } from 'src/EliCamps/components/Reports/check-in-out-report/check-in-out-report.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -158,7 +160,13 @@ import { CheckInOutReportComponent } from 'src/EliCamps/components/Reports/check
     HttpClientModule,
     CKEditorModule,
     ToastrModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
 
   ],
   entryComponents: [
