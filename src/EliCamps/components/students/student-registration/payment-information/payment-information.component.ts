@@ -101,7 +101,7 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
     this.spinner.show();
     this.listService.activatePaymentStudent(row).subscribe(res => {
       this.spinner.hide();
-      this.studentPayment.emit();
+      this.studentPayment.emit(this.studentForm.controls.id.value);
     }, error => {
       this.spinner.hide();
     });
@@ -264,14 +264,13 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
   openPaymentDialog(id?: number): void {
     const dialogRef = this.dialog.open(StudentPaymentComponent, {
       data: {
-        ...this.student,
+        ...this.studentForm.value,
         paymentStudentID: id
       }
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        dialogRef.close();
-        this.studentPayment.emit();
+        this.studentPayment.emit(this.studentForm.controls.id.value);
       }
     });
   }

@@ -260,6 +260,9 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
       this.groupPaymentList.forEach(payment => {
         payment.date = this.datePipe.transform(payment.date, 'short');
       });
+      const paidValues = this.groupPaymentList.map(a => a.amount);
+      const paid = paidValues.reduce((a, b) => a + b);
+      this.studentForm.controls.paid.setValue(paid);
       this.paymentInf.calculate();
     });
   }
@@ -343,6 +346,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
     } else if (dateEvent.field === 'programeEndDate') {
       this.studentForm.controls.departureDate.setValue(dateEvent.value);
     }
+    this.calcNumOfNights(this.studentForm.value);
   }
   public initializeDropdowns(){
     const params = {
