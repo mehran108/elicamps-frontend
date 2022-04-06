@@ -260,10 +260,15 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
       this.groupPaymentList.forEach(payment => {
         payment.date = this.datePipe.transform(payment.date, 'short');
       });
-      const paidValues = this.groupPaymentList.map(a => a.amount);
-      const paid = paidValues.reduce((a, b) => a + b);
-      this.studentForm.controls.paid.setValue(paid);
-      this.paymentInf.calculate();
+      if (this.groupPaymentList.length > 0) {
+        const paidValues = this.groupPaymentList.map(a => a.amount);
+        const paid = paidValues.reduce((a, b) => a + b);
+        this.studentForm.controls.paid.setValue(paid);
+        this.paymentInf.calculate();
+      } else {
+        this.studentForm.controls.paid.setValue(0);
+        this.paymentInf.calculate();
+      }
     });
   }
   public initializeStudentFormWithValues(student: any) {

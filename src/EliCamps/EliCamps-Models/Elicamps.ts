@@ -15,7 +15,7 @@ export interface Agent {
 }
 export interface Room {
   roomID?: number;
-  campusID: string;
+  campusID: number;
   building: string;
   roomType: string;
   floor: string;
@@ -24,8 +24,8 @@ export interface Room {
   bookedFrom: string;
   bookedTo: string;
   available: string;
-  availableFrom: boolean;
-  availableTo: boolean;
+  availableFrom: string;
+  availableTo: string;
   importedOne: boolean;
   weekno: boolean;
   year: boolean;

@@ -299,7 +299,11 @@ export const ROOMS_COL_DEFS = [
     headerName: 'Available',
     field: 'available',
     minWidth: 50,
-    resizable: true
+    cellRenderer: (params) => {
+      return params.value
+        ? 'Yes'
+        : 'No';
+    }
   },
   {
     headerName: 'Available From',
