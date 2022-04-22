@@ -84,6 +84,7 @@ import { CheckInOutReportComponent } from 'src/EliCamps/components/Reports/check
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RoomAvailabilityComponent } from 'src/EliCamps/components/Reports/student-report/room-availability/room-availability.component';
+import { StudentStatusComponent } from 'src/EliCamps/components/student-status/student-status.component';
 
 @NgModule({
   declarations: [
@@ -149,7 +150,8 @@ import { RoomAvailabilityComponent } from 'src/EliCamps/components/Reports/stude
     ConfigComponent,
     StudentRegistrationWrapperComponent,
     CheckInOutReportComponent,
-    RoomAvailabilityComponent
+    RoomAvailabilityComponent,
+    StudentStatusComponent
   ],
   imports: [
     BrowserModule,

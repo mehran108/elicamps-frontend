@@ -180,8 +180,13 @@
           </mat-form-field>
         </div>
         <div class="col-md-4 form-group">
-          <mat-slide-toggle formControlName="active">Active
-          </mat-slide-toggle>
+          <mat-form-field>
+            <mat-select placeholder="Status" formControlName="statusId">
+              <mat-option *ngFor="let res of statusList; let i = index" [value]="res.id">
+                {{res.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
       <div class="row">

@@ -29,6 +29,7 @@ import { ToastrService } from "ngx-toastr";
 import { StudentInformationComponent } from "../student-information/student-information.component";
 import * as moment from "moment";
 import { AccomodationComponent } from "../accomodation/accomodation.component";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-student-registration-wrapper",
@@ -56,7 +57,8 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
   public agentList = [];
   public groupPaymentList = [];
   public campList = [];
-  public dateKeys = ['arrivalTime', 'arrivalDate', 'departureDate', 'flightDepartureTime', 'programeStartDate', 'programeEndDate']
+  public statusList = [];
+  public dateKeys = ['arrivalDate', 'departureDate','programeStartDate', 'programeEndDate']
   @ViewChild('paymentInfo') paymentInf: PaymentInformationComponent;
   @ViewChild('studentInfo') studentInfo: StudentInformationComponent;
   @ViewChild('accom') accom: AccomodationComponent;
@@ -72,7 +74,8 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
     public listService: ListService,
     public storage: LocalstorageService,
     public toastr: ToastrService,
-    public datePipe: DatePipe
+    public datePipe: DatePipe,
+    public spinner: NgxSpinnerService
   ) {}
   public selectedTab = 0;
   ngOnInit() {
@@ -110,6 +113,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
       agencyRef: [''],
       groupID: [''],
       active: [true],
+      statusId: [],
       // Student Information
 
        // Flight Information
@@ -155,7 +159,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
 
       // Accomodation Information
       status: [''],
-      homestayOrResi: [''],
+      homestayOrResi: [null],
       homestayID: [''],
       roomID: [''],
       roomSearchCampus: [''],
@@ -232,7 +236,6 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
           this.loading = false;
           this.selectedStudent = student;
           this.selectedStudent.groupRef= +student.groupRef;
-          this.selectedStudent.homestayOrResi = student.homestayID ? 1: 2;
           if (!this.selectedStudent.arrivalDate && this.selectedStudent.programeStartDate) {
             this.selectedStudent.arrivalDate = this.selectedStudent.programeStartDate;
           }
@@ -241,10 +244,8 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
           }
           this.initializeStudentFormWithValues(this.selectedStudent);
           this.getStudentPayments(this.selectedStudent.id)
-          if (this.selectedStudent.homestayOrResi === 1) {
-            this.accom.showHomeStay = true;
-          } else if (this.selectedStudent.homestayOrResi === 1) {
-            this.accom.showRooms = true;
+          if (this.selectedStudent.homestayOrResi) {
+            this.accom.gethoomeStaylist({value: this.selectedStudent.homestayOrResi})
           }
         }
         this.loading = false;
@@ -272,13 +273,20 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
     });
   }
   public initializeStudentFormWithValues(student: any) {
+    const keys = ['arrivalTime', 'flightDepartureTime'];
     student.programeStartDate = student.programeStartDate ? student.programeStartDate : student.arrivalDate;
     student.programeEndDate = student.programeEndDate ? student.programeEndDate : student.departureDate;
     Object.keys(this.studentForm.controls).forEach(key => {
-      if (this.dateKeys.includes(key) && student[key]) {
+      if (!keys.includes(key) && this.dateKeys.includes(key) && student[key]) {
         this.studentForm.controls[key].setValue(new Date(student[key]));
-      } else if (student[key] !== null && student[key] !== undefined) {
+      } else if (!keys.includes(key) && student[key] !== null && student[key] !== undefined) {
         this.studentForm.controls[key].setValue(student[key]);
+      }
+    });
+    keys.forEach(key => {
+      if (student[key]) {
+        const dateTime = moment(student[key]);
+        this.studentForm.controls[key].setValue(dateTime.toDate());
       }
     });
     this.populateNumberOfNights(this.studentForm.value);
@@ -363,6 +371,9 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
     this.listService.getAll(LookupEnum.MEALPLAN).subscribe(res => {
       this.mealPlanList = res;
     });
+    this.listService.getAll(LookupEnum.STUDENT_STATUS).subscribe(res => {
+      this.statusList = res;
+    });
     this.listService.getAll(LookupEnum.FORMAT).subscribe(res => {
       this.formatList = res;
     });
@@ -421,6 +432,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
     data.arrivalDate = data.arrivalDate ? moment(data.arrivalDate).format('MM/DD/YYYY') : '';
     data.departureDate = data.departureDate ? moment(data.departureDate).format('MM/DD/YYYY') : '';
     if (this.studentForm.valid) {
+      this.spinner.show();
       if (this.isEdit === false) {
         const model = {
           year: data.year,
@@ -447,6 +459,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
           agencyRef: data.agencyRef,
           active: data.active,
           groupID: data.groupID,
+          statusId: data.statusId,
           // Student Information
 
            // Flight Information
@@ -497,6 +510,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
                     studentId: btoa(studentId.toString())
                   }
                 });
+                this.spinner.hide();
               });
               if (this.selectedTab < 9) {
                 this.stepper.next();
@@ -507,10 +521,6 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
         });
       }
       if (this.isEdit === true) {
-        const model = {
-          ...data,
-          documentId: this.studentInfo.documentId
-        };
         let apiModel = this.clean(data);
         this.listService.updateStudentInfo(apiModel).subscribe(res => {
           if (isClose) {
@@ -518,6 +528,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
           } else {
             this.toastr.success('Student Information Section Updated', 'Success');
           }
+          this.spinner.hide();
         });
       }
     }

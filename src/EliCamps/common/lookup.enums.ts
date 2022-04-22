@@ -7,7 +7,8 @@ export enum LookupEnum {
   FORMAT = 'Format',
   MEALPLAN = 'MealPlan',
   CHAPPROGRAM = 'ChapFamily',
-  CONFIG = 'Config'
+  CONFIG = 'Config',
+  STUDENT_STATUS='StudentStatus'
 }
 export enum Keys {
   TOKEN_INFO = 'TOKEN:INFO',

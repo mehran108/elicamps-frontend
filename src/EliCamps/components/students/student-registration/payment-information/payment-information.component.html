@@ -112,6 +112,13 @@
             <mat-radio-button value="1">Agency</mat-radio-button>&nbsp;&nbsp;
             <mat-radio-button value="2">Custom</mat-radio-button>
           </mat-radio-group>
+          <mat-form-field>
+            <mat-select placeholder="Email Template" formControlName="emailBody">
+              <mat-option *ngFor="let res of templateList; let i = index" [value]="res.value">
+                {{res.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
           <mat-form-field *ngIf="paymentinfoform.controls['emailType'].value == 1">
             <mat-select placeholder="Agency Email" formControlName="studentEmail">
               <mat-option *ngFor="let res of agentList; let i = index" [value]="res.email">

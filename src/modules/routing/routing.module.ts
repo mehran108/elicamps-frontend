@@ -50,6 +50,7 @@ import { ConfigComponent } from 'src/EliCamps/components/config/config.component
 import { StudentRegistrationWrapperComponent } from 'src/EliCamps/components/students/student-registration/student-registration-wrapper/student-registration.component-wrapper';
 import { CheckInOutReportComponent } from 'src/EliCamps/components/Reports/check-in-out-report/check-in-out-report.component';
 import { RoomAvailabilityComponent } from 'src/EliCamps/components/Reports/student-report/room-availability/room-availability.component';
+import { StudentStatusComponent } from 'src/EliCamps/components/student-status/student-status.component';
 const routes: Routes = [
   { path: 'registerStudent/agent-invoice', canActivate: [AppMasterGuard], component: AgentInvoiceComponent },
   { path: 'registerStudent/student-certificate', canActivate: [AppMasterGuard], component: StudentCertificateComponent },
@@ -98,7 +99,8 @@ const routes: Routes = [
       { path: 'airport-report', canActivate: [AppMasterGuard], component: AirportTransferReportComponent, data: { title: 'Airport Transfer Report' } },
       { path: 'rooms-availability', canActivate: [AppMasterGuard], component: RoomAvailabilityComponent, data: { title: 'Rooms Availability' } },
       { path: 'home', canActivate: [AppMasterGuard], component: CheckInOutReportComponent, data: { title: 'Home' } },
-      { path: 'config', canActivate: [AppMasterGuard], component: ConfigComponent, data: { title: 'Config' } }
+      { path: 'config', canActivate: [AppMasterGuard], component: ConfigComponent, data: { title: 'Config' } },
+      { path: 'student-status', canActivate: [AppMasterGuard], component: StudentStatusComponent, data: { title: 'Student Status' } }
     ]
   }
 ];

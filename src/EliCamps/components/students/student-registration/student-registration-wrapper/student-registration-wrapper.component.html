@@ -15,14 +15,15 @@
       <ng-template matStepLabel>Student Information</ng-template>
       <app-student-information
       #studentInfo
-        (getBygroup)="getBygroupId($event)"
-        [groupList]="groupList"
-        [agentList]="agentList"
-        [campList]="campList"
-        [studentForm]="studentForm"
-        (onStudentRegistration)="onTabChange($event, stepper)"
-        [student]="selectedStudent"
-        [isEdit]="isEdit"
+      [groupList]="groupList"
+      [agentList]="agentList"
+      [campList]="campList"
+      [studentForm]="studentForm"
+      [student]="selectedStudent"
+      [isEdit]="isEdit"
+      [statusList]="statusList"
+      (getBygroup)="getBygroupId($event)"
+      (onStudentRegistration)="onTabChange($event, stepper)"
       >
       </app-student-information>
     </mat-step>
@@ -92,6 +93,8 @@
         [agentList]="agentList"
         [isEdit]="isEdit"
         [groupPaymentList]="groupPaymentList"
+        [roomsList]="roomList"
+        [homeStayList]="homeStayList"
         (onStudentRegistration)="onTabChange($event, stepper)"
         (studentPayment)="getStudentPayments($event)"
       >

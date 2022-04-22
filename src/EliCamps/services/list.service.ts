@@ -20,8 +20,14 @@ export class ListService {
   public getAll(lookupTable: string) {
     return this.httpClient.get<any>(`${environment.appList}/getListTypeByLookupTable?lookupTable=${lookupTable}`);
   }
+  public CreateLookupValue(model) {
+    return this.httpClient.post<any>(`${environment.appList}/createLookupValue`, model);
+  }
   public UpdateLookupValue(model) {
     return this.httpClient.post<any>(`${environment.appList}/UpdateLookupValue`, model);
+  }
+  public DeleteLookupValue(model) {
+    return this.httpClient.post<any>(`${environment.appList}/DeleteLookupValue`, model);
   }
   /**
    * Add New Trip

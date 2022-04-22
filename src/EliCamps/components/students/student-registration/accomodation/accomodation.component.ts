@@ -33,9 +33,9 @@ export class AccomodationComponent implements OnInit, OnChanges {
     public location: Location
   ) {
     this.homeStayOrResidenceList = [
-      { value: 1, name: 'HomeStay' },
-      { value: 2, name: 'Residence' },
-      { value: 3, name: 'No Accommodation' }
+      { value: "1", name: 'HomeStay' },
+      { value: "2", name: 'Residence' },
+      { value: "3", name: 'No Accommodation' }
     ];
    }
   ngOnInit() {
@@ -45,20 +45,20 @@ export class AccomodationComponent implements OnInit, OnChanges {
   }
 
   gethoomeStaylist = ($event) => {
-    if ($event.value === 1) {
+    if ($event.value == "1") {
       this.showHomeStay = true;
       this.showRooms = false;
-    } else if ($event.value === 2) {
+    } else if ($event.value == "2") {
       this.showRooms = true;
       this.showHomeStay = false;
-    } else if ($event.value === 3) {
+    } else if ($event.value == "3") {
       this.showRooms = false;
       this.showHomeStay = false;
     }
   }
 
   public getHTML = (value: number) => {
-    if (this.homeStayList.find(res => res.homeId === value)) {
+    if (this.homeStayList.find(res => res.homeId == value)) {
       return this.homeStayList.find(res => res.homeId === value).homeStayLocationURL || '';
     }
   }

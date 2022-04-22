@@ -1,0 +1,71 @@
+<div class="container-fluid">
+  <div class="user-page">
+    <div class="row">
+      <div class="col-md-3 mobile-head">
+        <div class="dashboard-heading">
+
+          <!-- <h6 class="with-icon bdr-heading">
+            <span [class]="">Configs</span>
+          </h6> -->
+        </div>
+      </div>
+      <!-- <div class="col-md-1 d-block d-sm-block d-md-none mobile-icon">
+        <div class="btn-show">
+          <button mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon (click)="router.navigate(['/addAgent'])"> <i class="material-icons">
+              add_circle
+            </i></mat-icon>
+          </button>
+
+        </div>
+      </div> -->
+      <div class="col-md-6">
+        <form action="" class="form-fields show-search">
+          <div class="form-group">
+            <mat-form-field>
+              <input matInput id="filter-text-box" placeholder="Search" (keyup)="onFilterTextBoxChanged($event)">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-3 d-none d-sm-none d-md-block tablet-icon">
+        <div class="btn-show">
+          <button mat-icon-button>
+            <mat-icon (click)="openDialog(addDialog)"> <i class="material-icons">
+              add_circle
+            </i></mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="all-show-grid">
+     <ag-grid-angular style="height: 100%;
+    max-width: 100%;
+    width: 100vw;" class="ag-theme-material" [enableColResize]="true" enableColResize
+      enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues [gridOptions]="gridOptions" [columnDefs]="columnDefs"
+      [rowData]="StudentStatusList" (cellValueChanged) = "onCellValueChanged($event)" (gridReady)="onGridReady($event)" [modules]="modules" #grid></ag-grid-angular>
+  </div>
+
+
+</div>
+<ng-template #addDialog>
+  <mat-card>
+    <mat-card-title>New Status</mat-card-title>
+    <form [formGroup]="fg">
+    <mat-card-content>
+      <mat-form-field>
+        <input formControlName="name" matInput placeholder="Name">
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="description" matInput placeholder="Description">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="addStatus()" color="primary">Add</button>
+      <button mat-raised-button (click)="dialogRef.close()">Cancel</button>
+    </mat-card-actions>
+  </form>
+  </mat-card>
+</ng-template>

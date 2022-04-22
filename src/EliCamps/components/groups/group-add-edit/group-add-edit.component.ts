@@ -123,10 +123,10 @@ export class GroupAddEditComponent implements OnInit {
         this.f.controls[key].setValue(group[key]);
       }
     });
-    keys.forEach(res => {
-      if (group[res]) {
-        this.f.controls[res].setValue(new Date(`2019-01-01T${group[res]}`));
-
+    keys.forEach(key => {
+      if (group[key]) {
+        const dateTime = moment(group[key]);
+        this.f.controls[key].setValue(dateTime.toDate());
       }
     });
   }
@@ -184,17 +184,17 @@ export class GroupAddEditComponent implements OnInit {
     this.submitted = true;
     if (this.f.valid) {
       this.spinner.show();
-      const arrivalTime = this.f.controls.arrivalTime.value ? moment(this.f.controls.arrivalTime.value).format('HH:mm:ss') : '';
-      // tslint:disable-next-line: max-line-length
-      const departureTime = this.f.controls.flightDepartureTime.value ? moment(this.f.controls.flightDepartureTime.value).format('HH:mm:ss') : '';
+      // const arrivalTime = this.f.controls.arrivalTime.value ? moment(this.f.controls.arrivalTime.value).format('HH:mm:ss') : '';
+      // // tslint:disable-next-line: max-line-length
+      // const departureTime = this.f.controls.flightDepartureTime.value ? moment(this.f.controls.flightDepartureTime.value).format('HH:mm:ss') : '';
       const arrivalDate = this.f.controls.arrivalDate.value ? moment(this.f.controls.arrivalDate.value).format('MM/DD/YYYY') : '';
       // tslint:disable-next-line: max-line-length
       const departureDate = this.f.controls.departureDate.value ? moment(this.f.controls.departureDate.value).format('MM/DD/YYYY') : '';
       const model = {
         ...this.f.value
       };
-      model.arrivalTime = arrivalTime;
-      model.flightDepartureTime = departureTime;
+      // model.arrivalTime = arrivalTime;
+      // model.flightDepartureTime = departureTime;
       model.arrivalDate = arrivalDate;
       model.departureDate = departureDate;
       if (this.isEdit) {

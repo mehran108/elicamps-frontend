@@ -57,9 +57,8 @@ export class ConfigComponent implements OnInit {
   }
   onCellValueChanged(row) {
     const model = {
-      name: row.data.name,
-      description: row.newValue,
-      value: row.newValue
+       ...row.data,
+       description: row.newValue
     };
     this.listService.UpdateLookupValue(model).subscribe(res => {
       this.storage.set(Keys.REG_FEE, model.description);

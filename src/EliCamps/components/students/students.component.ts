@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import { ButtonRendererComponent } from 'src/EliCamps/ag-grid/renderers/button-renderer.component';
 import { ConfirmationDialogComponent } from './student-registration/confirmation-dialog/confirmation-dialog.component';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog, MatSelectChange } from '@angular/material';
 import { ListService } from 'src/EliCamps/services/list.service';
 import { DeleteConfirmationDialogComponent } from '../confirmation-dialog/delete-confirmation-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LookupEnum } from 'src/EliCamps/common/lookup.enums';
 
 @Component({
   selector: 'app-students',
@@ -26,6 +27,8 @@ export class StudentsComponent implements OnInit {
   public studentList: Student[] = [];
   public gridColumnApi: any;
   public modules = AllCommunityModules;
+  public statusList = [];
+  public selectedStatus= 'Active';
   constructor(
     private groupService: GroupService,
     public router: Router,
@@ -57,6 +60,9 @@ export class StudentsComponent implements OnInit {
       pagination: true,
       paginationAutoPageSize: true,
     };
+    this.listService.getAll(LookupEnum.STUDENT_STATUS).subscribe(res => {
+      this.statusList = res;
+    });
   }
   openRemoveStudentDialog(student: any): void {
     // tslint:disable-next-line: no-use-before-declare
@@ -98,17 +104,23 @@ export class StudentsComponent implements OnInit {
           ...row,
           status: this.getStatus(row)
         }
-      })
+      });
+      let changedEvent: MatSelectChange = {
+        source: null,
+        value: this.selectedStatus
+      }
+      this.filterStudents(changedEvent);
       this.autoSizeAll(false);
     });
   }
   public getStatus(row) {
-    if (row.active === true && new Date(row.programeEndDate) <= new Date()) {
+    const statusRow = this.statusList.find(el => el.id === row.statusId);
+    if (row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
       return 'Passed'
-    } else if (row.active === true) {
-      return 'Active'
+    } else if (statusRow) {
+      return statusRow.name;
     } else {
-      return 'Cancelled'
+      return 'Active'
     }
   }
   onGridReady(params) {
@@ -143,5 +155,13 @@ export class StudentsComponent implements OnInit {
       fileName: `Students${new Date().toLocaleString()}`,
     };
     this.gridApi.exportDataAsCsv(params);
+  }
+  filterStudents(changeEvent: MatSelectChange) {
+    if (changeEvent.value) {
+      const list = this.studentList.filter(row => row.status === changeEvent.value);
+      this.gridApi.setRowData(list);
+    } else {
+      this.gridApi.setRowData(this.studentList);
+    }
   }
 }

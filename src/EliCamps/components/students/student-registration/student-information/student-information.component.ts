@@ -28,6 +28,7 @@ export class StudentInformationComponent implements OnInit, OnChanges, OnDestroy
   @Input() student: Student;
   @Input() studentForm: FormGroup;
   @Input() groupList = [];
+  @Input() statusList = [];
   public studentRegisterForm: FormGroup;
   public submitted = false;
   @Input() agentList: Agent[] = [];
