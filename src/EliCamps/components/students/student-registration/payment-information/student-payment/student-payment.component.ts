@@ -16,6 +16,7 @@ import * as moment from 'moment';
 })
 export class StudentPaymentComponent implements OnInit {
 
+
   public paymentFrom: FormGroup;
   public submitted = false;
   public isEdit = false;

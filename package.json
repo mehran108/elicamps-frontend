@@ -13,6 +13,7 @@
   "dependencies": {
     "@ag-grid-community/all-modules": "^22.1.1",
     "@ag-grid-community/angular": "^22.1.2",
+    "@ag-grid-enterprise/all-modules": "^22.1.1",
     "@angular/animations": "^11.1.2",
     "@angular/cdk": "^8.2.3",
     "@angular/common": "^11.1.2",
@@ -39,6 +40,7 @@
     "@syncfusion/ej2-angular-filemanager": "^17.4.55",
     "ag-grid-angular": "^22.1.1",
     "ag-grid-community": "^22.1.1",
+    "ag-grid-enterprise": "^22.1.1",
     "bootstrap": "^4.6.0",
     "file-saver": "^2.0.5",
     "hammerjs": "^2.0.8",

@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./trip-add-edit.component.css']
 })
 export class TripAddEditComponent implements OnInit {
+
   public registerForm: FormGroup;
   public submitted = false;
   public id: number;

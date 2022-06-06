@@ -5,105 +5,239 @@
       <div class="row">
         <div class="col-md-4 form-group">
           <mat-form-field>
-            <input matInput type="number" formControlName="numberOfNights" placeholder="No Of Nights">
-
+            <input
+              matInput
+              type="number"
+              formControlName="numberOfNights"
+              placeholder="No Of Nights"
+            />
           </mat-form-field>
         </div>
         <div class="col-md-4 form-group">
           <mat-form-field>
-            <input matInput type="number" formControlName="totalGrossPrice" maxlength="35" placeholder="Gross Price">
-
+            <input
+              matInput
+              type="number"
+              formControlName="totalGrossPrice"
+              maxlength="35"
+              placeholder="Gross Price"
+            />
           </mat-form-field>
         </div>
         <div class="col-md-4 form-group">
           <mat-form-field>
-            <input matInput readonly type="number" formControlName="paid" placeholder="Paid">
-
+            <input
+              matInput
+              readonly
+              type="number"
+              formControlName="paid"
+              placeholder="Paid"
+            />
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4 form-group">
           <mat-form-field>
-            <input matInput type="number" formControlName="commision" placeholder="Commision (%)">
+            <input
+              matInput
+              type="number"
+              formControlName="commision"
+              placeholder="Commision (%)"
+            />
           </mat-form-field>
         </div>
         <div class="col-md-4 form-group">
           <mat-form-field>
-            <input matInput type="number" formControlName="commissionAddins" placeholder="Commision Addins">
+            <input
+              matInput
+              type="number"
+              formControlName="commissionAddins"
+              placeholder="Commision Addins"
+            />
           </mat-form-field>
         </div>
         <div class="col-md-4 form-group">
           <mat-form-field>
-            <input readonly matInput type="number" formControlName="netPrice" placeholder="Net Price">
+            <input
+              readonly
+              matInput
+              type="number"
+              formControlName="netPrice"
+              placeholder="Net Price"
+            />
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3 form-group">
           <mat-form-field>
-            <input matInput type="number" formControlName="totalAddins" placeholder="Total for Addins">
+            <input
+              matInput
+              type="number"
+              formControlName="totalAddins"
+              placeholder="Total for Addins"
+            />
           </mat-form-field>
         </div>
         <div class="col-md-3 form-group">
           <mat-form-field>
-            <input matInput type="number" formControlName="balance" placeholder="Balance">
+            <input
+              matInput
+              type="number"
+              formControlName="balance"
+              placeholder="Balance"
+            />
           </mat-form-field>
         </div>
         <div class="col-md-3 form-group">
           <mat-form-field>
-          <input matInput type="number" formControlName="registrationFee" placeholder="Registration Fee">
-        </mat-form-field>
+            <input
+              matInput
+              type="number"
+              formControlName="registrationFee"
+              placeholder="Registration Fee"
+            />
+          </mat-form-field>
         </div>
         <div class="col-md-3 form-group">
-          <button mat-raised-button (click)="calculate()" type="button" class="btn btn-primary">Calculate</button>
+          <button
+            mat-raised-button
+            (click)="calculate()"
+            type="button"
+            class="btn btn-primary"
+          >
+            Calculate
+          </button>
         </div>
       </div>
-      <div class="row" style="margin-bottom: 40px;">
+      <div class="row" style="margin-bottom: 40px">
         <div class="col-md-12">
           <div class="col-md-12">
-            <button style="margin-right: 10px;" mat-raised-button type="button" class="btn btn-primary"
-              (click)="navigateByURL('student-Loa',true)" target="_blank">Student Invoice</button>
-            <button mat-raised-button style="margin-right: 10px;" type="button" class="btn btn-primary"
-              (click)="navigateByURL('agent-invoice', true)" target="_blank">Agent Invoice</button>
-            <button mat-raised-button style="margin-right: 10px;" type="button" class="btn btn-primary"
-              (click)="navigateByURL('loa-invoice-no-price', false)" target="_blank">LOA (No Price)</button>
-            <button mat-raised-button style="margin-right: 10px;" type="button" class="btn btn-primary"
-              (click)="navigateByURL('loa-invoice-with-price', true)" target="_blank">LOA (With Price)</button>
+            <button
+              style="margin-right: 10px"
+              mat-raised-button
+              type="button"
+              class="btn btn-primary"
+              (click)="navigateByURL('student-Loa', true)"
+              target="_blank"
+            >
+              Student Invoice
+            </button>
+            <button
+              mat-raised-button
+              style="margin-right: 10px"
+              type="button"
+              class="btn btn-primary"
+              (click)="navigateByURL('agent-invoice', true)"
+              target="_blank"
+            >
+              Agent Invoice
+            </button>
+            <button
+              mat-raised-button
+              style="margin-right: 10px"
+              type="button"
+              class="btn btn-primary"
+              (click)="navigateByURL('loa-invoice-no-price', false)"
+              target="_blank"
+            >
+              LOA (No Price)
+            </button>
+            <button
+              mat-raised-button
+              style="margin-right: 10px"
+              type="button"
+              class="btn btn-primary"
+              (click)="navigateByURL('loa-invoice-with-price', true)"
+              target="_blank"
+            >
+              LOA (With Price)
+            </button>
           </div>
           <div class="col-md-12">
-            <button mat-raised-button style="margin-right: 10px;" type="button" class="btn btn-primary"
-              (click)="navigateByURL('loa-group-invoice', true)" target="_blank">LOA - Group </button>
-            <button mat-raised-button style="margin-right: 10px;" type="button" class="btn btn-primary"
-              (click)="navigateByURL('student-invitation', true)" target="_blank">Invitation</button>
-            <button mat-raised-button style="margin-right: 10px;" type="button" class="btn btn-primary"
-              (click)="navigateByURL('student-Airport-Invoice', true)" target="_blank">Airport Doc </button>
-            <button mat-raised-button style="margin-right: 10px;" type="button" class="btn btn-primary"
-              (click)="navigateByURL('student-certificate',true)" target="_blank">Certificate</button>
+            <button
+              mat-raised-button
+              style="margin-right: 10px"
+              type="button"
+              class="btn btn-primary"
+              (click)="navigateByURL('loa-group-invoice', true)"
+              target="_blank"
+            >
+              LOA - Group
+            </button>
+            <button
+              mat-raised-button
+              style="margin-right: 10px"
+              type="button"
+              class="btn btn-primary"
+              (click)="navigateByURL('student-invitation', true)"
+              target="_blank"
+            >
+              Invitation
+            </button>
+            <button
+              mat-raised-button
+              style="margin-right: 10px"
+              type="button"
+              class="btn btn-primary"
+              (click)="navigateByURL('student-Airport-Invoice', true)"
+              target="_blank"
+            >
+              Airport Doc
+            </button>
+            <button
+              mat-raised-button
+              style="margin-right: 10px"
+              type="button"
+              class="btn btn-primary"
+              (click)="navigateByURL('student-certificate', true)"
+              target="_blank"
+            >
+              Certificate
+            </button>
           </div>
         </div>
       </div>
     </form>
 
-      <form [formGroup]="paymentinfoform">
+    <form [formGroup]="paymentinfoform">
       <div class="row">
         <div class="col-md-6 form-group">
-          <mat-checkbox formControlName="isStudentInvoice" class="col-md-2">Student Invoice</mat-checkbox>
-          <mat-checkbox formControlName="isAgentInvoice" class="col-md-2">Agent Invoice</mat-checkbox>
-          <mat-checkbox formControlName="isLoaInvoiceWithNoPrice" class="col-md-2">LOA No Price</mat-checkbox>
+          <mat-checkbox formControlName="isStudentInvoice" class="col-md-2"
+            >Student Invoice</mat-checkbox
+          >
+          <mat-checkbox formControlName="isAgentInvoice" class="col-md-2"
+            >Agent Invoice</mat-checkbox
+          >
+          <mat-checkbox
+            formControlName="isLoaInvoiceWithNoPrice"
+            class="col-md-2"
+            >LOA No Price</mat-checkbox
+          >
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 form-group">
-          <mat-checkbox formControlName="isLoaInvoice" class="col-md-2">LOA With Price</mat-checkbox>
-          <mat-checkbox formControlName="isLoaGroupInvoice" class="col-md-2">LOA - Group</mat-checkbox>
-          <mat-checkbox formControlName="isStudentInvitation" class="col-md-2">Invitation</mat-checkbox>
+          <mat-checkbox formControlName="isLoaInvoice" class="col-md-2"
+            >LOA With Price</mat-checkbox
+          >
+          <mat-checkbox formControlName="isLoaGroupInvoice" class="col-md-2"
+            >LOA - Group</mat-checkbox
+          >
+          <mat-checkbox formControlName="isStudentInvitation" class="col-md-2"
+            >Invitation</mat-checkbox
+          >
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 form-group">
-          <mat-checkbox formControlName="isAirportInvoice" class="col-md-2">Airport Doc</mat-checkbox>
-          <mat-checkbox formControlName="isStudentCertificate" class="col-md-2">Certificate</mat-checkbox>
+          <mat-checkbox formControlName="isAirportInvoice" class="col-md-2"
+            >Airport Doc</mat-checkbox
+          >
+          <mat-checkbox formControlName="isStudentCertificate" class="col-md-2"
+            >Certificate</mat-checkbox
+          >
         </div>
       </div>
       <div class="row">
@@ -113,35 +247,90 @@
             <mat-radio-button value="2">Custom</mat-radio-button>
           </mat-radio-group>
           <mat-form-field>
-            <mat-select placeholder="Email Template" formControlName="emailBody">
-              <mat-option *ngFor="let res of templateList; let i = index" [value]="res.value">
-                {{res.name}}
+            <mat-select
+              placeholder="Email Template"
+              formControlName="emailBody"
+            >
+              <mat-option
+                *ngFor="let res of templateList; let i = index"
+                [value]="res.value"
+              >
+                {{ res.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field *ngIf="paymentinfoform.controls['emailType'].value == 1">
-            <mat-select placeholder="Agency Email" formControlName="studentEmail">
-              <mat-option *ngFor="let res of agentList; let i = index" [value]="res.email">
-                {{res.email}}
+          <mat-form-field
+            *ngIf="paymentinfoform.controls['emailType'].value == 1"
+          >
+            <mat-select
+              placeholder="Agency Email"
+              formControlName="studentEmail"
+            >
+              <mat-option
+                *ngFor="let res of agentList; let i = index"
+                [value]="res.email"
+              >
+                {{ res.email }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field *ngIf="paymentinfoform.controls['emailType'].value == 2 ">
-            <input matInput placeholder="Enter Email" formControlName="studentEmail">
+          <mat-form-field
+            *ngIf="paymentinfoform.controls['emailType'].value == 2"
+          >
+            <input
+              matInput
+              placeholder="Enter Email"
+              formControlName="studentEmail"
+            />
           </mat-form-field>
-          <button *ngIf="paymentinfoform.controls['emailType'].value" mat-raised-button (click)="sendEmail()"
-            type="button" class="btn btn-secondary">Email</button>
-          <button *ngIf="isEdit" style="margin-left: 10px;" mat-raised-button (click)="openPaymentDialog()"
-            type="button" class="btn btn-secondary" color="primary">Add Payment</button>
+          <button
+            *ngIf="paymentinfoform.controls['emailType'].value"
+            mat-raised-button
+            (click)="sendEmail()"
+            type="button"
+            class="btn btn-secondary"
+          >
+            Email
+          </button>
+          <button
+            *ngIf="isEdit"
+            style="margin-left: 10px"
+            mat-raised-button
+            (click)="openPaymentDialog()"
+            type="button"
+            class="btn btn-secondary"
+            color="primary"
+          >
+            Add Payment
+          </button>
         </div>
       </div>
-  </form>
-    <div class="all-show-grid" style="margin-top: 65px;height: 200px;overflow: auto !important;">
-      <ag-grid-angular style="width: 1100px; height: 100%; min-width: 1100px;" class="ag-theme-material"
-        [enableColResize]="true" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection
-        toolPanelSuppressGroups toolPanelSuppressValues (gridReady)="onGridReady($event)"
-        (cellDoubleClicked)="onCellClicked($event)" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [modules]="modules"
-        [rowData]="groupPaymentList" #grid></ag-grid-angular>
+    </form>
+    <div
+      class="all-show-grid"
+      style="margin-top: 65px; height: 200px; overflow: auto !important"
+    >
+      <ag-grid-angular [defaultColDef]="defaultColDef"
+        style="width: 1100px; height: 100%; min-width: 1100px"
+        class="ag-theme-material"
+        [enableColResize]="true"
+        enableColResize
+        enableSorting
+        enableFilter
+        groupHeaders
+        suppressRowClickSelection
+        toolPanelSuppressGroups
+        toolPanelSuppressValues
+        (gridReady)="onGridReady($event)"
+        (cellDoubleClicked)="onCellClicked($event)"
+        [gridOptions]="gridOptions"
+        [columnDefs]="columnDefs"
+        [modules]="modules"
+        [rowData]="groupPaymentList"
+        [rowModelType]="'clientSide'"
+        [suppressContextMenu]="true"
+        #grid
+      ></ag-grid-angular>
     </div>
   </mat-card-content>
 </mat-card>

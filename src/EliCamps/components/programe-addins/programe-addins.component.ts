@@ -6,6 +6,7 @@ import { ProgrameAddins } from '../../EliCamps-Models/Elicamps';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { Location } from '@angular/common';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-programe-addins',
@@ -13,16 +14,23 @@ import { Location } from '@angular/common';
   styleUrls: ['./programe-addins.component.css']
 })
 export class ProgrameAddinsComponent implements OnInit {
+
   public columnDefs = ADDINS_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public addinList: ProgrameAddins[];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
+   public defaultColDef;
   constructor(public router: Router, public listService: ListService, public location: Location
   ) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -52,12 +60,8 @@ export class ProgrameAddinsComponent implements OnInit {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `ProgramAddins${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'ProgramAddins')
+
   }
   onCellClicked($event) {
 

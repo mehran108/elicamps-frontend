@@ -63,6 +63,7 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
   @ViewChild('studentInfo') studentInfo: StudentInformationComponent;
   @ViewChild('accom') accom: AccomodationComponent;
   @ViewChild('stepper') stepper: MatStepper;
+   public defaultColDef;
   constructor(
     private router: Router,
     private route: ActivatedRoute,

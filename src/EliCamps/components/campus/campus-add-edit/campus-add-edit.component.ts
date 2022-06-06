@@ -12,6 +12,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./campus-add-edit.component.css']
 })
 export class CampusAddEditComponent implements OnInit {
+ public defaultColDef;
+
 
   public campusForm: FormGroup;
   public submitted = false;

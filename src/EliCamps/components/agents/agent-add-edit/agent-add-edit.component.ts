@@ -11,6 +11,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./agent-add-edit.component.css']
 })
 export class AgentAddEditComponent implements OnInit {
+ public defaultColDef;
+
 
   public registerForm: FormGroup;
   public isPhoneNumberValid = true;

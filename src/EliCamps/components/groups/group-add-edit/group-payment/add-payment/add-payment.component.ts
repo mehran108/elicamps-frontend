@@ -14,6 +14,8 @@ import * as moment from 'moment';
   styleUrls: ['./add-payment.component.css']
 })
 export class AddPaymentComponent implements OnInit {
+ public defaultColDef;
+
 
   public paymentFrom: FormGroup;
   public submitted = false;

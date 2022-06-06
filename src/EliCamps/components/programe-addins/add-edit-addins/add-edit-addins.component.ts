@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-edit-addins.component.css']
 })
 export class AddEditAddinsComponent implements OnInit {
+
   public addinForm: FormGroup;
   public submitted = false;
   public id: number;

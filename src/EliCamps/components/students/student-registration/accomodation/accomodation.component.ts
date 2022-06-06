@@ -26,6 +26,7 @@ export class AccomodationComponent implements OnInit, OnChanges {
   @Input() homeStayList = [];
   @Input() roomList: any = [];
   @Input() studentForm: FormGroup;
+   public defaultColDef;
   constructor(
     public listService: ListService,
     public shared: SharedService,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Agent, Group, LookupTable, TripsMangerModel } from '../../../EliCamps-Models/Elicamps';
+import { Agent, Group, LookupTable, Student, TripsMangerModel } from '../../../EliCamps-Models/Elicamps';
 import { GroupService } from '../../../services/group.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TripManagerComponent } from './trip-manager/trip-manager.component';
@@ -14,12 +14,15 @@ import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-group-add-edit',
   templateUrl: './group-add-edit.component.html',
   styleUrls: ['./group-add-edit.component.css']
 })
 export class GroupAddEditComponent implements OnInit {
+ public defaultColDef;
+
 
   public registerForm: FormGroup;
   public submitted = false;
@@ -31,6 +34,7 @@ export class GroupAddEditComponent implements OnInit {
   public campList: LookupTable[] = [];
   public yearList = [{ value: 2019, name: '2019' }, { value: 2020, name: '2020' }];
   public invoiceTypeList = [{ value: 'Gross', name: 'Gross' }, { value: 'Net', name: 'Net' }];
+  public studentList = [];
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -197,6 +201,9 @@ export class GroupAddEditComponent implements OnInit {
       // model.flightDepartureTime = departureTime;
       model.arrivalDate = arrivalDate;
       model.departureDate = departureDate;
+      model.arrivalTime = model.arrivalTime ? moment(model.arrivalTime).format('YYYY-MM-DD HH:mm:ss') : '';
+      model.flightDepartureTime =
+        model.flightDepartureTime ? moment(model.flightDepartureTime).format('YYYY-MM-DD HH:mm:ss') : '';
       if (this.isEdit) {
         this.groupService.updateElicampsGroups(model).subscribe(res => {
           if (res) {

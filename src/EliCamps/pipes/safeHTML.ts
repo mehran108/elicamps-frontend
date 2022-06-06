@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({ name: 'safeHtml' })
 export class SafeHTML implements PipeTransform {
+   public defaultColDef;
   constructor(private sanitizer: DomSanitizer) { }
 
   transform(style) {

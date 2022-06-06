@@ -12,8 +12,10 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   public loginForm: FormGroup;
   public loading = false;
+   public defaultColDef;
   constructor(
     public router: Router,
     public authenticationService: AuthenticationService,

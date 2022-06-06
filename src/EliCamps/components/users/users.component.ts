@@ -6,6 +6,7 @@ import { User } from 'src/EliCamps/EliCamps-Models/Elicamps';
 import { AuthenticationService } from 'src/EliCamps/services/authentication.service';
 import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { Keys } from 'src/EliCamps/common/lookup.enums';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-users',
@@ -14,15 +15,22 @@ import { Keys } from 'src/EliCamps/common/lookup.enums';
 })
 export class UsersComponent implements OnInit {
 
+
   public columnDefs = USER_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public userList: User[];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public user: any;
+  public defaultColDef;
   constructor(public router: Router, public userService: AuthenticationService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },

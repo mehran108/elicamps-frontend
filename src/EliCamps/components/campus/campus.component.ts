@@ -5,6 +5,7 @@ import { Campus } from '../../EliCamps-Models/Elicamps';
 import { CAMPUS_COL_DEFS } from '../../common/elicamps-column-definitions';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import {AllCommunityModules} from '@ag-grid-community/all-modules';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-campus',
@@ -12,16 +13,23 @@ import {AllCommunityModules} from '@ag-grid-community/all-modules';
   styleUrls: ['./campus.component.css']
 })
 export class CampusComponent implements OnInit {
+ public defaultColDef;
+
 
   public columnDefs = CAMPUS_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public campusList: Campus[];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   constructor(public router: Router, public listService: ListService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -51,12 +59,7 @@ export class CampusComponent implements OnInit {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `Campus${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'Campus')
   }
   onCellClicked($event) {
 

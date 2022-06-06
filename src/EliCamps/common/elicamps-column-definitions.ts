@@ -1,4 +1,4 @@
-import { formatDate } from '@angular/common';
+import { formatCurrency, formatDate } from '@angular/common';
 
 export const GROUPS_COL_DEFS = [
   {
@@ -42,7 +42,7 @@ export const GROUPS_COL_DEFS = [
     minWidth: 50,
     maxWidth: 150,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -82,7 +82,7 @@ export const GROUPS_COL_DEFS = [
     minWidth: 50,
     maxWidth: 150,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -157,11 +157,11 @@ export const STUDENT_COL_DEFS = [
   },
   {
     headerName: 'Arrival Date',
-    field: 'programeStartDate',
+    field: 'arrivalDate',
     minWidth: 50,
     // maxWidth: 150,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -169,11 +169,11 @@ export const STUDENT_COL_DEFS = [
   },
   {
     headerName: 'Departure Date',
-    field: 'programeEndDate',
+    field: 'departureDate',
     minWidth: 50,
     // maxWidth: 150,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -240,7 +240,7 @@ export const STUDENT_COL_DEFS = [
     cellStyle: (params) => {
       if (params.value === 'Cancelled') {
         return { color: 'red', 'font-weight': '600' };
-      } else if (params.value === 'Passed') {
+      } else if (params.value === 'Past') {
         return { color: 'orange', 'font-weight': '500' };
       } else {
         return { color: 'green', 'font-weight': '500' };
@@ -278,7 +278,7 @@ export const ROOMS_COL_DEFS = [
     field: 'bookedFrom',
     minWidth: 50,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -289,7 +289,7 @@ export const ROOMS_COL_DEFS = [
     field: 'bookedTo',
     minWidth: 50,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -310,7 +310,7 @@ export const ROOMS_COL_DEFS = [
     field: 'availableFrom',
     minWidth: 50,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -321,7 +321,7 @@ export const ROOMS_COL_DEFS = [
     field: 'availableTo',
     minWidth: 50,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -438,7 +438,7 @@ export const TRIP_COL_DEFS = [
     field: 'tripsDate',
     minWidth: 50,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -568,7 +568,7 @@ export const GROUP_PAYMENT_COL_DEFS = [
     field: 'date',
     minWidth: 100,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -599,7 +599,7 @@ export const GROUP_LEADER_PAYMENT_COL_DEFS = [
     field: 'date',
     minWidth: 100,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -618,7 +618,7 @@ export const STUDENT_PAYMENT_COL_DEFS = [
     field: 'date',
     minWidth: 100,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -829,8 +829,8 @@ export const USER_COL_DEFS = [
 ];
 export const PAYMENT_REPORT_COL_DEFS = [
   {
-    headerName: 'Ref',
-    field: 'reg_Ref',
+    headerName: 'Agency Ref',
+    field: 'agencyRef',
     minWidth: 50,
     pinned: 'left',
     resizable: true
@@ -872,7 +872,7 @@ export const PAYMENT_REPORT_COL_DEFS = [
     resizable: true,
     precision: 2,
     valueFormatter: (params) => {
-      return '$' + params.value.toFixed(params.colDef.precision);
+      return formatCurrency(params.value, 'en-US','$','USD','1.2-2');
     }
   },
   {
@@ -882,7 +882,7 @@ export const PAYMENT_REPORT_COL_DEFS = [
     resizable: true,
     precision: 2,
     valueFormatter: (params) => {
-      return '$' + params.value.toFixed(params.colDef.precision);
+      return formatCurrency(params.value, 'en-US','$','USD','1.2-2');
     }
   },
   {
@@ -892,7 +892,17 @@ export const PAYMENT_REPORT_COL_DEFS = [
     resizable: true,
     precision: 2,
     valueFormatter: (params) => {
-      return '$' + params.value.toFixed(params.colDef.precision);
+      return formatCurrency(params.value, 'en-US','$','USD','1.2-2');
+    }
+  },
+  {
+    headerName: 'Registration Fee',
+    field: 'registrationFee',
+    minWidth: 50,
+    resizable: true,
+    precision: 2,
+    valueFormatter: (params) => {
+      return formatCurrency(params.value, 'en-US','$','USD','1.2-2');
     }
   },
   {
@@ -902,7 +912,7 @@ export const PAYMENT_REPORT_COL_DEFS = [
     resizable: true,
     precision: 2,
     valueFormatter: (params) => {
-      return '$' + params.value.toFixed(params.colDef.precision);
+      return formatCurrency(params.value, 'en-US','$','USD','1.2-2');
     }
   },
   {
@@ -912,7 +922,7 @@ export const PAYMENT_REPORT_COL_DEFS = [
     resizable: true,
     precision: 2,
     valueFormatter: (params) => {
-      return '$' + params.value.toFixed(params.colDef.precision);
+      return formatCurrency(params.value, 'en-US','$','USD','1.2-2');
     }
   }
 ];
@@ -941,14 +951,14 @@ export const INSURANCE_REPORT_COL_DEFS = [
     field: 'dob',
     minWidth: 50,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
     }
   },
   {
-    headerName: 'Sex',
+    headerName: 'Gender',
     field: 'gender',
     minWidth: 50,
     resizable: true
@@ -964,7 +974,7 @@ export const INSURANCE_REPORT_COL_DEFS = [
     field: 'programeStartDate',
     minWidth: 50,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -975,7 +985,7 @@ export const INSURANCE_REPORT_COL_DEFS = [
     field: 'programeEndDate',
     minWidth: 50,
     resizable: true,
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -1018,7 +1028,7 @@ export const AIRPORT_REPORT_COL_DEFS = [
   {
     headerName: 'Start Date',
     field: 'programeStartDate',
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -1027,7 +1037,7 @@ export const AIRPORT_REPORT_COL_DEFS = [
   {
     headerName: 'End Date',
     field: 'programeEndDate',
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -1065,7 +1075,7 @@ export const AIRPORT_REPORT_COL_DEFS = [
   {
     headerName: 'Arrival Date',
     field: 'programeStartDate',
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -1074,7 +1084,7 @@ export const AIRPORT_REPORT_COL_DEFS = [
   {
     headerName: 'Arrival Time',
     field: 'arrivalTime',
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'HH:mm', 'en')
         : '';
@@ -1091,7 +1101,7 @@ export const AIRPORT_REPORT_COL_DEFS = [
   {
     headerName: 'Departure Date',
     field: 'programeEndDate',
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -1100,7 +1110,7 @@ export const AIRPORT_REPORT_COL_DEFS = [
   {
     headerName: 'Departure Time',
     field: 'flightDepartureTime',
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'HH:mm', 'en')
         : '';
@@ -1153,7 +1163,7 @@ export const SITE_BY_DATE_REPORT_COL_DEFS = [
   {
     headerName: 'Date of Birth',
     field: 'dob',
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -1174,7 +1184,7 @@ export const SITE_BY_DATE_REPORT_COL_DEFS = [
   {
     headerName: 'Start Date',
     field: 'programeStartDate',
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';
@@ -1187,7 +1197,7 @@ export const SITE_BY_DATE_REPORT_COL_DEFS = [
   {
     headerName: 'End Date',
     field: 'programeEndDate',
-    cellRenderer: (params) => {
+    valueFormatter: (params) => {
       return params.value
         ? formatDate(params.value, 'MMMM dd, y', 'en')
         : '';

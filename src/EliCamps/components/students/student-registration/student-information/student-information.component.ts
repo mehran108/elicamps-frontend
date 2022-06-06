@@ -45,6 +45,7 @@ export class StudentInformationComponent implements OnInit, OnChanges, OnDestroy
   previewUrl: any = null;
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
+   public defaultColDef;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,

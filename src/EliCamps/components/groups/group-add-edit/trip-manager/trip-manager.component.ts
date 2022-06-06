@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import { GroupService } from 'src/EliCamps/services/group.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-trip-manager',
@@ -14,6 +15,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./trip-manager.component.css']
 })
 export class TripManagerComponent implements OnInit {
+ public defaultColDef;
+
   public tripForm: FormGroup;
   public tripList: Trip[] = [];
   public submitted = false;
@@ -32,7 +35,12 @@ export class TripManagerComponent implements OnInit {
     public dialogRef: MatDialogRef<TripManagerComponent>,
     private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       }

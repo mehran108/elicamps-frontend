@@ -10,6 +10,8 @@ import { convertToPdf } from 'src/EliCamps/common/lookup.enums';
   styleUrls: ['./loa-group-invoice.component.css']
 })
 export class LoaGroupInvoiceComponent implements OnInit {
+ public defaultColDef;
+
   public hide = false;
   public loading = false;
   public studentId: number;

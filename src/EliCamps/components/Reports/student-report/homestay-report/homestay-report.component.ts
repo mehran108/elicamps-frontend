@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import { ListService } from 'src/EliCamps/services/list.service';
 import { HomeStay } from 'src/EliCamps/EliCamps-Models/Elicamps';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-homestay-report',
@@ -12,16 +13,23 @@ import { HomeStay } from 'src/EliCamps/EliCamps-Models/Elicamps';
   styleUrls: ['./homestay-report.component.css']
 })
 export class HomestayReportComponent implements OnInit {
+ public defaultColDef;
+
   public columnDefs = HOMESTAY_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public homeStay: HomeStay[];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public startDate: string;
   public endDate: string;
   constructor(public router: Router, public listService: ListService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },

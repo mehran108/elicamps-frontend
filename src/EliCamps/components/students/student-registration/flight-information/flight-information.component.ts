@@ -32,6 +32,7 @@ export class FlightInformationComponent implements OnInit, OnChanges, OnDestroy 
   public loading = false;
   public groupSubscription: Subscription;
   @Input() studentForm: FormGroup;
+   public defaultColDef;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,

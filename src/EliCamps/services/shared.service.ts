@@ -16,6 +16,7 @@ export class SharedService {
   private paymentInfo: any;
   private tripInfo: any;
   private medicalInfo: any;
+   public defaultColDef;
   constructor() { }
 
   setStudentInfoState = (studentInfo: any) => {

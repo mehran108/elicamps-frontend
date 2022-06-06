@@ -12,6 +12,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./add-edit-homestay.component.css']
 })
 export class AddEditHomestayComponent implements OnInit {
+ public defaultColDef;
+
   // tslint:disable-next-line: max-line-length
   public registerForm: FormGroup;
   public submitted = false;

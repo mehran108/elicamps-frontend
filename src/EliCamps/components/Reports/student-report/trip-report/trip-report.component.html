@@ -106,17 +106,9 @@
   </div>
 
   <div class="all-show-grid">
-    <ag-grid-angular
+    <ag-grid-angular [defaultColDef]="defaultColDef"
       style="height: 100%; max-width: 100%; width: 100vw"
       class="ag-theme-material"
-      [enableColResize]="true"
-      enableColResize
-      enableSorting
-      enableFilter
-      groupHeaders
-      suppressRowClickSelection
-      toolPanelSuppressGroups
-      toolPanelSuppressValues
       [gridOptions]="gridOptions"
       [columnDefs]="columnDefs"
       [rowData]="studentTripList"

@@ -13,13 +13,17 @@ import {
 import { GroupService } from "src/EliCamps/services/group.service";
 import { ListService } from "src/EliCamps/services/list.service";
 import { throwError } from "rxjs";
-import * as moment from 'moment'
+import * as moment from 'moment';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
+
 @Component({
   selector: 'app-check-in-out-report',
   templateUrl: './check-in-out-report.component.html',
   styleUrls: ['./check-in-out-report.component.css']
 })
 export class CheckInOutReportComponent implements OnInit {
+ public defaultColDef;
+
   public columnDefs =
   [
     {
@@ -44,7 +48,7 @@ export class CheckInOutReportComponent implements OnInit {
   private gridApi: any;
   public studentList;
   public addinList: ProgrameAddins[] = [];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   public pinnedBottomRowData: any;
   public getRowStyle: any;
@@ -56,8 +60,14 @@ export class CheckInOutReportComponent implements OnInit {
   public homestayList: HomeStay[];
   public programList = [];
   public program: Program;
+   public defaultColDef;
   constructor(public listService: ListService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -172,12 +182,7 @@ export class CheckInOutReportComponent implements OnInit {
     }
   };
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `Check-In${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'Check_In-Out')
   }
   public clear() {
     this.program = null;

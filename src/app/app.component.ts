@@ -8,13 +8,13 @@ import { NavigationEnd, Router } from "@angular/router";
 import { interval } from "rxjs";
 import { SwUpdate } from "@angular/service-worker";
 import { MatDialog } from "@angular/material/dialog";
-
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
+
   title = "elicamps";
   @ViewChild('confirmTemp') confirmTemp: TemplateRef<any>;
 
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
         reg.update();
       });
   }
-  ngOnInit() {
+  async ngOnInit() {
     if (localStorage.getItem(Keys.TOKEN_INFO)) {
       this.document.body.classList.remove("white-background");
     } else {

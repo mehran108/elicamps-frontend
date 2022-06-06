@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./delete-confirmation-dialog.component.css']
 })
 export class DeleteConfirmationDialogComponent implements OnInit {
+ public defaultColDef;
+
   public isEdit = false;
   constructor(
     public dialogRef: MatDialogRef<DeleteConfirmationDialogComponent>,

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class LocalstorageService {
 
+   public defaultColDef;
   constructor() { }
 
   set(key: any, value: any): void {

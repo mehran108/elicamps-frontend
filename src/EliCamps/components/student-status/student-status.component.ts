@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { NgxSpinnerService } from "ngx-spinner";
 import { DeleteConfirmationDialogComponent } from "../confirmation-dialog/delete-confirmation-dialog.component";
 import { ButtonRendererComponent } from "src/EliCamps/ag-grid/renderers/button-renderer.component";
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: "app-student-status",
@@ -17,6 +18,7 @@ import { ButtonRendererComponent } from "src/EliCamps/ag-grid/renderers/button-r
   styleUrls: ["./student-status.component.css"],
 })
 export class StudentStatusComponent implements OnInit {
+
   public columnDefs = [
     {
       name: "Name",
@@ -34,9 +36,10 @@ export class StudentStatusComponent implements OnInit {
   public info: string;
   private gridApi: GridApi;
   public StudentStatusList = [];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   public fg: FormGroup
+  public defaultColDef;
   constructor(
     public router: Router,
     public listService: ListService,
@@ -46,7 +49,12 @@ export class StudentStatusComponent implements OnInit {
     public fb: FormBuilder,
     public spinner: NgxSpinnerService
   ) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -60,7 +68,12 @@ export class StudentStatusComponent implements OnInit {
       description: [''],
       lookupTableId: [1011]
     });
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         buttonRenderer: ButtonRendererComponent
       },

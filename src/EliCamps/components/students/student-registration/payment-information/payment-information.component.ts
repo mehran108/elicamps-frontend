@@ -27,6 +27,8 @@ import { DeleteConfirmationDialogComponent } from "src/EliCamps/components/confi
 import { ButtonRendererComponent } from "src/EliCamps/ag-grid/renderers/button-renderer.component";
 import { LocalstorageService } from "src/EliCamps/services/localstorage.service";
 import { Keys } from "src/EliCamps/common/lookup.enums";
+import { AllModules } from "@ag-grid-enterprise/all-modules";
+
 @Component({
   selector: "app-payment-information",
   templateUrl: "./payment-information.component.html",
@@ -52,8 +54,9 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
   private gridApi: any;
   public columnDefs = STUDENT_PAYMENT_COL_DEFS;
   public gridOptions: any;
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public templateList = [];
+  public defaultColDef;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -69,7 +72,12 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
     public confirmationDialogRef: MatDialogRef<DeleteConfirmationDialogComponent>,
     public storage: LocalstorageService
   ) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
         buttonRenderer: ButtonRendererComponent,

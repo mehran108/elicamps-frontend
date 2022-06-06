@@ -53,6 +53,7 @@ export class ProgramInformationComponent implements OnInit, OnChanges, OnDestroy
   public groupSubscription: Subscription;
   public shareObservable: Subscription;
 
+   public defaultColDef;
   constructor(
     private router: Router,
     public listService: ListService,

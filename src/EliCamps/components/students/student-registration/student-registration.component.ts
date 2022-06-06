@@ -21,6 +21,7 @@ export class StudentRegistrationComponent implements OnInit, OnDestroy {
   public selectedStudent: Student;
   public showStudentInformation = false;
   public studentState: Student;
+   public defaultColDef;
   constructor(
     private router: Router,
     private route: ActivatedRoute,

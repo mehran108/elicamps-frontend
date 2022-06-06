@@ -27,6 +27,7 @@ export class MedicalInformationComponent implements OnInit, OnChanges {
   public selectedAgent: Agent;
   public loading = false;
   @Input() studentForm: FormGroup;
+   public defaultColDef;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,

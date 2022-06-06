@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ListService } from '../../services/list.service';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import { AllCommunityModules } from '@ag-grid-community/all-modules';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-rooms',
@@ -12,6 +13,7 @@ import { AllCommunityModules } from '@ag-grid-community/all-modules';
   styleUrls: ['./rooms.component.css']
 })
 export class RoomsComponent implements OnInit {
+
   public columnDefs = ROOMS_COL_DEFS;
   public rowData: any[];
   public gridOptions: any;
@@ -21,11 +23,17 @@ export class RoomsComponent implements OnInit {
   public isEdit = false;
   public id: number;
   public gridColumnApi: any;
-  public modules  = AllCommunityModules;
+  public modules  = AllModules;
+  public defaultColDef;
   constructor(
     private listService: ListService,
     public router: Router) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -60,12 +68,7 @@ export class RoomsComponent implements OnInit {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `Rooms${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'Rooms_Report')
   }
   onCellClicked($event) {
 

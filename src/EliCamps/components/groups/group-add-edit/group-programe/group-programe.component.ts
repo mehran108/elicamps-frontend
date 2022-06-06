@@ -14,6 +14,8 @@ import * as moment from 'moment';
   styleUrls: ['./group-programe.component.css']
 })
 export class GroupProgrameComponent implements OnInit {
+ public defaultColDef;
+
   public programeFrom: FormGroup;
   public submitted = false;
   public campusList: Campus[] = [];

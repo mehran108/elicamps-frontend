@@ -16,6 +16,8 @@ import { Title } from "@angular/platform-browser";
   styleUrls: ["./layout.component.scss"],
 })
 export class LayoutComponent implements OnInit {
+ public defaultColDef;
+
   public isMobile = false;
   public panelOpenState: boolean;
   public secondPanelOpenState: boolean;

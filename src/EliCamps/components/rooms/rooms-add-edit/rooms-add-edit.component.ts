@@ -20,6 +20,7 @@ export class RoomsAddEditComponent implements OnInit {
   public selectedRoom: Room;
   public loading = false;
 
+   public defaultColDef;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,

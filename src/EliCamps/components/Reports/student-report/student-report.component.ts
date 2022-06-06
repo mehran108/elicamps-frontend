@@ -18,6 +18,7 @@ import {
 import { GroupService } from "src/EliCamps/services/group.service";
 import { ListService } from "src/EliCamps/services/list.service";
 import { throwError } from "rxjs";
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: "app-student-report",
@@ -25,13 +26,15 @@ import { throwError } from "rxjs";
   styleUrls: ["./student-report.component.css"],
 })
 export class StudentReportComponent implements OnInit {
+ public defaultColDef;
+
   public columnDefs = SITE_BY_DATE_REPORT_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public studentList;
   public addinList: ProgrameAddins[] = [];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   public pinnedBottomRowData: any;
   public getRowStyle: any;
@@ -44,7 +47,12 @@ export class StudentReportComponent implements OnInit {
   public programList = [];
   public program: Program;
   constructor(public listService: ListService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -184,12 +192,8 @@ export class StudentReportComponent implements OnInit {
     }
   };
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `SiteReport${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'SiteReport')
+
   }
   public clear() {
     this.program = null;

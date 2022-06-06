@@ -8,6 +8,7 @@ import { User } from '../EliCamps-Models/Elicamps';
 })
 export class AuthenticationService {
 
+   public defaultColDef;
   constructor(public http: HttpClient) { }
   public login(model: any) {
     return this.http.post<any>(`${environment.appUser}/authenticate`, model);

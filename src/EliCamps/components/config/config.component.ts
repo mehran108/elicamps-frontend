@@ -5,6 +5,7 @@ import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-rende
 import {AllCommunityModules} from '@ag-grid-community/all-modules';
 import { Keys, LookupEnum } from 'src/EliCamps/common/lookup.enums';
 import { LocalstorageService } from 'src/EliCamps/services/localstorage.service';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-config',
@@ -12,6 +13,8 @@ import { LocalstorageService } from 'src/EliCamps/services/localstorage.service'
   styleUrls: ['./config.component.css']
 })
 export class ConfigComponent implements OnInit {
+ public defaultColDef;
+
   public columnDefs = [
     {
     name: 'Name',
@@ -28,10 +31,15 @@ export class ConfigComponent implements OnInit {
   public info: string;
   private gridApi: any;
   public configList = [];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   constructor(public router: Router, public listService: ListService, public storage: LocalstorageService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },

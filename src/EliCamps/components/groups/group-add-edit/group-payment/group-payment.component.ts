@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DeleteConfirmationDialogComponent } from 'src/EliCamps/components/confirmation-dialog/delete-confirmation-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ButtonRendererComponent } from 'src/EliCamps/ag-grid/renderers/button-renderer.component';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-group-payment',
@@ -23,6 +24,8 @@ import { ButtonRendererComponent } from 'src/EliCamps/ag-grid/renderers/button-r
   styleUrls: ['./group-payment.component.css']
 })
 export class GroupPaymentComponent implements OnInit {
+ public defaultColDef;
+
   public paymentForm: FormGroup;
   public submitted = false;
   public groupPaymentList = [];
@@ -32,7 +35,7 @@ export class GroupPaymentComponent implements OnInit {
   public columnDefs = GROUP_PAYMENT_COL_DEFS;
   public columnDefsLeader = GROUP_LEADER_PAYMENT_COL_DEFS;
   public gridOptions: any;
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public groupId = 0;
   public isEdit = false;
   public isLeaderEdit = false;
@@ -47,7 +50,12 @@ export class GroupPaymentComponent implements OnInit {
     public toastr: ToastrService,
     public confirmationDialogRef: MatDialogRef<DeleteConfirmationDialogComponent>,
     public spinner: NgxSpinnerService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
         buttonRenderer: ButtonRendererComponent

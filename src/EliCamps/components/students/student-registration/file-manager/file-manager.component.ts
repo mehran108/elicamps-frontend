@@ -7,6 +7,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./file-manager.component.css']
 })
 export class FileManagerComponent implements OnInit {
+
   public hostUrl = 'https://ej2services.syncfusion.com/production/web-services/';
   public ajaxSettings: object = {
     url: this.hostUrl + 'api/FileManager/FileOperations',

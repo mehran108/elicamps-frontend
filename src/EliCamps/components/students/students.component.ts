@@ -12,6 +12,7 @@ import { ListService } from 'src/EliCamps/services/list.service';
 import { DeleteConfirmationDialogComponent } from '../confirmation-dialog/delete-confirmation-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LookupEnum } from 'src/EliCamps/common/lookup.enums';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-students',
@@ -19,6 +20,7 @@ import { LookupEnum } from 'src/EliCamps/common/lookup.enums';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent implements OnInit {
+
   public columnDefs = STUDENT_COL_DEFS;
   public rowData: any[];
   public gridOptions: any;
@@ -26,9 +28,10 @@ export class StudentsComponent implements OnInit {
   private gridApi: any;
   public studentList: Student[] = [];
   public gridColumnApi: any;
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public statusList = [];
   public selectedStatus= 'Active';
+  public defaultColDef;
   constructor(
     private groupService: GroupService,
     public router: Router,
@@ -52,7 +55,12 @@ export class StudentsComponent implements OnInit {
     };
     this.columnDefs = [];
     this.columnDefs.push(...STUDENT_COL_DEFS, buttonRenderer as any);
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
         buttonRenderer: ButtonRendererComponent
@@ -116,7 +124,7 @@ export class StudentsComponent implements OnInit {
   public getStatus(row) {
     const statusRow = this.statusList.find(el => el.id === row.statusId);
     if (row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
-      return 'Passed'
+      return 'Past'
     } else if (statusRow) {
       return statusRow.name;
     } else {
@@ -149,12 +157,7 @@ export class StudentsComponent implements OnInit {
 
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `Students${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'Students')
   }
   filterStudents(changeEvent: MatSelectChange) {
     if (changeEvent.value) {

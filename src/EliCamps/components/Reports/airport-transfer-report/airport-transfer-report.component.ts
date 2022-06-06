@@ -5,7 +5,9 @@ import { ListService } from 'src/EliCamps/services/list.service';
 import { AIRPORT_REPORT_COL_DEFS } from 'src/EliCamps/common/elicamps-column-definitions';
 import { throwError } from 'rxjs';
 import { HomeStay, Room } from 'src/EliCamps/EliCamps-Models/Elicamps';
-import * as _ from 'lodash'
+import * as _ from 'lodash';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
+
 @Component({
   selector: 'app-airport-transfer-report',
   templateUrl: './airport-transfer-report.component.html',
@@ -17,7 +19,7 @@ export class AirportTransferReportComponent implements OnInit {
   public info: string;
   private gridApi: any;
   public paymentReport = [];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   public pinnedBottomRowData: any;
   public getRowStyle: any;
@@ -26,14 +28,25 @@ export class AirportTransferReportComponent implements OnInit {
   public startDate;
   public endDate;
   public reportType;
+  public defaultColDef;
   constructor(public listService: ListService
   ) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
       pagination: true,
       paginationAutoPageSize: true,
+    };
+    this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
     };
   }
   async ngOnInit() {
@@ -90,12 +103,8 @@ export class AirportTransferReportComponent implements OnInit {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `InsuranceReport${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'AirportTransfer')
+
   }
   public filterData = () => {
      switch(this.reportType) {
@@ -103,11 +112,13 @@ export class AirportTransferReportComponent implements OnInit {
         let list = this.paymentReport.filter(row => new Date(row.programeStartDate) >= this.startDate && new Date(row.programeStartDate) <= this.endDate)
         list =   _.orderBy(list, [(obj) => new Date(obj.programeStartDate)], ['asc']);
         this.gridOptions.api.setRowData(list);
+        break;
       }
       case 2: {
         let list = this.paymentReport.filter(row => new Date(row.programeEndDate) >= this.startDate && new Date(row.programeEndDate) <= this.endDate)
         list =   _.orderBy(list, [(obj) => new Date(obj.programeEndDate)], ['asc']);
         this.gridOptions.api.setRowData(list);
+        break;
       }
       case 3: {
        return this.paymentReport;

@@ -1,70 +1,57 @@
 <div class="container">
   <div class="d-flex">
-    <mat-icon class="cursor" (click)="location.back()"> <i class="material-icons">
-        arrow_back
-      </i></mat-icon>
-    <h3 class="form-heading">{{isEdit ? 'UPDATE GROUP PAYMENT' : 'CREATE GROUP PAYMENT'}}</h3>
+    <mat-icon class="cursor" (click)="location.back()">
+      <i class="material-icons"> arrow_back </i></mat-icon
+    >
+    <h3 class="form-heading">
+      {{ isEdit ? "UPDATE GROUP PAYMENT" : "CREATE GROUP PAYMENT" }}
+    </h3>
   </div>
 
-
   <form class="form" [formGroup]="paymentForm">
-
     <table width="100%">
       <tr>
         <td>
           <mat-form-field>
-            <input matInput formControlName="numberOfNights" maxlength="35" placeholder="Number of nights"
-              [required]="submitted && paymentForm.controls['numberOfNights'].hasError('required')">
-            <mat-error *ngIf="submitted && paymentForm.controls['numberOfNights'].hasError('required')">
+            <input
+              matInput
+              formControlName="numberOfNights"
+              maxlength="35"
+              placeholder="Number of nights"
+              [required]="
+                submitted &&
+                paymentForm.controls['numberOfNights'].hasError('required')
+              "
+            />
+            <mat-error
+              *ngIf="
+                submitted &&
+                paymentForm.controls['numberOfNights'].hasError('required')
+              "
+            >
               *Required Field
             </mat-error>
           </mat-form-field>
         </td>
         <td>
           <mat-form-field>
-            <input matInput formControlName="totalGrossPrice" maxlength="35" placeholder="Total Gross Price"
-              [required]="submitted && paymentForm.controls['totalGrossPrice'].hasError('required')" readonly>
-            <mat-error *ngIf="submitted && paymentForm.controls['totalGrossPrice'].hasError('required')">
-              *Required Field
-            </mat-error>
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-form-field>
-            <input matInput readonly formControlName="paid" maxlength="35" placeholder="Paid"
-              [required]="submitted && paymentForm.controls['paid'].hasError('required')">
-            <mat-error *ngIf="submitted && paymentForm.controls['paid'].hasError('required')">
-              *Required Field
-            </mat-error>
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field>
-            <input matInput formControlName="commision" maxlength="35" placeholder="Commision (%)"
-              [required]="submitted && paymentForm.controls['commision'].hasError('required')">
-            <mat-error *ngIf="submitted && paymentForm.controls['commision'].hasError('required')">
-              *Required Field
-            </mat-error>
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-form-field>
-            <input matInput formControlName="netPrice" maxlength="35" placeholder="Net Price"
-              [required]="submitted && paymentForm.controls['netPrice'].hasError('required')" readonly>
-            <mat-error *ngIf="submitted && paymentForm.controls['netPrice'].hasError('required')">
-              *Required Field
-            </mat-error>
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field>
-            <input matInput formControlName="balance" maxlength="35" placeholder="Balance"
-              [required]="submitted && paymentForm.controls['balance'].hasError('required')" readonly>
-            <mat-error *ngIf="submitted && paymentForm.controls['balance'].hasError('required')">
+            <input
+              matInput
+              formControlName="totalGrossPrice"
+              maxlength="35"
+              placeholder="Total Gross Price"
+              [required]="
+                submitted &&
+                paymentForm.controls['totalGrossPrice'].hasError('required')
+              "
+              readonly
+            />
+            <mat-error
+              *ngIf="
+                submitted &&
+                paymentForm.controls['totalGrossPrice'].hasError('required')
+              "
+            >
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -73,9 +60,115 @@
       <tr>
         <td>
           <mat-form-field>
-            <input matInput formControlName="numOfStudents" maxlength="35" placeholder="Number of Students"
-              [required]="submitted && paymentForm.controls['numOfStudents'].hasError('required')">
-            <mat-error *ngIf="submitted && paymentForm.controls['numOfStudents'].hasError('required')">
+            <input
+              matInput
+              readonly
+              formControlName="paid"
+              maxlength="35"
+              placeholder="Paid"
+              [required]="
+                submitted && paymentForm.controls['paid'].hasError('required')
+              "
+            />
+            <mat-error
+              *ngIf="
+                submitted && paymentForm.controls['paid'].hasError('required')
+              "
+            >
+              *Required Field
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="commision"
+              maxlength="35"
+              placeholder="Commision (%)"
+              [required]="
+                submitted &&
+                paymentForm.controls['commision'].hasError('required')
+              "
+            />
+            <mat-error
+              *ngIf="
+                submitted &&
+                paymentForm.controls['commision'].hasError('required')
+              "
+            >
+              *Required Field
+            </mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="netPrice"
+              maxlength="35"
+              placeholder="Net Price"
+              [required]="
+                submitted &&
+                paymentForm.controls['netPrice'].hasError('required')
+              "
+              readonly
+            />
+            <mat-error
+              *ngIf="
+                submitted &&
+                paymentForm.controls['netPrice'].hasError('required')
+              "
+            >
+              *Required Field
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="balance"
+              maxlength="35"
+              placeholder="Balance"
+              [required]="
+                submitted &&
+                paymentForm.controls['balance'].hasError('required')
+              "
+              readonly
+            />
+            <mat-error
+              *ngIf="
+                submitted &&
+                paymentForm.controls['balance'].hasError('required')
+              "
+            >
+              *Required Field
+            </mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="numOfStudents"
+              maxlength="35"
+              placeholder="Number of Students"
+              [required]="
+                submitted &&
+                paymentForm.controls['numOfStudents'].hasError('required')
+              "
+            />
+            <mat-error
+              *ngIf="
+                submitted &&
+                paymentForm.controls['numOfStudents'].hasError('required')
+              "
+            >
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -91,9 +184,22 @@
         </td> -->
         <td>
           <mat-form-field>
-            <input matInput formControlName="perStudent" maxlength="35" placeholder="Per Student"
-              [required]="submitted && paymentForm.controls['perStudent'].hasError('required')">
-            <mat-error *ngIf="submitted && paymentForm.controls['perStudent'].hasError('required')">
+            <input
+              matInput
+              formControlName="perStudent"
+              maxlength="35"
+              placeholder="Per Student"
+              [required]="
+                submitted &&
+                paymentForm.controls['perStudent'].hasError('required')
+              "
+            />
+            <mat-error
+              *ngIf="
+                submitted &&
+                paymentForm.controls['perStudent'].hasError('required')
+              "
+            >
               *Required Field
             </mat-error>
           </mat-form-field>
@@ -120,72 +226,172 @@
         </td>
       </tr> -->
     </table>
-    <div class="all-show-grid" style="margin-top: 65px;height: 200px;margin-bottom: 50px;">
+    <div
+      class="all-show-grid"
+      style="margin-top: 65px; height: 200px; margin-bottom: 50px"
+    >
       <h5>Leader Payment</h5>
-      <ag-grid-angular style="width: 80vw; height: 100%; min-width: 100%;" class="ag-theme-material"
-        [enableColResize]="true" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection
-        toolPanelSuppressGroups toolPanelSuppressValues (gridReady)="onGridReady($event)"
-        (cellDoubleClicked)="onLeaderCellClicked($event)" [gridOptions]="gridOptions" [columnDefs]="columnDefsLeader"
-        [modules]="modules" [rowData]="groupPaymentLeaderList" #grid></ag-grid-angular>
+      <ag-grid-angular [defaultColDef]="defaultColDef"
+        style="width: 80vw; height: 100%; min-width: 100%"
+        class="ag-theme-material"
+        [enableColResize]="true"
+        enableColResize
+        enableSorting
+        enableFilter
+        groupHeaders
+        suppressRowClickSelection
+        toolPanelSuppressGroups
+        toolPanelSuppressValues
+        (gridReady)="onGridReady($event)"
+        (cellDoubleClicked)="onLeaderCellClicked($event)"
+        [gridOptions]="gridOptions"
+        [columnDefs]="columnDefsLeader"
+        [modules]="modules"
+        [rowData]="groupPaymentLeaderList"
+        [rowModelType]="'clientSide'"
+        [suppressContextMenu]="true"
+        #grid
+      ></ag-grid-angular>
     </div>
     <div class="row">
       <div class="col-md-4 form-group">
         <mat-form-field>
-          <input matInput formControlName="refNumber" placeholder="Ref Number"
-            [required]="submitted && paymentForm.controls['refNumber'].hasError('required')">
-          <mat-error *ngIf="submitted && paymentForm.controls['refNumber'].hasError('required')">
+          <input
+            matInput
+            formControlName="refNumber"
+            placeholder="Ref Number"
+            [required]="
+              submitted &&
+              paymentForm.controls['refNumber'].hasError('required')
+            "
+          />
+          <mat-error
+            *ngIf="
+              submitted &&
+              paymentForm.controls['refNumber'].hasError('required')
+            "
+          >
             *Required Field
           </mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-4 form-group">
         <mat-form-field>
-          <input matInput formControlName="amount" placeholder="Amount"
-            [required]="submitted && paymentForm.controls['amount'].hasError('required')">
-          <mat-error *ngIf="submitted && paymentForm.controls['amount'].hasError('required')">
+          <input
+            matInput
+            formControlName="amount"
+            placeholder="Amount"
+            [required]="
+              submitted && paymentForm.controls['amount'].hasError('required')
+            "
+          />
+          <mat-error
+            *ngIf="
+              submitted && paymentForm.controls['amount'].hasError('required')
+            "
+          >
             *Required Field
           </mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-4 form-group">
-        <mat-slide-toggle formControlName="active">Active
-        </mat-slide-toggle>
+        <mat-slide-toggle formControlName="active">Active </mat-slide-toggle>
         <div class="action-panel">
-          <button mat-raised-button (click)="submitLeaderPayment()" type="button" color="primary"
-            class="btn btn-primary">{{isLeaderEdit ? 'Update' : 'Add' }}</button>
-          <button mat-raised-button (click)="submitLeaderPayment()" type="button" color="warn"
-            class="btn btn-primary">Cancel</button>
+          <button
+            mat-raised-button
+            (click)="submitLeaderPayment()"
+            type="button"
+            color="primary"
+            class="btn btn-primary"
+          >
+            {{ isLeaderEdit ? "Update" : "Add" }}
+          </button>
+          <button
+            mat-raised-button
+            (click)="submitLeaderPayment()"
+            type="button"
+            color="warn"
+            class="btn btn-primary"
+          >
+            Cancel
+          </button>
         </div>
       </div>
       <div class="col-md-4 form-group">
         <mat-form-field>
           <mat-select placeholder="Invoice Type" formControlName="invoiceType">
-            <mat-option *ngFor="let res of invoiceTypeList; let i = index" [value]="res.value">
-              {{res.name}}
+            <mat-option
+              *ngFor="let res of invoiceTypeList; let i = index"
+              [value]="res.value"
+            >
+              {{ res.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <div class="col-md-4 form-group">
-        <button mat-raised-button (click)="generateInvoice()" type="button" color="primary"
-        class="btn btn-secondary">Generate Invoice</button>
+          <button
+            mat-raised-button
+            (click)="generateInvoice()"
+            type="button"
+            color="primary"
+            class="btn btn-secondary"
+          >
+            Generate Invoice
+          </button>
         </div>
       </div>
     </div>
-    <div class="all-show-grid" style="margin-top: 65px;height: 200px;overflow: auto !important;">
-      <ag-grid-angular style="width: 100vw; height: 100%; min-width: 100%;" class="ag-theme-material"
-        [enableColResize]="true" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection
-        toolPanelSuppressGroups toolPanelSuppressValues (gridReady)="onGridReady($event)"
-        (cellDoubleClicked)="onCellClicked($event)" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [modules]="modules"
-        [rowData]="groupPaymentList" #grid></ag-grid-angular>
+    <div
+      class="all-show-grid"
+      style="margin-top: 65px; height: 200px; overflow: auto !important"
+    >
+      <ag-grid-angular [defaultColDef]="defaultColDef"
+        style="width: 100vw; height: 100%; min-width: 100%"
+        class="ag-theme-material"
+        [gridOptions]="gridOptions"
+        [columnDefs]="columnDefs"
+        [modules]="modules"
+        [rowData]="groupPaymentList"
+        [rowModelType]="'clientSide'"
+        [suppressContextMenu]="true"
+        #grid
+      ></ag-grid-angular>
     </div>
     <div mat-dialog-actions class="action-panel text-right">
-      <button mat-raised-button (click)="location.back()" type="button" color="warn"
-        class="btn btn-secondary">Cancel</button>
-      <button mat-raised-button (click)="openPaymentDialog()" type="button" class="btn btn-secondary">Add
-        Payment</button>
-      <button mat-raised-button (click)="calculate()" type="button" class="btn btn-secondary">Calculate</button>
-      <button mat-raised-button color="primary" (click)="onSubmit()" type="button" class="btn btn-primary">Save</button>
+      <button
+        mat-raised-button
+        (click)="location.back()"
+        type="button"
+        color="warn"
+        class="btn btn-secondary"
+      >
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        (click)="openPaymentDialog()"
+        type="button"
+        class="btn btn-secondary"
+      >
+        Add Payment
+      </button>
+      <button
+        mat-raised-button
+        (click)="calculate()"
+        type="button"
+        class="btn btn-secondary"
+      >
+        Calculate
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onSubmit()"
+        type="button"
+        class="btn btn-primary"
+      >
+        Save
+      </button>
     </div>
   </form>
-
 </div>

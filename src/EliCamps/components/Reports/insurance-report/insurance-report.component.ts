@@ -3,6 +3,7 @@ import { PAYMENT_REPORT_COL_DEFS, INSURANCE_REPORT_COL_DEFS } from 'src/EliCamps
 import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import { ListService } from 'src/EliCamps/services/list.service';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-insurance-report',
@@ -10,18 +11,25 @@ import { ListService } from 'src/EliCamps/services/list.service';
   styleUrls: ['./insurance-report.component.css']
 })
 export class InsuranceReportComponent implements OnInit {
+ public defaultColDef;
+
   public columnDefs = INSURANCE_REPORT_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public paymentReport = [];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   public pinnedBottomRowData: any;
   public getRowStyle: any;
   constructor(public listService: ListService
   ) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -58,12 +66,8 @@ export class InsuranceReportComponent implements OnInit {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `InsuranceReport${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'InsuranceReport')
+
   }
 }
 

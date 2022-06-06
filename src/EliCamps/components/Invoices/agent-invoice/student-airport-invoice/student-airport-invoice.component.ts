@@ -12,6 +12,8 @@ import { convertToPdf } from 'src/EliCamps/common/lookup.enums';
   styleUrls: ['./student-airport-invoice.component.css']
 })
 export class StudentAirportInvoiceComponent implements OnInit {
+ public defaultColDef;
+
   public hide = false;
   public loading = false;
   public studentId: number;

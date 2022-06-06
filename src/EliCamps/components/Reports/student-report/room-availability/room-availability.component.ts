@@ -14,12 +14,16 @@ import { ListService } from "src/EliCamps/services/list.service";
 import { throwError } from "rxjs";
 import * as moment from 'moment'
 import { GroupService } from "src/EliCamps/services/group.service";
+import { AllModules } from "@ag-grid-enterprise/all-modules";
+
 @Component({
   selector: "app-room-availability",
   templateUrl: "./room-availability.component.html",
   styleUrls: ["./room-availability.component.css"],
 })
 export class RoomAvailabilityComponent implements OnInit {
+ public defaultColDef;
+
   public columnDefs = [];
   public defaultColumns = [
   {
@@ -41,7 +45,7 @@ export class RoomAvailabilityComponent implements OnInit {
   private gridApi: GridApi;
   public studentList;
   public addinList: ProgrameAddins[] = [];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   public pinnedBottomRowData: any;
   public getRowStyle: any;
@@ -54,7 +58,12 @@ export class RoomAvailabilityComponent implements OnInit {
   public programList = [];
   public program: Program;
   constructor(public listService: ListService, public studentService: GroupService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -163,12 +172,7 @@ export class RoomAvailabilityComponent implements OnInit {
     return dates;
 };
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `SiteReport${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'Room_Availability')
   }
   public clear() {
     this.program = null;

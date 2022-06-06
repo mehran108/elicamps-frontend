@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-md-3 mobile-head">
         <div class="dashboard-heading">
-
           <!-- <h6 class="with-icon bdr-heading">
             <span [class]="">Agents</span>
           </h6> -->
@@ -11,19 +10,26 @@
       </div>
       <div class="col-md-1 d-block d-sm-block d-md-none mobile-icon">
         <div class="btn-show">
-          <button mat-icon-button aria-label="Example icon-button with a heart icon">
-            <mat-icon (click)="router.navigate(['/addAgent'])"> <i class="material-icons">
-              add_circle
-            </i></mat-icon>
+          <button
+            mat-icon-button
+            aria-label="Example icon-button with a heart icon"
+          >
+            <mat-icon (click)="router.navigate(['/addAgent'])">
+              <i class="material-icons"> add_circle </i></mat-icon
+            >
           </button>
-
         </div>
       </div>
       <div class="col-md-6">
         <form action="" class="form-fields show-search">
           <div class="form-group">
             <mat-form-field>
-              <input matInput id="filter-text-box" placeholder="Search" (keyup)="onFilterTextBoxChanged($event)">
+              <input
+                matInput
+                id="filter-text-box"
+                placeholder="Search"
+                (keyup)="onFilterTextBoxChanged($event)"
+              />
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
           </div>
@@ -31,24 +37,31 @@
       </div>
       <div class="col-md-3 d-none d-sm-none d-md-block tablet-icon">
         <div class="btn-show">
-          <button mat-raised-button class="export-btn" (click)="onBtnExport()">Download</button>
+          <button mat-raised-button class="export-btn" (click)="onBtnExport()">
+            Download
+          </button>
           <button mat-icon-button>
-            <mat-icon (click)="router.navigate(['/addAgent'])"> <i class="material-icons">
-              add_circle
-            </i></mat-icon>
+            <mat-icon (click)="router.navigate(['/addAgent'])">
+              <i class="material-icons"> add_circle </i></mat-icon
+            >
           </button>
         </div>
       </div>
     </div>
   </div>
   <div class="all-show-grid">
-     <ag-grid-angular style="height: 100%;
-    max-width: 100%;
-    width: 100vw;" class="ag-theme-material" [enableColResize]="true" enableColResize
-      enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues
-      (cellDoubleClicked)="onCellClicked($event)" [gridOptions]="gridOptions" [columnDefs]="columnDefs"
-      [rowData]="agentList" (gridReady)="onGridReady($event)" [modules]="modules" #grid></ag-grid-angular>
+    <ag-grid-angular [defaultColDef]="defaultColDef"
+      style="height: 100%; max-width: 100%; width: 100vw"
+      class="ag-theme-material"
+      (cellDoubleClicked)="onCellClicked($event)"
+      [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs"
+      [rowData]="agentList"
+      (gridReady)="onGridReady($event)"
+      [modules]="modules"
+      [rowModelType]="'clientSide'"
+      [suppressContextMenu]="true"
+      #grid
+    ></ag-grid-angular>
   </div>
-
-
 </div>

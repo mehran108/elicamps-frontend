@@ -12,6 +12,8 @@ import { convertToPdf } from 'src/EliCamps/common/lookup.enums';
   styleUrls: ['./student-invitation.component.css']
 })
 export class StudentInvitationComponent implements OnInit {
+ public defaultColDef;
+
   public hide = false;
   public loading = false;
   public studentId: number;

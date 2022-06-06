@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./notes.component.css']
 })
 export class NotesComponent implements OnInit {
+
   @Input() student: Student;
   public Editor = ClassicEditor;
   @Input() isEdit = false;

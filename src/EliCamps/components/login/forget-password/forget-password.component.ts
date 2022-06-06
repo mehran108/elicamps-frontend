@@ -10,8 +10,11 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./forget-password.component.css']
 })
 export class ForgetPasswordComponent implements OnInit {
+
   public forgetPasswordForm: FormGroup;
   public loading = false;
+   public defaultColDef;
+
   constructor(
     public router: Router,
     public authenticationService: AuthenticationService,

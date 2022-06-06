@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-md-3 mobile-head">
         <div class="dashboard-heading">
-
           <h6 class="with-icon bdr-heading">
             <span [class]="">Users</span>
           </h6>
@@ -20,7 +19,12 @@
         <form action="" class="form-fields show-search">
           <div class="form-group">
             <mat-form-field>
-              <input matInput id="filter-text-box" placeholder="Search" (keyup)="onFilterTextBoxChanged($event)">
+              <input
+                matInput
+                id="filter-text-box"
+                placeholder="Search"
+                (keyup)="onFilterTextBoxChanged($event)"
+              />
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
           </div>
@@ -36,14 +40,27 @@
     </div>
   </div>
 
-  <div class="all-show-grid" >
-     <ag-grid-angular style="height: 100%;
-    max-width: 100%;
-    width: 100vw;" class="ag-theme-material" [enableColResize]="true" enableColResize
-      enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues
-      (cellDoubleClicked)="onCellClicked($event)" [gridOptions]="gridOptions" [columnDefs]="columnDefs"
-      [rowData]="userList" (gridReady)="onGridReady($event)" [modules]="modules" #grid></ag-grid-angular>
+  <div class="all-show-grid">
+    <ag-grid-angular [defaultColDef]="defaultColDef"
+      style="height: 100%; max-width: 100%; width: 100vw"
+      class="ag-theme-material"
+      [enableColResize]="true"
+      enableColResize
+      enableSorting
+      enableFilter
+      groupHeaders
+      suppressRowClickSelection
+      toolPanelSuppressGroups
+      toolPanelSuppressValues
+      (cellDoubleClicked)="onCellClicked($event)"
+      [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs"
+      [rowData]="userList"
+      (gridReady)="onGridReady($event)"
+      [modules]="modules"
+      [rowModelType]="'clientSide'"
+      [suppressContextMenu]="true"
+      #grid
+    ></ag-grid-angular>
   </div>
-
-
 </div>

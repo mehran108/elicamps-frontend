@@ -13,6 +13,8 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./group-invoice.component.css']
 })
 export class GroupInvoiceComponent implements OnInit {
+ public defaultColDef;
+
 
   public hide = false;
   public loading = false;

@@ -5,22 +5,29 @@ import { Agent } from '../../EliCamps-Models/Elicamps';
 import { ListService } from '../../services/list.service';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import {AllCommunityModules} from '@ag-grid-community/all-modules';
-
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 @Component({
   selector: 'app-agents',
   templateUrl: './agents.component.html',
   styleUrls: ['./agents.component.css']
 })
 export class AgentsComponent implements OnInit {
+ public defaultColDef;
+
   public columnDefs = AGENTS_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public agentList: Agent[];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   constructor(public router: Router, public listService: ListService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -65,11 +72,6 @@ export class AgentsComponent implements OnInit {
     });
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `Agents${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'Agents')
   }
 }

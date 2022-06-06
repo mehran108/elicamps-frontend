@@ -12,6 +12,7 @@ import { SharedService } from 'src/EliCamps/services/shared.service';
   styleUrls: ['./confirmation-dialog.component.css']
 })
 export class ConfirmationDialogComponent implements OnInit {
+
   public isEdit = false;
   public studentId = '';
   constructor(

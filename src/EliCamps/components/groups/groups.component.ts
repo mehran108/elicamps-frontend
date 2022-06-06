@@ -9,31 +9,42 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { DeleteConfirmationDialogComponent } from '../confirmation-dialog/delete-confirmation-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ButtonRendererComponent } from 'src/EliCamps/ag-grid/renderers/button-renderer.component';
+import { ListService } from 'src/EliCamps/services/list.service';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
+
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.css']
 })
 export class GroupsComponent implements OnInit {
+ public defaultColDef;
+
   public columnDefs = GROUPS_COL_DEFS;
   public rowData: any[];
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public groupList: Group[] = [];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   constructor(
     private groupService: GroupService,
     public router: Router,
     public confirmationDialogRef: MatDialogRef<DeleteConfirmationDialogComponent>,
     public dialog: MatDialog,
-    public spinner: NgxSpinnerService) {
+    public spinner: NgxSpinnerService,
+    public listService: ListService) {
 
   }
 
   ngOnInit() {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
         buttonRenderer: ButtonRendererComponent
@@ -117,11 +128,6 @@ export class GroupsComponent implements OnInit {
 
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `Groups${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'Groups')
   }
 }

@@ -5,6 +5,7 @@ import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { ListService } from 'src/EliCamps/services/list.service';
 import { Router } from '@angular/router';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-sub-program',
@@ -12,14 +13,21 @@ import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-rende
   styleUrls: ['./sub-program.component.css']
 })
 export class SubProgramComponent implements OnInit {
+
   public columnDefs = SUB_PROGRAM_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public subProgramList: SubProgram[];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
+  public defaultColDef;
   constructor(public router: Router, public listService: ListService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -47,12 +55,8 @@ export class SubProgramComponent implements OnInit {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `SubProgram${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'SubProgram')
+
   }
   onCellClicked($event) {
 

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import { ListService } from 'src/EliCamps/services/list.service';
 import { throwError } from 'rxjs';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-trip-report',
@@ -13,12 +14,14 @@ import { throwError } from 'rxjs';
   styleUrls: ['./trip-report.component.css']
 })
 export class TripReportComponent implements OnInit {
+ public defaultColDef;
+
   public columnDefs = TRIP_REPORT_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public trips: Trip[];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public startDate: Date;
   public endDate: Date;
   public campus: Campus;
@@ -26,7 +29,12 @@ export class TripReportComponent implements OnInit {
   public campusList: Campus[];
   public studentTripList = [];
   constructor(public router: Router, public listService: ListService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -89,12 +97,7 @@ export class TripReportComponent implements OnInit {
   }
 
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `InsuranceReport${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'Trips_Report')
   }
   public filterData = () => {
     let filteredList = this.studentTripList;

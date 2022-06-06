@@ -5,22 +5,31 @@ import { Trip } from '../../EliCamps-Models/Elicamps';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { ListService } from 'src/EliCamps/services/list.service';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
+
 @Component({
   selector: 'app-trips',
   templateUrl: './trips.component.html',
   styleUrls: ['./trips.component.css']
 })
 export class TripsComponent implements OnInit {
+
   public columnDefs = TRIP_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public tripList: Trip[];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   @Input() public isEdit = false;
+  public defaultColDef;
   constructor(public router: Router, public listService: ListService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -47,12 +56,7 @@ export class TripsComponent implements OnInit {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `Trips${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'Students')
   }
   onCellClicked($event) {
 

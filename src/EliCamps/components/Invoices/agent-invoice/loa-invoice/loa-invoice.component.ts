@@ -12,6 +12,8 @@ import { convertToPdf } from 'src/EliCamps/common/lookup.enums';
   styleUrls: ['./loa-invoice.component.css']
 })
 export class LoaInvoiceComponent implements OnInit {
+ public defaultColDef;
+
   public hide = false;
   public loading = false;
   public studentId: number;

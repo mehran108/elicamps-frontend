@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col-md-3 mobile-head">
         <div class="dashboard-heading">
-
           <!-- <h6 class="with-icon bdr-heading">
             <span [class]="">Insurance Report</span>
           </h6> -->
@@ -18,10 +17,14 @@
       </div>
       <div class="col-md-6">
         <form action="" class="form-fields show-search">
-
           <div class="form-group">
             <mat-form-field>
-              <input matInput id="filter-text-box" placeholder="Search" (keyup)="onFilterTextBoxChanged($event)">
+              <input
+                matInput
+                id="filter-text-box"
+                placeholder="Search"
+                (keyup)="onFilterTextBoxChanged($event)"
+              />
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
           </div>
@@ -29,21 +32,29 @@
       </div>
       <div class="col-md-3 d-none d-sm-none d-md-block tablet-icon">
         <div class="btn-show">
-          <button mat-raised-button class="export-btn" (click)="onBtnExport()">Download</button>
+          <button mat-raised-button class="export-btn" (click)="onBtnExport()">
+            Download
+          </button>
         </div>
       </div>
     </div>
   </div>
 
   <div class="all-show-grid">
-    <ag-grid-angular style="height: 100%;
-    max-width: 100%;
-    width: 100vw;" class="ag-theme-material" [getRowStyle]="getRowStyle" [enableColResize]="true" [enableFilter]="true"
-      [enableSorting]="true" [showToolPanel]="true" [gridOptions]="gridOptions" [columnDefs]="columnDefs"
-      [pinnedBottomRowData]="pinnedBottomRowData" [modules]="modules" [rowData]="paymentReport"
-      (gridReady)="onGridReady($event)" #grid>
+    <ag-grid-angular [defaultColDef]="defaultColDef"
+      style="height: 100%; max-width: 100%; width: 100vw"
+      class="ag-theme-material"
+      [getRowStyle]="getRowStyle"
+      [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs"
+      [pinnedBottomRowData]="pinnedBottomRowData"
+      [modules]="modules"
+      [rowData]="paymentReport"
+      (gridReady)="onGridReady($event)"
+      [rowModelType]="'clientSide'"
+      [suppressContextMenu]="true"
+      #grid
+    >
     </ag-grid-angular>
   </div>
-
-
 </div>

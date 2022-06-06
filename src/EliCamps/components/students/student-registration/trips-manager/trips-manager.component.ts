@@ -15,6 +15,7 @@ import * as moment from 'moment';
   styleUrls: ['./trips-manager.component.css']
 })
 export class TripsManagerComponent implements OnInit {
+
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onStudentRegistration: EventEmitter<any> = new EventEmitter<any>();
   @Input() student: Student;

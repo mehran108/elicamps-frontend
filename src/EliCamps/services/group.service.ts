@@ -11,6 +11,7 @@ import { Keys } from '../common/lookup.enums';
 })
 export class GroupService {
   private TripsMangerState: ReplaySubject<TripsMangerModel>;
+   public defaultColDef;
   constructor(public httpClient: HttpClient, public storage: LocalstorageService) {
     this.TripsMangerState = new ReplaySubject<TripsMangerModel>();
   }

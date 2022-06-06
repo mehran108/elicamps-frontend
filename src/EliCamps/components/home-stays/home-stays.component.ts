@@ -5,6 +5,7 @@ import { ListService } from '../../services/list.service';
 import { HomeStay } from '../../EliCamps-Models/Elicamps';
 import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-renderer/chip-renderer.component';
 import { AllCommunityModules } from '@ag-grid-community/all-modules';
+import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
   selector: 'app-home-stays',
@@ -12,15 +13,22 @@ import { AllCommunityModules } from '@ag-grid-community/all-modules';
   styleUrls: ['./home-stays.component.css']
 })
 export class HomeStaysComponent implements OnInit {
+ public defaultColDef;
+
   public columnDefs = HOMESTAY_COL_DEFS;
   public gridOptions: any;
   public info: string;
   private gridApi: any;
   public homeStayList: HomeStay[];
-  public modules = AllCommunityModules;
+  public modules = AllModules;
   public gridColumnApi: any;
   constructor(public router: Router, public listService: ListService) {
-    this.gridOptions = {
+        this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+    };
+this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -54,12 +62,7 @@ export class HomeStaysComponent implements OnInit {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   onBtnExport(): void {
-    const params = {
-      columnGroups: true,
-      allColumns: true,
-      fileName: `Homestay${new Date().toLocaleString()}`,
-    };
-    this.gridApi.exportDataAsCsv(params);
+    this.listService.exportGridData(this.gridApi, 'Homestay')
   }
   onCellClicked($event) {
 
