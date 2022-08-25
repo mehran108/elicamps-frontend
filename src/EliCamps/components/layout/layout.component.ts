@@ -9,6 +9,7 @@ import { NavigationEnd, Router } from "@angular/router";
 import { DOCUMENT } from "@angular/common";
 import { MatDrawer } from "@angular/material";
 import { Title } from "@angular/platform-browser";
+import { LocalstorageService } from "src/EliCamps/services/localstorage.service";
 
 @Component({
   selector: "app-layout",
@@ -26,7 +27,8 @@ export class LayoutComponent implements OnInit {
   constructor(
     public router: Router,
     @Inject(DOCUMENT) private document: Document,
-    public titleService: Title
+    public titleService: Title,
+    public storage: LocalstorageService
   ) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -38,6 +40,9 @@ export class LayoutComponent implements OnInit {
         titleService.setTitle(title);
       }
     });
+  }
+  get loading$() {
+    return this.storage.loading;
   }
   // collect that title data properties from all child routes
   // there might be a better way but this worked for me

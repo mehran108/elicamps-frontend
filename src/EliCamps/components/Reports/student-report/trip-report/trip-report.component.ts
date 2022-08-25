@@ -7,6 +7,8 @@ import { ChipRendererComponent } from 'src/EliCamps/ag-grid/renderers/chip-rende
 import { ListService } from 'src/EliCamps/services/list.service';
 import { throwError } from 'rxjs';
 import { AllModules } from "@ag-grid-enterprise/all-modules";
+import { LookupEnum } from 'src/EliCamps/common/lookup.enums';
+import { MatSelectChange } from '@angular/material';
 
 @Component({
   selector: 'app-trip-report',
@@ -28,6 +30,7 @@ export class TripReportComponent implements OnInit {
   public trip: Trip;
   public campusList: Campus[];
   public studentTripList = [];
+  public statusList = [];
   constructor(public router: Router, public listService: ListService) {
         this.defaultColDef = {
       resizable: true,
@@ -45,6 +48,9 @@ this.gridOptions = {
   ngOnInit() {
     this.getAgentList();
     this.getCampusList();
+    this.listService.getAll(LookupEnum.STUDENT_STATUS).subscribe((res) => {
+      this.statusList = res;
+    });
   }
   public getCampusList = async () => {
     const params = {
@@ -65,8 +71,39 @@ this.gridOptions = {
       active: true
     };
     this.listService.getInsuranceReport().subscribe(res => {
-      this.studentTripList = res;
+      this.studentTripList = res.map(row => ({
+        ...row,
+        status: this.getStatus(row),
+      }));
+      this.studentTripList = this.studentTripList.sort((a, b) =>
+      a.active > b.active ? -1 : 0
+    );
+    let changedEvent: MatSelectChange = {
+      source: null,
+      value: 'Active',
+    };
+    this.filterStudents(changedEvent);
     });
+  }
+  public getStatus(row) {
+    const statusRow = this.statusList.find((el) => el.id === row.statusId);
+    if (row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
+      return "Past";
+    } else if (statusRow) {
+      return statusRow.name;
+    } else {
+      return "Active";
+    }
+  }
+  filterStudents(changeEvent: MatSelectChange) {
+    if (changeEvent.value) {
+      this.studentTripList = this.studentTripList.filter(
+        (row) => row.status === changeEvent.value
+      );
+      this.gridApi.setRowData(this.studentTripList);
+    } else {
+      this.gridApi.setRowData(this.studentTripList);
+    }
   }
   onGridReady(params) {
     this.gridApi = params.api;

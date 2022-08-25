@@ -19,6 +19,8 @@ import { GroupService } from "src/EliCamps/services/group.service";
 import { ListService } from "src/EliCamps/services/list.service";
 import { throwError } from "rxjs";
 import { AllModules } from "@ag-grid-enterprise/all-modules";
+import { LookupEnum } from "src/EliCamps/common/lookup.enums";
+import { MatSelectChange } from "@angular/material";
 
 @Component({
   selector: "app-student-report",
@@ -45,6 +47,7 @@ export class StudentReportComponent implements OnInit {
   public rooms: Room[];
   public homestayList: HomeStay[];
   public programList = [];
+  public statusList = [];
   public program: Program;
   constructor(public listService: ListService) {
         this.defaultColDef = {
@@ -81,6 +84,9 @@ this.gridOptions = {
     const params = {
       active: true,
     };
+    this.listService.getAll(LookupEnum.STUDENT_STATUS).subscribe((res) => {
+      this.statusList = res;
+    });
     const campuseResponse = await this.listService
       .getAllCampus(params)
       .toPromise()
@@ -128,9 +134,39 @@ this.gridOptions = {
           ? this.getHomeStay(row.homestayID).cellNumber
           : "",
         room: this.rooms.find((room) => room.id === row.roomID) || {},
+        status: this.getStatus(row)
       }));
+      this.studentList = this.studentList.sort((a, b) =>
+      a.active > b.active ? -1 : 0
+    );
+    let changedEvent: MatSelectChange = {
+      source: null,
+      value: 'Active',
+    };
+    this.filterStudents(changedEvent);
     });
+
   };
+  public getStatus(row) {
+    const statusRow = this.statusList.find((el) => el.id === row.statusId);
+    if (row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
+      return "Past";
+    } else if (statusRow) {
+      return statusRow.name;
+    } else {
+      return "Active";
+    }
+  }
+  filterStudents(changeEvent: MatSelectChange) {
+    if (changeEvent.value) {
+      this.studentList = this.studentList.filter(
+        (row) => row.status === changeEvent.value
+      );
+      this.gridApi.setRowData(this.studentList);
+    } else {
+      this.gridApi.setRowData(this.studentList);
+    }
+  }
   public getHomeStay = (homestayID: number) => {
     if (homestayID) {
       const homestay = this.homestayList.find(
@@ -176,20 +212,41 @@ this.gridOptions = {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   filterChage = () => {
-    if (this.campus && this.program && this.startDate && this.endDate) {
-      let list = this.studentList.filter((el) => {
-        return (
-          el.campusName === this.campus.campus &&
-          el.programName === this.program.programName
+    let list = this.studentList;
+      if (this.campus) {
+         list = list.filter((el) => {
+          return (
+            el.campusName === this.campus.campus
+          );
+        });
+      }
+      if (this.program) {
+        list = list.filter((el) => {
+          return (
+            el.programName === this.program.programName
+          );
+        });
+      }
+      if (this.startDate) {
+        list = list.filter(
+          (el) =>
+            new Date(el.arrivalDate) >= this.startDate
         );
-      });
-      list = list.filter(
-        (el) =>
-          new Date(el.programeStartDate) >= this.startDate &&
-          new Date(el.programeEndDate) <= this.endDate
-      );
+      }
+      if (this.endDate) {
+        list = list.filter(
+          (el) =>
+            new Date(el.arrivalDate) <= this.endDate
+        );
+      }
+      if (this.startDate && this.endDate) {
+        list = list.filter(
+          (el) =>
+            new Date(el.arrivalDate) >= this.startDate &&
+            new Date(el.arrivalDate) <= this.endDate
+        );
+      }
       this.gridApi.setRowData(list);
-    }
   };
   onBtnExport(): void {
     this.listService.exportGridData(this.gridApi, 'SiteReport')

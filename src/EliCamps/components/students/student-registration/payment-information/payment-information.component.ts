@@ -57,6 +57,7 @@ export class PaymentInformationComponent implements OnInit, OnChanges {
   public modules = AllModules;
   public templateList = [];
   public defaultColDef;
+  @Input() campusList = [];
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -246,12 +247,11 @@ this.gridOptions = {
         }
       }
     } else if (this.studentForm.controls.homestayOrResi.value == "2") {
-      if (this.studentForm.controls.roomID.value) {
-        const room = this.roomsList.find(
-          (row) => row.id === this.studentForm.controls.roomID.value
+      const camp = this.studentForm.controls.roomSearchCampus || this.studentForm.controls.campus
+        const campus = this.campusList.find(
+          (row) => row.id === camp.value
         );
-        address = `${room.roomID}, ${room.building}, ${room.campus}`;
-      }
+        address = `${campus.addressOnReports}`;
     }
     return address;
   }
@@ -330,10 +330,8 @@ this.gridOptions = {
   };
   calculate = () => {
     let totalGross = this.studentForm.controls.totalGrossPrice.value;
-    if (totalGross && !this.studentForm.controls.netPrice.value) {
       this.studentForm.controls.netPrice.setValue(totalGross);
       this.studentForm.controls.balance.setValue(totalGross);
-    }
     if (
       this.studentForm.controls.totalAddins.value &&
       !this.studentForm.controls.commision.value

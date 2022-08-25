@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalstorageService {
-
+  public loading: BehaviorSubject<any> = new BehaviorSubject<any>(null);
    public defaultColDef;
   constructor() { }
 

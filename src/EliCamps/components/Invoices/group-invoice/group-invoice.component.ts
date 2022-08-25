@@ -60,8 +60,8 @@ export class GroupInvoiceComponent implements OnInit {
       this.formatList = res;
     });
     this.groupService.getAllElicampsStudents({}).subscribe((res: any) => {
-      this.studentList = res.data;
-      this.allStudents = res.data.filter(student => student.chapFamily === 'Chaperone');
+      this.studentList = res.data.filter(row => row.statusId !== 1030 && row.statusId !== 1036);
+      this.allStudents = res.data.filter(student => student.statusId !== 1030 && student.statusId !== 1036 && student.chapFamily === 'Chaperone');
       this.allStudents = this.allStudents.filter(row => row.groupRef === this.groupId.toString()).map(std => ({ refNumber: std.reg_Ref, amount: std.totalGrossPrice }));
     });
   }

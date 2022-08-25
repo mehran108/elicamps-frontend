@@ -77,8 +77,8 @@ export class GroupProgrameComponent implements OnInit {
   }
   initializeFormWithValues(group: Group) {
     this.programeFrom = this.formBuilder.group({
-      programeStartDate: [group.arrivalDate],
-      programeEndDate: [group.departureDate],
+      programeStartDate: [group.programeStartDate],
+      programeEndDate: [group.programeEndDate],
       campus: [group.campus],
       format: [group.format || 1020],
       mealPlan: [group.mealPlan || 'Full Board'],

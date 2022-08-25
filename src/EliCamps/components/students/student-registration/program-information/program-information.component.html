@@ -50,7 +50,7 @@
         </div>
         <div class="col-md-4 form-group">
           <mat-form-field>
-            <mat-select placeholder="Campus" formControlName="campus">
+            <mat-select (selectionChange)="campusSelected($event)" placeholder="Campus" formControlName="campus">
               <mat-option *ngFor="let res of campusList; let i = index" [value]="res.id">
                 {{res.campus}}
               </mat-option>

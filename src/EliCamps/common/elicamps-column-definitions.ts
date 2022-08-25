@@ -134,6 +134,9 @@ export const GROUPS_COL_DEFS = [
 ];
 export const STUDENT_COL_DEFS = [
   {
+    checkboxSelection: true
+  },
+  {
     headerName: 'First Name',
     field: 'firstName',
     minWidth: 50,
@@ -238,7 +241,7 @@ export const STUDENT_COL_DEFS = [
     minWidth: 50,
     resizable: true,
     cellStyle: (params) => {
-      if (params.value === 'Cancelled') {
+      if (params.value === 'Cancelled' || params.value === 'Inactive') {
         return { color: 'red', 'font-weight': '600' };
       } else if (params.value === 'Past') {
         return { color: 'orange', 'font-weight': '500' };
@@ -970,6 +973,12 @@ export const INSURANCE_REPORT_COL_DEFS = [
     resizable: true
   },
   {
+    headerName: 'Country',
+    field: 'country',
+    minWidth: 50,
+    resizable: true
+  },
+  {
     headerName: 'Start',
     field: 'programeStartDate',
     minWidth: 50,
@@ -993,7 +1002,7 @@ export const INSURANCE_REPORT_COL_DEFS = [
   },
   {
     headerName: 'Group Name',
-    field: 'reg_Ref',
+    field: 'agencyRef',
     minWidth: 50,
     resizable: true
   },

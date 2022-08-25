@@ -32,7 +32,7 @@ export class GroupAddEditComponent implements OnInit {
   public isEdit = false;
   public loading = false;
   public campList: LookupTable[] = [];
-  public yearList = [{ value: 2019, name: '2019' }, { value: 2020, name: '2020' }];
+  public yearList = [{ value: 2019, name: '2019' }, { value: 2020, name: '2020' }, { value: 2020, name: '2021' }, { value: 2020, name: '2022' }];
   public invoiceTypeList = [{ value: 'Gross', name: 'Gross' }, { value: 'Net', name: 'Net' }];
   public studentList = [];
   constructor(

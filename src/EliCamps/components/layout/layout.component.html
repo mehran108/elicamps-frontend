@@ -92,6 +92,9 @@
            <a mat-list-item [routerLink]="'/rooms-availability'">
             <mat-icon>bedroom_parent</mat-icon> &nbsp; Rooms Availability
           </a>
+           <a mat-list-item [routerLink]="'/rooms-check-in-report'">
+            <mat-icon>event_note</mat-icon> &nbsp; Rooms Check Date
+          </a>
         <!--  <a mat-list-item [routerLink]="'/trip-report'">
             <mat-icon>rowing</mat-icon> &nbsp; Trip Report
           </a>
@@ -128,6 +131,7 @@
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
+    <mat-progress-bar class="progress-bar" *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
     <main class="full-width" id="mainContent">
       <router-outlet></router-outlet>
     </main>

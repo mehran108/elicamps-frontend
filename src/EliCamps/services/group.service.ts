@@ -131,4 +131,7 @@ export class GroupService {
     }
     return this.httpClient.post(`${environment.appStudent}/documentGetByStudentId`, model,{ responseType: 'blob' });
   }
+  public exportCertifcate(model: any) {
+    return this.httpClient.post(`${environment.appStudent}/downloadCertificateZipped`, model,{responseType: 'arraybuffer'});
+  }
 }

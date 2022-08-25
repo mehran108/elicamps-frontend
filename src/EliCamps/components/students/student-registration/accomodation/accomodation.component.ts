@@ -57,7 +57,6 @@ export class AccomodationComponent implements OnInit, OnChanges {
       this.showHomeStay = false;
     }
   }
-
   public getHTML = (value: number) => {
     if (this.homeStayList.find(res => res.homeId == value)) {
       return this.homeStayList.find(res => res.homeId === value).homeStayLocationURL || '';

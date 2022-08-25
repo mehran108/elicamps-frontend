@@ -100,7 +100,7 @@ this.gridOptions = {
       this.gridApi.setRowData([]);
     }
     this.studentService.getAllElicampsStudents({}).subscribe((res: any) => {
-      this.studentList = res.data;
+      this.studentList = res.data.filter(row => row.statusId !== 1030 && row.statusId !== 1036 && row.active);;
     })
   };
   onGridReady(params) {

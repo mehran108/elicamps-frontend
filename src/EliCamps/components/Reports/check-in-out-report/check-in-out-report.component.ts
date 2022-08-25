@@ -13,34 +13,33 @@ import {
 import { GroupService } from "src/EliCamps/services/group.service";
 import { ListService } from "src/EliCamps/services/list.service";
 import { throwError } from "rxjs";
-import * as moment from 'moment';
+import * as moment from "moment";
 import { AllModules } from "@ag-grid-enterprise/all-modules";
 
 @Component({
-  selector: 'app-check-in-out-report',
-  templateUrl: './check-in-out-report.component.html',
-  styleUrls: ['./check-in-out-report.component.css']
+  selector: "app-check-in-out-report",
+  templateUrl: "./check-in-out-report.component.html",
+  styleUrls: ["./check-in-out-report.component.css"],
 })
 export class CheckInOutReportComponent implements OnInit {
- public defaultColDef;
+  public defaultColDef;
 
-  public columnDefs =
-  [
+  public columnDefs = [
     {
-      headerName: 'Date',
-      field: 'date'
+      headerName: "Date",
+      field: "date",
     },
     {
-      headerName: 'In',
-      field: 'in'
+      headerName: "In",
+      field: "in",
     },
     {
-      headerName: 'Out',
-      field: 'out'
+      headerName: "Out",
+      field: "out",
     },
     {
-      headerName: 'Total',
-      field: 'total'
+      headerName: "Total",
+      field: "total",
     },
   ];
   public gridOptions: any;
@@ -52,28 +51,33 @@ export class CheckInOutReportComponent implements OnInit {
   public gridColumnApi: any;
   public pinnedBottomRowData: any;
   public getRowStyle: any;
-  public startDate = new Date('06/23/2020');
-  public endDate = new Date('08/09/2020');;
+  public startDate;
+  public endDate;
   public campus: Campus;
   public campusList: Campus[];
   public rooms: Room[];
   public homestayList: HomeStay[];
   public programList = [];
   public program: Program;
-   public defaultColDef;
-  constructor(public listService: ListService) {
-        this.defaultColDef = {
+  constructor(
+    public listService: ListService,
+    public groupService: GroupService
+  ) {
+    this.defaultColDef = {
       resizable: true,
       sortable: true,
       filter: true,
     };
-this.gridOptions = {
+    this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
       pagination: true,
       paginationAutoPageSize: true,
     };
+    const currentYear = new Date().getFullYear();
+    this.startDate = new Date(`06/25/${currentYear}`);
+    this.endDate = new Date(`08/14/${currentYear}`);
   }
   ngOnInit() {
     this.getCampusList();
@@ -106,43 +110,51 @@ this.gridOptions = {
     this.getReportList();
   };
   public getReportList = () => {
-
-    this.listService.getInsuranceReport().subscribe((res: Array<any>) => {
-      this.studentList = res;
-      this.createUIList(res);
-
-    });
+    this.groupService
+      .getAllElicampsStudents({ active: true })
+      .subscribe((res: Array<any>) => {
+        this.studentList = (res as any).data.filter(row => row.statusId !== 1030 && row.statusId !== 1036 && row.active);;
+        this.createUIList(this.studentList);
+      });
   };
   public createUIList(res) {
     const dates = this.enumerateDaysBetweenDates(this.startDate, this.endDate);
     let gridList = [];
     let total = 0;
-   dates.forEach((date) => {
-     let row = {
-       date: date.toDateString(),
-       in: res.filter(el => moment(el.programeStartDate).format('MM/DD/YYYY') ===  moment(date).format('MM/DD/YYYY')).length,
-       out: res.filter(el => moment(el.programeEndDate).format('MM/DD/YYYY') ===  moment(date).format('MM/DD/YYYY')).length,
-       total: total
-     };
-     total += row.in;
-     total -= row.out;
-     row.total = total;
-     gridList.push(row);
-   });
-   this.gridApi.setRowData(gridList);
+    dates.forEach((date) => {
+      let row = {
+        date: date.toDateString(),
+        in: res.filter(
+          (el) =>
+            new Date(el.arrivalDate).toLocaleDateString() ===
+            date.toLocaleDateString()
+        ).length,
+        out: res.filter(
+          (el) =>
+            new Date(el.departureDate).toLocaleDateString() ===
+            date.toLocaleDateString()
+        ).length,
+        total: total,
+      };
+      total += row.in;
+      total -= row.out;
+      row.total = total;
+      gridList.push(row);
+    });
+    this.gridApi.setRowData(gridList);
   }
- enumerateDaysBetweenDates = (startDate, endDate) => {
+  enumerateDaysBetweenDates = (startDate, endDate) => {
     var dates = [];
     dates.push(startDate);
-    var currDate = moment(startDate).startOf('day');
-    var lastDate = moment(endDate).startOf('day');
+    var currDate = moment(startDate).startOf("day");
+    var lastDate = moment(endDate).startOf("day");
 
-    while(currDate.add(1, 'days').diff(lastDate) < 0) {
-        dates.push(currDate.clone().toDate());
+    while (currDate.add(1, "days").diff(lastDate) < 0) {
+      dates.push(currDate.clone().toDate());
     }
     dates.push(endDate);
     return dates;
-};
+  };
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -153,25 +165,19 @@ this.gridOptions = {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   filterChage = () => {
-    if (this.startDate && this.endDate && !this.campus && !this.program ) {
+    if (this.startDate && this.endDate && !this.campus && !this.program) {
       this.createUIList(this.studentList);
     } else if (this.startDate && this.endDate && this.campus && !this.program) {
       let list = this.studentList.filter((el) => {
-        return (
-          el.campusName === this.campus.campus
-        );
+        return el.campusName === this.campus.campus;
       });
       this.createUIList(list);
-    }
-    else if (this.startDate && this.endDate && !this.campus && this.program) {
+    } else if (this.startDate && this.endDate && !this.campus && this.program) {
       let list = this.studentList.filter((el) => {
-        return (
-          el.programName === this.program.programName
-        );
+        return el.programName === this.program.programName;
       });
       this.createUIList(list);
-    }
-    else if (this.campus && this.program && this.startDate && this.endDate) {
+    } else if (this.campus && this.program && this.startDate && this.endDate) {
       let list = this.studentList.filter((el) => {
         return (
           el.campusName === this.campus.campus &&
@@ -182,11 +188,11 @@ this.gridOptions = {
     }
   };
   onBtnExport(): void {
-    this.listService.exportGridData(this.gridApi, 'Check_In-Out')
+    this.listService.exportGridData(this.gridApi, "Check_In-Out");
   }
   public clear() {
     this.program = null;
     this.campus = null;
-    this.createUIList(this.studentList)
+    this.createUIList(this.studentList);
   }
 }

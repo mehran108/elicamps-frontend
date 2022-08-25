@@ -8,6 +8,7 @@ import {
 import { ListService } from "src/EliCamps/services/list.service";
 import { Agent, Campus, Program } from "src/EliCamps/EliCamps-Models/Elicamps";
 import { LookupEnum } from "src/EliCamps/common/lookup.enums";
+import { MatSelectChange } from "@angular/material";
 
 @Component({
   selector: "app-payment-report",
@@ -15,7 +16,7 @@ import { LookupEnum } from "src/EliCamps/common/lookup.enums";
   styleUrls: ["./payment-report.component.css"],
 })
 export class PaymentReportComponent implements OnInit {
- public defaultColDef;
+  public defaultColDef;
 
   public columnDefs = PAYMENT_REPORT_COL_DEFS;
   public gridOptions: any;
@@ -38,14 +39,15 @@ export class PaymentReportComponent implements OnInit {
   public agent: Agent;
   public format: any;
   public programList = [];
+  public statusList = [];
   public program: Program;
   constructor(public listService: ListService) {
-        this.defaultColDef = {
+    this.defaultColDef = {
       resizable: true,
       sortable: true,
       filter: true,
     };
-this.gridOptions = {
+    this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -71,6 +73,9 @@ this.gridOptions = {
     const params = {
       active: true,
     };
+    this.listService.getAll(LookupEnum.STUDENT_STATUS).subscribe((res) => {
+      this.statusList = res;
+    });
     this.listService.getAllProgram(params).subscribe((res) => {
       this.programList = res.data;
     });
@@ -98,16 +103,45 @@ this.gridOptions = {
         report = this.calculate(report);
         return {
           ...report,
+          status: this.getStatus(report),
           studentName: `${report.firstName} ${report.lastName}`,
           commision: report.commision
             ? (report.commision / 100) * report.totalGrossPrice
             : 0,
         };
       });
+      this.paymentReport = this.paymentReport.sort((a, b) =>
+        a.active > b.active ? -1 : 0
+      );
+      let changedEvent: MatSelectChange = {
+        source: null,
+        value: "Active",
+      };
+      this.filterStudents(changedEvent);
       this.selectedYear = this.yearList[0];
       this.setPinnedRowData(this.paymentReport);
     });
   };
+  public getStatus(row) {
+    const statusRow = this.statusList.find((el) => el.id === row.statusId);
+    if (row.departureDate && new Date(row.departureDate) <= new Date()) {
+      return "Past";
+    } else if (statusRow) {
+      return statusRow.name;
+    } else {
+      return "Active";
+    }
+  }
+  filterStudents(changeEvent: MatSelectChange) {
+    if (changeEvent.value) {
+      this.paymentReport = this.paymentReport.filter(
+        (row) => row.status === changeEvent.value
+      );
+      this.gridApi.setRowData(this.paymentReport);
+    } else {
+      this.gridApi.setRowData(this.paymentReport);
+    }
+  }
   public setPinnedRowData(list) {
     this.pinnedBottomRowData = [
       {
@@ -116,7 +150,7 @@ this.gridOptions = {
         paid: this.getSum("paid", list),
         balance: this.getSum("balance", list),
         commision: this.getSum("commision", list),
-        registrationFee: this.getSum("registrationFee", list)
+        registrationFee: this.getSum("registrationFee", list),
       },
     ];
   }
@@ -133,7 +167,7 @@ this.gridOptions = {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   onBtnExport(): void {
-    this.listService.exportGridData(this.gridApi, 'PaymentSummaryReport')
+    this.listService.exportGridData(this.gridApi, "PaymentSummaryReport");
   }
   public show() {
     this.getPaymentSummaryReport(this.selectedYear);
@@ -146,23 +180,41 @@ this.gridOptions = {
     }
   }
   public filterChage() {
-    if (this.campus && this.program && this.startDate && this.endDate) {
-      let list = this.paymentReport.filter((el) => {
-        return (
-          el.campusName === this.campus.campus &&
-          el.programName === this.program.programName &&
-          el.formatName === this.format.name &&
-          el.agentName === this.agent.agent
-        );
+    let list = this.paymentReport;
+    if (this.campus) {
+      list = this.paymentReport.filter((el) => {
+        return el.campusName === this.campus.campus;
       });
+    }
+    if (this.program) {
+      list = this.paymentReport.filter((el) => {
+        return el.programName === this.program.programName;
+      });
+    }
+    if (this.format) {
+      list = this.paymentReport.filter((el) => {
+        return el.formatName === this.format.name;
+      });
+    }
+    if (this.agent) {
+      list = this.paymentReport.filter((el) => {
+        return el.agentName === this.agent.agent;
+      });
+    }
+
+    if (this.startDate && this.endDate) {
       list = list.filter(
         (el) =>
           new Date(el.arrivalDate) >= this.startDate &&
           new Date(el.arrivalDate) <= this.endDate
       );
-      this.setPinnedRowData(list);
-      this.gridApi.setRowData(list);
+    } else if (this.startDate) {
+      list = list.filter((el) => new Date(el.arrivalDate) >= this.startDate);
+    } else if (this.endDate) {
+      list = list.filter((el) => new Date(el.arrivalDate) <= this.endDate);
     }
+    this.setPinnedRowData(list);
+    this.gridApi.setRowData(list);
   }
   public clear() {
     this.startDate = null;

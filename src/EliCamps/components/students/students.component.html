@@ -38,6 +38,12 @@
           <button mat-raised-button class="export-btn" (click)="onBtnExport()">
             Download
           </button>
+          <button mat-raised-button class="export-btn" (click)="isSelectAll ? onDeSelectAll(): onSelectAll()">
+           {{isSelectAll ? 'Deselect All': 'Select All'}}
+          </button>
+          <button mat-raised-button class="export-btn" (click)="exportCertificate()">
+            Certiface
+          </button>
           <button mat-icon-button>
             <mat-icon
               class="create-btn"
@@ -59,6 +65,7 @@
       (cellDoubleClicked)="onCellClicked($event)"
       [gridOptions]="gridOptions"
       [columnDefs]="columnDefs"
+      [rowSelection]="rowSelection"
       (gridReady)="onGridReady($event)"
       [rowModelType]="'clientSide'"
       [suppressContextMenu]="true"

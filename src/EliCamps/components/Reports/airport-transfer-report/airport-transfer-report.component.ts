@@ -7,6 +7,8 @@ import { throwError } from 'rxjs';
 import { HomeStay, Room } from 'src/EliCamps/EliCamps-Models/Elicamps';
 import * as _ from 'lodash';
 import { AllModules } from "@ag-grid-enterprise/all-modules";
+import { LookupEnum } from 'src/EliCamps/common/lookup.enums';
+import { MatSelectChange } from '@angular/material';
 
 @Component({
   selector: 'app-airport-transfer-report',
@@ -29,6 +31,8 @@ export class AirportTransferReportComponent implements OnInit {
   public endDate;
   public reportType;
   public defaultColDef;
+  public statusList = [];
+  public selectedStatus = "Active";
   constructor(public listService: ListService
   ) {
         this.defaultColDef = {
@@ -54,6 +58,9 @@ this.gridOptions = {
     if (homestayList) {
       this.homestayList = homestayList.data;
     }
+    this.listService.getAll(LookupEnum.STUDENT_STATUS).subscribe((res) => {
+      this.statusList = res;
+    });
     const roomList = await this.listService.getAllRoomList().toPromise().catch(error => throwError(error));
     if (roomList) {
       this.rooms = roomList.data;
@@ -72,9 +79,37 @@ this.gridOptions = {
     this.listService.getInsuranceReport().subscribe(res => {
       this.paymentReport = res.map(row => ({
         ...row,
-        accAddress: this.getAccAddress(row)
+        status: this.getStatus(row),
       }));
+      this.paymentReport = this.paymentReport.sort((a, b) =>
+      a.active > b.active ? -1 : 0
+    );
+    let changedEvent: MatSelectChange = {
+      source: null,
+      value: 'Active',
+    };
+    this.filterStudents(changedEvent);
     });
+  }
+  public getStatus(row) {
+    const statusRow = this.statusList.find((el) => el.id === row.statusId);
+    if (row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
+      return "Past";
+    } else if (statusRow) {
+      return statusRow.name;
+    } else {
+      return "Active";
+    }
+  }
+  filterStudents(changeEvent: MatSelectChange) {
+    if (changeEvent.value) {
+      this.paymentReport = this.paymentReport.filter(
+        (row) => row.status === changeEvent.value
+      );
+      this.gridApi.setRowData(this.paymentReport);
+    } else {
+      this.gridApi.setRowData(this.paymentReport);
+    }
   }
   public getAccAddress = (student) => {
     if (student) {

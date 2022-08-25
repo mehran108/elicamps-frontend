@@ -243,6 +243,12 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
           if (!this.selectedStudent.departureDate && this.selectedStudent.programeEndDate) {
             this.selectedStudent.departureDate = this.selectedStudent.programeEndDate;
           }
+          if (!this.selectedStudent.roomSearchFrom && this.selectedStudent.arrivalDate) {
+            this.selectedStudent.roomSearchFrom = this.selectedStudent.arrivalDate;
+          }
+          if (!this.selectedStudent.roomSearchTo && this.selectedStudent.departureDate) {
+            this.selectedStudent.roomSearchTo = this.selectedStudent.departureDate;
+          }
           this.initializeStudentFormWithValues(this.selectedStudent);
           this.getStudentPayments(this.selectedStudent.id)
           if (this.selectedStudent.homestayOrResi) {
@@ -277,6 +283,8 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
     const keys = ['arrivalTime', 'flightDepartureTime'];
     student.programeStartDate = student.programeStartDate ? student.programeStartDate : student.arrivalDate;
     student.programeEndDate = student.programeEndDate ? student.programeEndDate : student.departureDate;
+    student.roomSearchFrom = student.roomSearchFrom ? student.roomSearchFrom : student.arrivalDate;
+    student.roomSearchTo = student.roomSearchTo ? student.roomSearchTo : student.departureDate;
     Object.keys(this.studentForm.controls).forEach(key => {
       if (!keys.includes(key) && this.dateKeys.includes(key) && student[key]) {
         this.studentForm.controls[key].setValue(new Date(student[key]));
@@ -292,6 +300,8 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
     });
     this.populateNumberOfNights(this.studentForm.value);
     this.paymentInf.calculate();
+    let campus = this.studentForm.controls.campus.value;
+    this.studentForm.controls.roomSearchCampus.setValue(campus);
   }
   public populateNumberOfNights = (student) => {
     if (student && student.programeStartDate && student.programeEndDate) {
@@ -353,12 +363,16 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
   applyDateChangeToField(dateEvent) {
     if (dateEvent.field === 'arrivalDate') {
       this.studentForm.controls.programeStartDate.setValue(dateEvent.value);
+      this.studentForm.controls.roomSearchFrom.setValue(dateEvent.value);
     } else if (dateEvent.field === 'departureDate') {
       this.studentForm.controls.programeEndDate.setValue(dateEvent.value);
+      this.studentForm.controls.roomSearchTo.setValue(dateEvent.value);
     } else if (dateEvent.field === 'programeStartDate') {
       this.studentForm.controls.arrivalDate.setValue(dateEvent.value);
+      this.studentForm.controls.roomSearchFrom.setValue(dateEvent.value);
     } else if (dateEvent.field === 'programeEndDate') {
       this.studentForm.controls.departureDate.setValue(dateEvent.value);
+      this.studentForm.controls.roomSearchTo.setValue(dateEvent.value);
     }
     this.calcNumOfNights(this.studentForm.value);
   }
@@ -432,6 +446,11 @@ export class StudentRegistrationWrapperComponent implements OnInit, OnDestroy, A
     data.programeEndDate = data.programeEndDate ? moment(data.programeEndDate).format('MM/DD/YYYY') : '';
     data.arrivalDate = data.arrivalDate ? moment(data.arrivalDate).format('MM/DD/YYYY') : '';
     data.departureDate = data.departureDate ? moment(data.departureDate).format('MM/DD/YYYY') : '';
+    if (this.studentForm.controls.homestayOrResi.value == '3') {
+      this.studentForm.controls.homestayID.setValue(null);
+      data.homestayID = null;
+      data.roomID = null;
+    }
     if (this.studentForm.valid) {
       this.spinner.show();
       if (this.isEdit === false) {

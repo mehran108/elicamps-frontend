@@ -18,7 +18,7 @@ import { LocalstorageService } from 'src/EliCamps/services/localstorage.service'
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { MatDatepickerInputEvent } from '@angular/material';
+import { MatDatepickerInputEvent, MatSelectChange } from '@angular/material';
 @Component({
   selector: 'app-program-information',
   templateUrl: './program-information.component.html',
@@ -80,5 +80,8 @@ export class ProgramInformationComponent implements OnInit, OnChanges, OnDestroy
       field: field
     }
    this.dateChanged.emit(model)
+  }
+  campusSelected(selectedCampusEvent:MatSelectChange) {
+      this.studentForm.controls.roomSearchCampus.setValue(selectedCampusEvent.value);
   }
 }
