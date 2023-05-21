@@ -1,0 +1,57 @@
+<mat-sidenav-container [hasBackdrop]="isMobile ? true : false">
+  <mat-sidenav #sidenav [mode]="'push'" [opened]="false">
+    <perfect-scrollbar>
+      <div class="p-4">
+        <a><img alt="" height="100%" src="assets/images/logo-header.png" width="100%"></a>
+      </div>
+      <div class="mb-5 mt-3"></div>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="'/home'">
+          <mat-icon>home</mat-icon> &nbsp; Home
+        </a>
+        <a mat-list-item [routerLink]="''">
+          <mat-icon>person</mat-icon> &nbsp; Customer
+        </a>
+        <a mat-list-item [routerLink]="'measurement'">
+          <mat-icon>shopping_cart</mat-icon> &nbsp; Measurements
+        </a>
+        <a mat-list-item [routerLink]="'order'">
+          <mat-icon>shopping_cart</mat-icon> &nbsp; Orders
+        </a>
+      </mat-nav-list>
+    </perfect-scrollbar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar style="margin-bottom: 10px;" color="primary">
+      <mat-toolbar-row>
+        <button style="background-color: #283593;
+        color: #fff;" mat-icon-button>
+          <mat-icon (click)="toggle(sidenav)">menu</mat-icon>
+        </button>
+        <span class="menu-title">{{title}}</span>
+        <span class="menu-spacer"></span>
+        <div class="menu-icon">
+          <button style="color: black;" class="menu" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="logout()" mat-menu-item>
+              <mat-icon>power_settings_new</mat-icon>
+              <span>Logout</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>settings_applications</mat-icon>
+              <span>Settings</span>
+            </button>
+          </mat-menu>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-progress-bar class="progress-bar" *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
+    <main class="full-width" id="mainContent">
+      <router-outlet></router-outlet>
+    </main>
+    <!-- <div class="container" [ngStyle]="{'margin-left' : sidenav.opened ? '0' : 'auto'}">
+    </div> -->
+  </mat-sidenav-content>
+</mat-sidenav-container>

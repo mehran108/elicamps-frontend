@@ -1,0 +1,97 @@
+<div class="container-fluid item-wrapper">
+  <div class="journey-modal-header header">
+    <h2>Measurements</h2>
+  </div>
+<form [formGroup]="f" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-3 form-group">
+      <label>Customer</label>
+      <select formControlName="customerId" class="form-control">
+        <option *ngFor="let customer of CustomerList" [value]="customer.id">{{customer.name}}</option>
+      </select>
+    </div>
+  <div class="col-md-3 form-group">
+    <label>Shirt Chest</label>
+    <input  formControlName="shirtChest" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Shirt Waist</label>
+    <input  formControlName="shirtWaist" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Shoulder</label>
+    <input  formControlName="shoulder" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Sleeves</label>
+    <input  formControlName="sleeves" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Neck</label>
+    <input  formControlName="neck" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Shalwar Length</label>
+    <input  formControlName="shalwarLength" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Shalwar Bottom</label>
+    <input  formControlName="shalwarBottom" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Ghera</label>
+    <input  formControlName="ghera" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Asan</label>
+    <input  formControlName="asan" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Coat Length</label>
+    <input  formControlName="coatLength" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Cross Back</label>
+    <input  formControlName="crossBack" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Half Back</label>
+    <input  formControlName="halfBack" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Pent Length</label>
+    <input  formControlName="pentLength" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Pent Waist</label>
+    <input  formControlName="pentWaist" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Hip</label>
+    <input  formControlName="hip" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Knee</label>
+    <input  formControlName="knee" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Pent Bottom</label>
+    <input  formControlName="pentBottom" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Inside</label>
+    <input  formControlName="inside" class="form-control" placeholder="">
+  </div>
+  <div class="col-md-3 form-group">
+    <label>Thai</label>
+    <input  formControlName="thai" class="form-control" placeholder="">
+  </div>
+
+</div>
+<div class="action-panel btn-wrapper">
+  <button type="submit" class="btn btn-primary">Save</button>
+  <button (click)="Cancel_Click()"class="btn btn-secondary">Cancel</button>
+</div>
+</form>
+
+</div>
