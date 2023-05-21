@@ -25,6 +25,7 @@ export class InsuranceReportComponent implements OnInit {
   public gridColumnApi: any;
   public pinnedBottomRowData: any;
   public getRowStyle: any;
+  public selectedStatus = 'Active';
   constructor(public listService: ListService
   ) {
         this.defaultColDef = {
@@ -63,16 +64,12 @@ this.gridOptions = {
       this.paymentReport = this.paymentReport.sort((a, b) =>
       a.active > b.active ? -1 : 0
     );
-    let changedEvent: MatSelectChange = {
-      source: null,
-      value: 'Active',
-    };
-    this.filterStudents(changedEvent);
+    this.filterStudents();
     });
   }
   public getStatus(row) {
     const statusRow = this.statusList.find((el) => el.id === row.statusId);
-    if (row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
+    if (row.statusId !== 1030 && row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
       return "Past";
     } else if (statusRow) {
       return statusRow.name;
@@ -80,15 +77,12 @@ this.gridOptions = {
       return "Active";
     }
   }
-  filterStudents(changeEvent: MatSelectChange) {
-    if (changeEvent.value) {
-      this.paymentReport = this.paymentReport.filter(
-        (row) => row.status === changeEvent.value
-      );
-      this.gridApi.setRowData(this.paymentReport);
-    } else {
-      this.gridApi.setRowData(this.paymentReport);
+  filterStudents() {
+    let list = this.paymentReport;
+    if (this.selectedStatus) {
+      list = list.filter((row) => row.status === this.selectedStatus);
     }
+    this.gridApi.setRowData(list);
   }
   public getCommision = () => {
     return this.paymentReport.reduce((a, b) => +a + +b.commision, 0);

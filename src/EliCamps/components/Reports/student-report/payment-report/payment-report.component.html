@@ -1,131 +1,141 @@
 <div class="container-fluid">
   <div class="user-page">
     <div class="row">
-      <div class="col-md-12">
-        <form>
-          <div class="row">
-            <div class="col-md-1 form-group">
-              <mat-form-field>
-                <mat-select
-                  placeholder="Programe"
-                  [(ngModel)]="program"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                <mat-option [value]="null">None</mat-option>
-                  <mat-option
-                    *ngFor="let res of programList; let i = index"
-                    [value]="res"
-                  >
-                    {{ res.programName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-1 form-group">
-              <mat-form-field>
-                <mat-select
-                  placeholder="Agent"
-                  [(ngModel)]="agent"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                <mat-option [value]="null">None</mat-option>
-                  <mat-option
-                    *ngFor="let res of agentList; let i = index"
-                    [value]="res"
-                  >
-                    {{ res.agent }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-1 form-group">
-              <mat-form-field>
-                <mat-select
-                  placeholder="Campus"
-                  [(ngModel)]="campus"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                <mat-option [value]="null">None</mat-option>
-                  <mat-option
-                    *ngFor="let res of campusList; let i = index"
-                    [value]="res"
-                  >
-                    {{ res.campus }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-2 form-group">
-              <mat-form-field>
-                <mat-select
-                  placeholder="Format"
-                  [(ngModel)]="format"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                <mat-option [value]="null">None</mat-option>
-                  <mat-option
-                    *ngFor="let res of formatList; let i = index"
-                    [value]="res"
-                  >
-                    {{ res.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+      <div class="col-md-1 form-group">
+        <mat-form-field>
+          <mat-select
+            [(ngModel)]="selectedStatus"
+            placeholder="Status"
+          >
+            <mat-option [value]="''">All</mat-option>
+            <mat-option
+              *ngFor="let res of statusList; let i = index"
+              [value]="res.name"
+            >
+              {{ res.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-1 form-group">
+        <mat-form-field>
+          <mat-select
+            placeholder="Programe"
+            [(ngModel)]="program"
+            [ngModelOptions]="{ standalone: true }"
+          >
+          <mat-option [value]="null">None</mat-option>
+            <mat-option
+              *ngFor="let res of programList; let i = index"
+              [value]="res"
+            >
+              {{ res.programName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-1 form-group">
+        <mat-form-field>
+          <mat-select
+            placeholder="Agent"
+            [(ngModel)]="agent"
+            [ngModelOptions]="{ standalone: true }"
+          >
+          <mat-option [value]="null">None</mat-option>
+            <mat-option
+              *ngFor="let res of agentList; let i = index"
+              [value]="res"
+            >
+              {{ res.agent }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-1 form-group">
+        <mat-form-field>
+          <mat-select
+            placeholder="Campus"
+            [(ngModel)]="campus"
+            [ngModelOptions]="{ standalone: true }"
+          >
+          <mat-option [value]="null">None</mat-option>
+            <mat-option
+              *ngFor="let res of campusList; let i = index"
+              [value]="res"
+            >
+              {{ res.campus }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-1 form-group">
+        <mat-form-field>
+          <mat-select
+            placeholder="Format"
+            [(ngModel)]="format"
+            [ngModelOptions]="{ standalone: true }"
+          >
+          <mat-option [value]="null">None</mat-option>
+            <mat-option
+              *ngFor="let res of formatList; let i = index"
+              [value]="res"
+            >
+              {{ res.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-            <div class="col-md-2 form-group">
-              <mat-form-field>
-                <input
-                  (focus)="picker1.open()"
-                  [(ngModel)]="startDate"
-                  [ngModelOptions]="{ standalone: true }"
-                  [ngModelOptions]="{ standalone: true }"
-                  matInput
-                  [matDatepicker]="picker1"
-                  placeholder="From"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker1"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-md-2 form-group">
-              <mat-form-field>
-                <input
-                  (focus)="picker2.open()"
-                  [(ngModel)]="endDate"
-                  [ngModelOptions]="{ standalone: true }"
-                  [ngModelOptions]="{ standalone: true }"
-                  matInput
-                  [matDatepicker]="picker2"
-                  placeholder="To"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker2"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker2></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="mt-1 col-md-3 form-group">
-              <button class="ml-1" mat-raised-button (click)="filterChage()">
-                Show
-              </button>
-              <button class="ml-1" mat-raised-button (click)="clear()">
-                Clear
-              </button>
-              <button
-                mat-raised-button
-                class="export-btn"
-                (click)="onBtnExport()"
-              >
-                Download
-              </button>
-            </div>
-          </div>
-        </form>
+      <div class="col-md-1 form-group">
+        <mat-form-field>
+          <input
+            (focus)="picker1.open()"
+            [(ngModel)]="startDate"
+            [ngModelOptions]="{ standalone: true }"
+            [ngModelOptions]="{ standalone: true }"
+            matInput
+            [matDatepicker]="picker1"
+            placeholder="From"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-1 form-group">
+        <mat-form-field>
+          <input
+            (focus)="picker2.open()"
+            [(ngModel)]="endDate"
+            [ngModelOptions]="{ standalone: true }"
+            [ngModelOptions]="{ standalone: true }"
+            matInput
+            [matDatepicker]="picker2"
+            placeholder="To"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-5 form-group">
+        <button class="ml-1" mat-raised-button (click)="filterChage()">
+          Show
+        </button>
+        <button class="ml-1" mat-raised-button (click)="clear()">
+          Clear
+        </button>
+        <button
+          mat-raised-button
+          class="export-btn"
+          (click)="onBtnExport()"
+        >
+          Download
+        </button>
       </div>
     </div>
   </div>
@@ -140,7 +150,6 @@
       [columnDefs]="columnDefs"
       [pinnedBottomRowData]="pinnedBottomRowData"
       [modules]="modules"
-      [rowData]="paymentReport"
       (gridReady)="onGridReady($event)"
       [defaultColDef]="defaultColDef"
       #grid

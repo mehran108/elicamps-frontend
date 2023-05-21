@@ -17,6 +17,7 @@ import { MatSelectChange } from "@angular/material";
 })
 export class PaymentReportComponent implements OnInit {
   public defaultColDef;
+  public selectedStatus = 'Active';
 
   public columnDefs = PAYMENT_REPORT_COL_DEFS;
   public gridOptions: any;
@@ -113,13 +114,8 @@ export class PaymentReportComponent implements OnInit {
       this.paymentReport = this.paymentReport.sort((a, b) =>
         a.active > b.active ? -1 : 0
       );
-      let changedEvent: MatSelectChange = {
-        source: null,
-        value: "Active",
-      };
-      this.filterStudents(changedEvent);
       this.selectedYear = this.yearList[0];
-      this.setPinnedRowData(this.paymentReport);
+      this.filterChage();
     });
   };
   public getStatus(row) {
@@ -130,16 +126,6 @@ export class PaymentReportComponent implements OnInit {
       return statusRow.name;
     } else {
       return "Active";
-    }
-  }
-  filterStudents(changeEvent: MatSelectChange) {
-    if (changeEvent.value) {
-      this.paymentReport = this.paymentReport.filter(
-        (row) => row.status === changeEvent.value
-      );
-      this.gridApi.setRowData(this.paymentReport);
-    } else {
-      this.gridApi.setRowData(this.paymentReport);
     }
   }
   public setPinnedRowData(list) {
@@ -201,7 +187,11 @@ export class PaymentReportComponent implements OnInit {
         return el.agentName === this.agent.agent;
       });
     }
-
+    if (this.selectedStatus) {
+      list = list.filter(
+        (row) => row.status === this.selectedStatus
+      );
+    }
     if (this.startDate && this.endDate) {
       list = list.filter(
         (el) =>
@@ -223,7 +213,8 @@ export class PaymentReportComponent implements OnInit {
     this.agent = null;
     this.format = null;
     this.campus = null;
-    this.gridApi.setRowData(this.paymentReport);
+    this.selectedStatus = 'Active';
+    this.filterChage();
   }
   calculate = (row) => {
     let totalGross = row.totalGrossPrice;

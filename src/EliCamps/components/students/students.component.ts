@@ -141,7 +141,7 @@ export class StudentsComponent implements OnInit {
   };
   public getStatus(row) {
     const statusRow = this.statusList.find((el) => el.id === row.statusId);
-    if (row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
+    if (row.statusId !== 1030 && row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
       return "Past";
     } else if (statusRow) {
       return statusRow.name;

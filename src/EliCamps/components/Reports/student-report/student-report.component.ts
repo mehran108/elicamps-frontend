@@ -28,7 +28,7 @@ import { MatSelectChange } from "@angular/material";
   styleUrls: ["./student-report.component.css"],
 })
 export class StudentReportComponent implements OnInit {
- public defaultColDef;
+  public defaultColDef;
 
   public columnDefs = SITE_BY_DATE_REPORT_COL_DEFS;
   public gridOptions: any;
@@ -49,13 +49,14 @@ export class StudentReportComponent implements OnInit {
   public programList = [];
   public statusList = [];
   public program: Program;
+  public selectedStatus = "Active";
   constructor(public listService: ListService) {
-        this.defaultColDef = {
+    this.defaultColDef = {
       resizable: true,
       sortable: true,
       filter: true,
     };
-this.gridOptions = {
+    this.gridOptions = {
       frameworkComponents: {
         chiprenderer: ChipRendererComponent,
       },
@@ -134,22 +135,17 @@ this.gridOptions = {
           ? this.getHomeStay(row.homestayID).cellNumber
           : "",
         room: this.rooms.find((room) => room.id === row.roomID) || {},
-        status: this.getStatus(row)
+        status: this.getStatus(row),
       }));
       this.studentList = this.studentList.sort((a, b) =>
-      a.active > b.active ? -1 : 0
-    );
-    let changedEvent: MatSelectChange = {
-      source: null,
-      value: 'Active',
-    };
-    this.filterStudents(changedEvent);
+        a.active > b.active ? -1 : 0
+      );
+      this.filterChage();
     });
-
   };
   public getStatus(row) {
     const statusRow = this.statusList.find((el) => el.id === row.statusId);
-    if (row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
+    if (row.statusId !== 1030 && row.programeEndDate && new Date(row.programeEndDate) <= new Date()) {
       return "Past";
     } else if (statusRow) {
       return statusRow.name;
@@ -213,50 +209,43 @@ this.gridOptions = {
   }
   filterChage = () => {
     let list = this.studentList;
-      if (this.campus) {
-         list = list.filter((el) => {
-          return (
-            el.campusName === this.campus.campus
-          );
-        });
-      }
-      if (this.program) {
-        list = list.filter((el) => {
-          return (
-            el.programName === this.program.programName
-          );
-        });
-      }
-      if (this.startDate) {
-        list = list.filter(
-          (el) =>
-            new Date(el.arrivalDate) >= this.startDate
-        );
-      }
-      if (this.endDate) {
-        list = list.filter(
-          (el) =>
-            new Date(el.arrivalDate) <= this.endDate
-        );
-      }
-      if (this.startDate && this.endDate) {
-        list = list.filter(
-          (el) =>
-            new Date(el.arrivalDate) >= this.startDate &&
-            new Date(el.arrivalDate) <= this.endDate
-        );
-      }
-      this.gridApi.setRowData(list);
+    if (this.campus) {
+      list = list.filter((el) => {
+        return el.campusName === this.campus.campus;
+      });
+    }
+    if (this.program) {
+      list = list.filter((el) => {
+        return el.programName === this.program.programName;
+      });
+    }
+    if (this.startDate) {
+      list = list.filter((el) => new Date(el.arrivalDate) >= this.startDate);
+    }
+    if (this.endDate) {
+      list = list.filter((el) => new Date(el.arrivalDate) <= this.endDate);
+    }
+    if (this.selectedStatus) {
+      list = list.filter((row) => row.status === this.selectedStatus);
+    }
+    if (this.startDate && this.endDate) {
+      list = list.filter(
+        (el) =>
+          new Date(el.arrivalDate) >= this.startDate &&
+          new Date(el.arrivalDate) <= this.endDate
+      );
+    }
+    this.gridApi.setRowData(list);
   };
   onBtnExport(): void {
-    this.listService.exportGridData(this.gridApi, 'SiteReport')
-
+    this.listService.exportGridData(this.gridApi, "SiteReport");
   }
   public clear() {
     this.program = null;
     this.campus = null;
     this.startDate = null;
     this.endDate = null;
-    this.gridApi.setRowData(this.studentList);
+    this.selectedStatus = 'Active';
+    this.filterChage();
   }
 }
