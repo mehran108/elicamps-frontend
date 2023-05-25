@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AllModules } from "@ag-grid-enterprise/all-modules";
 import { AuthenticationService } from 'src/services/authentication.service';
 import { ChipRendererComponent } from 'src/common/ag-grid/renderers/chip-renderer/chip-renderer.component';
 
@@ -17,7 +16,6 @@ export class UsersComponent implements OnInit {
   public info: string;
   private gridApi: any;
   public userList = [];
-  public modules = AllModules;
   public user: any;
   public defaultColDef;
   constructor(public router: Router, public userService: AuthenticationService) {

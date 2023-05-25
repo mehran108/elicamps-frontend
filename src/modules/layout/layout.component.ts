@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { DOCUMENT } from "@angular/common";
-import { MatDrawer } from "@angular/material";
+import { MatDrawer } from "@angular/material/sidenav";
 import { Title } from "@angular/platform-browser";
 import { LocalstorageService } from "src/services/localstorage.service";
 

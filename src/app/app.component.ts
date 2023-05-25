@@ -43,10 +43,10 @@ export class AppComponent implements OnInit {
     });
   }
   private promptUser(): void {
-    this.dialog.open(this.confirmTemp, {
-      hasBackdrop: true,
-      disableClose: true,
-    });
+    // this.dialog.open(this.confirmTemp, {
+    //   hasBackdrop: true,
+    //   disableClose: true,
+    // });
   }
   checkVersion() {
     navigator.serviceWorker

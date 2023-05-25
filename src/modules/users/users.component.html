@@ -42,22 +42,12 @@
 
   <div class="all-show-grid">
     <ag-grid-angular [defaultColDef]="defaultColDef"
-      style="height: 100%; max-width: 100%; width: 100vw"
       class="ag-theme-material"
-      [enableColResize]="true"
-      enableColResize
-      enableSorting
-      enableFilter
-      groupHeaders
-      suppressRowClickSelection
-      toolPanelSuppressGroups
-      toolPanelSuppressValues
       (cellDoubleClicked)="onCellClicked($event)"
       [gridOptions]="gridOptions"
       [columnDefs]="columnDefs"
       [rowData]="userList"
       (gridReady)="onGridReady($event)"
-      [modules]="modules"
       [rowModelType]="'clientSide'"
       [suppressContextMenu]="true"
       #grid

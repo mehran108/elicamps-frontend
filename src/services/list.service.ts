@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { LocalstorageService } from "./localstorage.service";
-import { GridApi, ValueFormatterParams } from "@ag-grid-community/all-modules";
 import { environment } from "src/environments/environment";
+import { GridApi, ValueFormatterParams } from "ag-grid-community";
 
 @Injectable({
   providedIn: "root",
@@ -88,7 +88,7 @@ export class ListService {
             node: params.node!,
             colDef: params.column.getColDef(),
           };
-          return colDef.valueFormatter(valueFormatterParams);
+          // return colDef.valueFormatter(valueFormatterParams);
         }
         return params.value;
       },

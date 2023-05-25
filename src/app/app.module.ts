@@ -2,20 +2,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AgGridModule } from '@ag-grid-community/angular';
+import { AgGridModule } from 'ag-grid-angular';
 import { MaterialModule } from 'src/modules/material/material.module';
 import { AppRoutingModule } from 'src/modules/routing/routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe, LocationStrategy, HashLocationStrategy } from '@angular/common';
 // tslint:disable-next-line: max-line-length
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+// import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 // tslint:disable-next-line: max-line-length
 // tslint:disable-next-line: max-line-length
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SafeHTML } from 'src/pipes/safeHTML';
@@ -56,11 +55,8 @@ import { OrderFormComponent } from 'src/modules/order/order-form/order-form.comp
     MaterialModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AgGridModule.withComponents([ChipRendererComponent, ButtonRendererComponent]),
-    AgGridModule.forRoot(),
-    DateInputsModule,
+    AgGridModule,
     HttpClientModule,
-    CKEditorModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -78,7 +74,6 @@ import { OrderFormComponent } from 'src/modules/order/order-form/order-form.comp
   ],
   providers: [
     DatePipe,
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: [] }],
   bootstrap: [AppComponent]

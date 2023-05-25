@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListService } from '../../services/list.service';
-import { AllModules } from "@ag-grid-enterprise/all-modules";
 import { ChipRendererComponent } from 'src/common/ag-grid/renderers/chip-renderer/chip-renderer.component';
 @Component({
   selector: 'app-measurement',
@@ -79,7 +78,6 @@ export class MeasurementComponent implements OnInit {
   public info: string;
   private gridApi: any;
   public customerMeasurementList: Array<any> = new Array();
-  public modules = AllModules;
   public gridColumnApi: any;
   constructor(public router: Router, public listService: ListService) {
         this.defaultColDef = {
