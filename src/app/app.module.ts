@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgGridModule } from 'ag-grid-angular';
-import { MaterialModule } from 'src/modules/material/material.module';
+import { MaterialModule } from 'src/modules/shared/material/material.module';
 import { AppRoutingModule } from 'src/modules/routing/routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe, LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -31,6 +31,7 @@ import { MeasurementComponent } from 'src/modules/measurement/measurement.compon
 import { MeasurementFormComponent } from 'src/modules/measurement/measurement-form/measurement-form.component';
 import { OrderComponent } from 'src/modules/order/order.component';
 import { OrderFormComponent } from 'src/modules/order/order-form/order-form.component';
+import { PrimeModule } from 'src/modules/shared/prime/prime.module';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { OrderFormComponent } from 'src/modules/order/order-form/order-form.comp
   imports: [
     BrowserModule,
     MaterialModule,
+    PrimeModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     AgGridModule,
