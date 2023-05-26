@@ -56,6 +56,7 @@ export class OrderFormComponent implements OnInit {
     this.listService.GetOrderById(id).subscribe(res => {
       if (res) {
         this.selectedOrder = res;
+        this.selectedOrder.deliverDate = this.selectedOrder.deliverDate ? new Date(this.selectedOrder.deliverDate): null;
         this.populateForm(this.selectedOrder);
       }
 
