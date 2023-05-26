@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ListService } from "../../../services/list.service";
 import { Location } from "@angular/common";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-measurement-form",
@@ -26,7 +27,8 @@ export class MeasurementFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public listService: ListService,
-    public location: Location
+    public location: Location,
+    public toast: ToastrService
   ) {}
   // convenience getter for easy access to form fields
   get f() {
@@ -112,6 +114,7 @@ export class MeasurementFormComponent implements OnInit {
       };
       if (this.isEdit) {
         this.listService.UpdateCustomerMeasurement(model).subscribe(res => {
+          this.toast.success('Measurement updated successfully!', 'Measurement')
           this.router.navigate(['/measurement']);
           this.loading = false;
         }, error => {
@@ -120,6 +123,7 @@ export class MeasurementFormComponent implements OnInit {
       } else {
         delete model.id;
         this.listService.AddCustomerMeasurement(model).subscribe(res => {
+          this.toast.success('Measurement updated successfully!', 'Measurement')
           this.router.navigate(['/measurement']);
           this.loading = false;
         }, error => {

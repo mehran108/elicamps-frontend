@@ -23,7 +23,7 @@ export class CustomerComponent implements OnInit {
       field: 'address'
     },
     {
-      field: 'Active'
+      field: 'email'
     }
   ];
   public gridOptions: any;

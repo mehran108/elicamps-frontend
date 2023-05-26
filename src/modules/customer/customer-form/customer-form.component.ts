@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ListService } from '../../../services/list.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-form',
@@ -27,7 +28,8 @@ export class CustomerFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public listService: ListService,
-    public location: Location
+    public location: Location,
+    public taost: ToastrService
   ) {
   }
   // convenience getter for easy access to form fields
@@ -96,6 +98,7 @@ export class CustomerFormComponent implements OnInit {
       };
       if (this.isEdit) {
         this.listService.UpdateCustomer(model).subscribe(res => {
+          this.taost.success('Customer updated successfully!', 'Customer')
           this.router.navigate(['']);
           this.loading = false;
         }, error => {
@@ -104,6 +107,7 @@ export class CustomerFormComponent implements OnInit {
       } else {
         delete model.id;
         this.listService.AddCustomer(model).subscribe(res => {
+          this.taost.success('Customer added successfully!', 'Customer')
           this.router.navigate(['']);
           this.loading = false;
         }, error => {
