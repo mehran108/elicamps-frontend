@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListService } from '../../services/list.service';
 import { ChipRendererComponent } from 'src/common/ag-grid/renderers/chip-renderer/chip-renderer.component';
+import * as moment from 'moment';
+import { GridApi, GridOptions } from 'ag-grid-community';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html'
@@ -20,6 +22,7 @@ export class OrderComponent implements OnInit {
       field: 'suitQuantity'
     },
     {
+      headerName: 'Order Date',
       field: 'createdDate'
     },
     {
@@ -35,9 +38,9 @@ export class OrderComponent implements OnInit {
       field: 'deliveryDate'
     },
   ];
-  public gridOptions: any;
+  public gridOptions: GridOptions;
   public info: string;
-  private gridApi: any;
+  private gridApi: GridApi;
   public orderList: Array<any> = new Array();
   public gridColumnApi: any;
   constructor(public router: Router, public listService: ListService) {
@@ -61,8 +64,14 @@ this.gridOptions = {
       active: true
     };
     this.listService.GetOrders({}).subscribe((res: Array<any>) => {
-      this.orderList = res;
-      this.autoSizeAll(false);
+      this.orderList = res.map(el => {
+        return {
+          ...el,
+          createdDate: moment(el.createdDate).format('DD/MM/YYYY hh:mm a'),
+          deliveryDate: moment(el.deliveryDate).format('DD/MM/YYYY hh:mm a')
+        }
+      });
+      // this.autoSizeAll(true);
       // this.gridColumnApi.getColumn('active').setSort('desc');
     });
   }
@@ -91,6 +100,6 @@ this.gridOptions = {
     });
   }
   onBtnExport(): void {
-    // this.listService.exportGridData(this.gridApi, 'customer')
+    this.gridApi.exportDataAsCsv();
   }
 }

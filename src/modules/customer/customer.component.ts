@@ -53,7 +53,7 @@ this.gridOptions = {
     };
     this.listService.GetCustomers({}).subscribe((res: Array<any>) => {
       this.CustomerList = res;
-      this.autoSizeAll(false);
+      // this.autoSizeAll(false);
       // this.gridColumnApi.getColumn('active').setSort('desc');
     });
   }

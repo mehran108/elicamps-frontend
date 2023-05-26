@@ -5,22 +5,22 @@
   <form [formGroup]="f">
     <div class="row">
       <div class="col-md-3 form-group">
-        <label>Customer</label>
+        <label>Customer Name</label>
         <input type="text" pInputText formControlName="name" />
       </div>
       <div class="col-md-3 form-group">
-        <label>Shirt Chest</label>
+        <label>Email</label>
         <input type="text" pInputText formControlName="email" />
       </div>
       <div class="col-md-3 form-group">
-        <label>Shirt Waist</label>
+        <label>Address</label>
         <input type="text" pInputText formControlName="address" />
       </div>
       <div class="col-md-3 form-group">
-        <label>Shoulder</label>
+        <label>Phone Number</label>
         <p-inputMask
           mask="9999-9999999"
-          formControlName="phone"
+          formControlName="phoneNumber"
           placeholder="99-9999999"
         ></p-inputMask>
       </div>

@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-md-3 form-group">
       <label>Customer</label>
-      <p-dropdown placeholder="Select Customer" [options]="CustomerList" class="w-100" formControlName="customerId" optionLabel="name" optionValue="id"></p-dropdown>
+      <p-dropdown [filter]="true" placeholder="Select Customer" [options]="CustomerList" class="w-100" formControlName="customerId" optionLabel="name" optionValue="id"></p-dropdown>
     </div>
   <div class="col-md-3 form-group">
     <label>Suit Quantity</label>

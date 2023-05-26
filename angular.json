@@ -53,7 +53,13 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+              }
+            },
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": true,
@@ -66,6 +72,14 @@
                   "maximumWarning": "6kb"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           }
         },
@@ -77,8 +91,12 @@
           "configurations": {
             "production": {
               "browserTarget": "elicamps:build:production"
+            },
+            "development": {
+              "browserTarget": "elicamps:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -133,6 +151,5 @@
         }
       }
     }
-  },
-  "defaultProject": "elicamps"
+  }
 }

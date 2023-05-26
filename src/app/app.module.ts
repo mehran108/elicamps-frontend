@@ -32,6 +32,9 @@ import { MeasurementFormComponent } from 'src/modules/measurement/measurement-fo
 import { OrderComponent } from 'src/modules/order/order.component';
 import { OrderFormComponent } from 'src/modules/order/order-form/order-form.component';
 import { PrimeModule } from 'src/modules/shared/prime/prime.module';
+import { MAT_MOMENT_DATE_FORMATS, } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, } from '@angular/material/core';
+import { MomentUtcDateAdapter } from './moment-adapter';
 
 @NgModule({
   declarations: [
@@ -77,7 +80,11 @@ import { PrimeModule } from 'src/modules/shared/prime/prime.module';
   providers: [
     DatePipe,
     { provide: MatDialogRef, useValue: {} },
-    { provide: MAT_DIALOG_DATA, useValue: [] }],
+    { provide: MAT_DIALOG_DATA, useValue: [] },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+    { provide: DateAdapter, useClass: MomentUtcDateAdapter },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

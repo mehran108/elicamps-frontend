@@ -36,10 +36,8 @@ export class OrderFormComponent implements OnInit {
     this.getParams();
     this.initializeDropDowns();
     this.initializeForm();
-    this.registerForm.valueChanges.subscribe(res => {
-      const balance = this.registerForm.controls['total'].value - this.registerForm.controls['advance'].value;
-      balance ? this.registerForm.controls['balance'].setValue(balance): this.registerForm.controls['balance'].setValue(0);
-    })
+    this.f.controls.total.valueChanges.subscribe(res => this.calculateBalance())
+    this.f.controls.advance.valueChanges.subscribe(res => this.calculateBalance())
   }
   public getParams() {
     this.route.queryParams.subscribe(params => {
@@ -56,7 +54,7 @@ export class OrderFormComponent implements OnInit {
     this.listService.GetOrderById(id).subscribe(res => {
       if (res) {
         this.selectedOrder = res;
-        this.selectedOrder.deliverDate = this.selectedOrder.deliverDate ? new Date(this.selectedOrder.deliverDate): null;
+        this.selectedOrder.deliveryDate = this.selectedOrder.deliveryDate ? new Date(this.selectedOrder.deliveryDate): null;
         this.populateForm(this.selectedOrder);
       }
 
@@ -96,6 +94,10 @@ export class OrderFormComponent implements OnInit {
   onPhoneNumberChanged = () => {
     const value = this.registerForm.controls['phone'].value;
     this.isPhoneNumberValid = value.match(this.phoneNumberRegex);
+  }
+  calculateBalance() {
+   let balance = this.registerForm.controls['total'].value - this.registerForm.controls['advance'].value;
+   balance ? this.registerForm.controls['balance'].setValue(balance): this.registerForm.controls['balance'].setValue(0);
   }
   onSubmit() {
     this.submitted = true;

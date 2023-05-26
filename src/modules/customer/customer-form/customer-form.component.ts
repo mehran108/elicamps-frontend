@@ -74,7 +74,7 @@ export class CustomerFormComponent implements OnInit {
       name: [''],
       address: [''],
       phoneNumber: [''],
-      email: ['', [Validators.maxLength(this.emailMaxChars), Validators.email]],
+      email: [''],
       active: [true]
     });
   }
