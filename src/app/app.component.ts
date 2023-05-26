@@ -23,43 +23,8 @@ export class AppComponent implements OnInit {
     public storage: LocalstorageService,
     public list: ListService,
     public dialog: MatDialog,
-    private swUpdate: SwUpdate,
-  ) {
-    this.checkForUpdates();
-    if (swUpdate.isEnabled) {
-      interval(60*60).subscribe(() =>
-        swUpdate
-          .checkForUpdate()
-          .then(() => console.log('checking for updates'))
-      );
-    }
-  }
-  public checkForUpdates(): void {
-    this.swUpdate.available.subscribe((event) => {
-      if (!this.isUpdatedVersion) {
-        this.promptUser();
-        this.isUpdatedVersion = true;
-      }
-    });
-  }
-  private promptUser(): void {
-    // this.dialog.open(this.confirmTemp, {
-    //   hasBackdrop: true,
-    //   disableClose: true,
-    // });
-  }
-  checkVersion() {
-    navigator.serviceWorker
-      .register('/ngsw-worker.js')
-      .then((reg: ServiceWorkerRegistration) => {
-        console.log('ngsw-worker:s', reg);
-        reg.update();
-      });
-  }
-  async ngOnInit() {
-  }
-  reload() {
-    this.isUpdatedVersion = false;
-    window.location.reload();
+  ) {}
+  ngOnInit(): void {
+
   }
 }

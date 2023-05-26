@@ -20,7 +20,7 @@ export class OrderFormComponent implements OnInit {
   public emailMaxChars = 50;
   public id: number;
   public isEdit = false;
-  public selectedCustomer: any;
+  public selectedOrder: any;
   public loading = false;
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +36,10 @@ export class OrderFormComponent implements OnInit {
     this.getParams();
     this.initializeDropDowns();
     this.initializeForm();
+    this.registerForm.valueChanges.subscribe(res => {
+      const balance = this.registerForm.controls['total'].value - this.registerForm.controls['advance'].value;
+      balance ? this.registerForm.controls['balance'].setValue(balance): this.registerForm.controls['balance'].setValue(0);
+    })
   }
   public getParams() {
     this.route.queryParams.subscribe(params => {
@@ -43,19 +47,19 @@ export class OrderFormComponent implements OnInit {
         this.id = Number(atob(params.id));
         if (this.id) {
           this.isEdit = true;
-          this.getSelectedCustomer(this.id);
+          this.getSelectedOrder(this.id);
         }
       }
     });
   }
-  public getSelectedCustomer = (id: number) => {
-    // this.listService.getCustomer(id).subscribe(res => {
-    //   if (res) {
-    //     this.selectedCustomer = res;
-    //     this.populateForm(this.selectedCustomer);
-    //   }
+  public getSelectedOrder = (id: number) => {
+    this.listService.GetOrderById(id).subscribe(res => {
+      if (res) {
+        this.selectedOrder = res;
+        this.populateForm(this.selectedOrder);
+      }
 
-    // });
+    });
   }
   public populateForm = (Customer: any) => {
     Object.keys(this.f.controls).forEach(key => {
@@ -67,19 +71,20 @@ export class OrderFormComponent implements OnInit {
     });
   }
   public initializeDropDowns = () => {
-  }
+    this.listService.GetCustomers({}).subscribe((res: Array<any>) => {
+      this.CustomerList = res;
+    });
+  };
   initializeForm() {
     this.registerForm = this.formBuilder.group({
       id: [],
-      Customer: [''],
-      address: [''],
-      contact: [''],
-      email: ['', [Validators.maxLength(this.emailMaxChars), Validators.email]],
-      notes: [''],
-      country: [''],
-      phone: [''],
-      web: [''],
-      other: ['other'],
+      customerId: [0],
+      suitQuantity: [0],
+      createdDate: [null],
+      total: [0],
+      advance: [0],
+      balance: [0],
+      deliveryDate: [null],
       active: [true]
     });
   }
@@ -96,24 +101,23 @@ export class OrderFormComponent implements OnInit {
     if (this.f.valid) {
       this.loading = true;
       const model = {
-        ...this.f.value,
-       CustomerId: this.f.controls.id.value,
+        ...this.f.value
       };
       if (this.isEdit) {
-        // this.listService.updateCustomer(model).subscribe(res => {
-        //   this.router.navigate(['/Customers']);
-        //   this.loading = false;
-        // }, error => {
-        //   this.loading = false;
-        // });
+        this.listService.UpdateOrder(model).subscribe(res => {
+          this.router.navigate(['/order']);
+          this.loading = false;
+        }, error => {
+          this.loading = false;
+        });
       } else {
         delete model.id;
-        // this.listService.addCustomer(model).subscribe(res => {
-        //   this.router.navigate(['/Customers']);
-        //   this.loading = false;
-        // }, error => {
-        //   this.loading = false;
-        // });
+        this.listService.AddOrder(model).subscribe(res => {
+          this.router.navigate(['/order']);
+          this.loading = false;
+        }, error => {
+          this.loading = false;
+        });
       }
     }
   }

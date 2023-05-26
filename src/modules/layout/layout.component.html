@@ -1,8 +1,11 @@
-<mat-sidenav-container [hasBackdrop]="isMobile ? true : false">
-  <mat-sidenav #sidenav [mode]="'push'" [opened]="false">
+<mat-sidenav-container [hasBackdrop]="true">
+  <mat-sidenav #sidenav [mode]="'over'" [opened]="false">
     <perfect-scrollbar>
       <div class="p-4">
-        <a><img alt="" height="100%" src="assets/images/logo-header.png" width="100%"></a>
+        <a>
+          <h3>AR Collections</h3>
+          <!-- <img alt="" height="100%" src="assets/images/logo-header.png" width="100%"> -->
+        </a>
       </div>
       <div class="mb-5 mt-3"></div>
       <mat-nav-list>
@@ -24,7 +27,7 @@
   <mat-sidenav-content>
     <mat-toolbar style="margin-bottom: 10px;" color="primary">
       <mat-toolbar-row>
-        <button style="background-color: #283593;
+        <button style="background-color: #673AB7;
         color: #fff;" mat-icon-button>
           <mat-icon (click)="toggle(sidenav)">menu</mat-icon>
         </button>

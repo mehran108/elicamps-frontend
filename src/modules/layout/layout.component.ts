@@ -70,7 +70,7 @@ export class LayoutComponent implements OnInit {
   toggle(sidenav: MatDrawer) {
     const mainContent = document.getElementById("mainContent");
     if (mainContent) {
-      mainContent.className = !sidenav.opened ? "custom-width" : "full-width";
+      // mainContent.className = !sidenav.opened ? "custom-width" : "full-width";
     }
     sidenav.toggle();
   }

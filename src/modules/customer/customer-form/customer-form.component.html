@@ -1,56 +1,45 @@
-<!-- Main Content area -->
-<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title>
-      <mat-icon (click)="location.back()" class="cursor"> <i class="material-icons">
-          arrow_back
-        </i></mat-icon>
-      <h3 class="form-heading">{{isEdit ? 'UPDATE CUSTOMER' : 'CREATE CUSTOMER'}}</h3>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-fields">
-      <div class="row">
-        <div class="col-md-4 form-group">
-          <mat-form-field>
-            <input matInput formControlName="name" placeholder="Customer Name"
-              [required]="submitted && registerForm.controls['name'].hasError('required')">
-          </mat-form-field>
-        </div>
-        <div class="col-md-4 form-group">
-          <mat-form-field>
-            <input matInput formControlName="phoneNumber" placeholder="Phone Number" (input)="onPhoneNumberChanged()"
-              [required]="submitted && registerForm.controls['phoneNumber'].hasError('required')">
-          </mat-form-field>
-        </div>
-        <div class="col-md-4 form-group">
-          <mat-form-field>
-            <input matInput formControlName="address" placeholder="Address" >
-          </mat-form-field>
-          <div class="error-msg" *ngIf="submitted && registerForm.controls['address'].hasError('required')">
-            *Required Field
-          </div>
-        </div>
+<div class="container-fluid item-wrapper">
+  <div class="journey-modal-header header">
+    <h2>Customer</h2>
+  </div>
+  <form [formGroup]="f">
+    <div class="row">
+      <div class="col-md-3 form-group">
+        <label>Customer</label>
+        <input type="text" pInputText formControlName="name" />
       </div>
-      <div class="row">
-        <div class="col-md-4 form-group">
-          <label></label>
-          <mat-slide-toggle formControlName="active">Active
-          </mat-slide-toggle>
-          <mat-error *ngIf="submitted && registerForm.controls['active'].hasError('required')">
-            *Required Field
-          </mat-error>
-        </div>
+      <div class="col-md-3 form-group">
+        <label>Shirt Chest</label>
+        <input type="text" pInputText formControlName="email" />
       </div>
-    </form>
-  </mat-card-content>
-
-  <mat-card-actions>
-    <div class="action-btns">
-      <button mat-raised-button class="btn btn-primary m-left" color="primary"
-        (click)="onSubmit()">{{isEdit ? 'Update' : 'Create'}}</button>
-      <button mat-raised-button class="btn btn-secondary m-left" color="warn" (click)="Cancel_Click()">Cancel</button>
-
+      <div class="col-md-3 form-group">
+        <label>Shirt Waist</label>
+        <input type="text" pInputText formControlName="address" />
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Shoulder</label>
+        <p-inputMask
+          mask="9999-9999999"
+          formControlName="phone"
+          placeholder="99-9999999"
+        ></p-inputMask>
+      </div>
+      <div class="col-md-3 form-group">
+        <mat-slide-toggle formControlName="active">Active</mat-slide-toggle>
+      </div>
     </div>
-  </mat-card-actions>
-</mat-card>
+    <div class="action-panel">
+      <p-button
+        (click)="Cancel_Click()"
+        class="btn button-secondary"
+        label="Cancel"
+        styleClass="p-button-secondary"
+      ></p-button>
+      <p-button
+        (click)="onSubmit()"
+        class="btn button-primary"
+        label="Save"
+      ></p-button>
+    </div>
+  </form>
+</div>

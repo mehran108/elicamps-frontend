@@ -2,95 +2,92 @@
   <div class="journey-modal-header header">
     <h2>Measurements</h2>
   </div>
-<form [formGroup]="f" (ngSubmit)="onSubmit()">
+<form [formGroup]="f">
   <div class="row">
     <div class="col-md-3 form-group">
       <label>Customer</label>
-      <select formControlName="customerId" class="form-control">
-        <option *ngFor="let customer of CustomerList" [value]="customer.id">{{customer.name}}</option>
-      </select>
+      <p-dropdown placeholder="Select Customer" [options]="CustomerList" class="w-100" formControlName="customerId" optionLabel="name" optionValue="id"></p-dropdown>
     </div>
   <div class="col-md-3 form-group">
     <label>Shirt Chest</label>
-    <input  formControlName="shirtChest" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="shirtChest" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Shirt Waist</label>
-    <input  formControlName="shirtWaist" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="shirtWaist" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Shoulder</label>
-    <input  formControlName="shoulder" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="shoulder" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Sleeves</label>
-    <input  formControlName="sleeves" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="sleeves" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Neck</label>
-    <input  formControlName="neck" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="neck" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Shalwar Length</label>
-    <input  formControlName="shalwarLength" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="shirtChest" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Shalwar Bottom</label>
-    <input  formControlName="shalwarBottom" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="shalwarBottom" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Ghera</label>
-    <input  formControlName="ghera" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="ghera" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Asan</label>
-    <input  formControlName="asan" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="asan" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Coat Length</label>
-    <input  formControlName="coatLength" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="coatLength" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Cross Back</label>
-    <input  formControlName="crossBack" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="shirtChest" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Half Back</label>
-    <input  formControlName="halfBack" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="halfBack" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Pent Length</label>
-    <input  formControlName="pentLength" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="pentLength" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Pent Waist</label>
-    <input  formControlName="pentWaist" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="pentWaist" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Hip</label>
-    <input  formControlName="hip" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="hip" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Knee</label>
-    <input  formControlName="knee" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="knee" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Pent Bottom</label>
-    <input  formControlName="pentBottom" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="pentBottom" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Inside</label>
-    <input  formControlName="inside" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="inside" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
   <div class="col-md-3 form-group">
     <label>Thai</label>
-    <input  formControlName="thai" class="form-control" placeholder="">
+    <p-inputNumber class="w-100" formControlName="thai" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
   </div>
-
 </div>
-<div class="action-panel btn-wrapper">
-  <button type="submit" class="btn btn-primary">Save</button>
-  <button (click)="Cancel_Click()"class="btn btn-secondary">Cancel</button>
+<div class="action-panel">
+  <p-button (click)="Cancel_Click()" class="btn button-secondary" label="Cancel" styleClass="p-button-secondary"></p-button>
+  <p-button (click)="onSubmit()" class="btn button-primary" label="Save"></p-button>
 </div>
 </form>
 

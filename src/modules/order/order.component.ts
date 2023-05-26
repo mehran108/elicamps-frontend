@@ -84,7 +84,7 @@ this.gridOptions = {
   }
 
   onCellClicked($event) {
-    this.router.navigate(['addCustomer'], {
+    this.router.navigate(['order/form'], {
       queryParams: {
         id: btoa($event.data.id)
       }
