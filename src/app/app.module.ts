@@ -86,6 +86,7 @@ import { environment } from '../environments/environment';
 import { RoomAvailabilityComponent } from 'src/EliCamps/components/Reports/student-report/room-availability/room-availability.component';
 import { StudentStatusComponent } from 'src/EliCamps/components/student-status/student-status.component';
 import { RoomsCheckInReportComponent } from 'src/EliCamps/components/Reports/rooms-check-in-report/rooms-check-in-report.component';
+import { BulkInvoiceComponent } from 'src/EliCamps/components/bulk-invoice/bulk-invoice.component';
 
 @NgModule({
   declarations: [
@@ -153,7 +154,8 @@ import { RoomsCheckInReportComponent } from 'src/EliCamps/components/Reports/roo
     CheckInOutReportComponent,
     RoomAvailabilityComponent,
     StudentStatusComponent,
-    RoomsCheckInReportComponent
+    RoomsCheckInReportComponent,
+    BulkInvoiceComponent
   ],
   imports: [
     BrowserModule,

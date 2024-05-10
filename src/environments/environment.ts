@@ -1,7 +1,7 @@
-const env = 'http://localhost:62179/api';
+const env = 'http://elicamps-001-site3.dtempurl.com/deployments/api';
 export const environment = {
   production: true,
-  appRoot: 'http://localhost:62179/api',
+  appRoot: 'http://elicamps-001-site3.dtempurl.com/deployments/api',
   appGroup: `${env}/Groups`,
   appList: `${env}/List`,
   appUser: `${env}/users`,

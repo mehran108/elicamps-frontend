@@ -1,0 +1,77 @@
+<!-- Main Content area -->
+<mat-card class="container-fluid">
+  <mat-card-content>
+    <form class="form-fields">
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <mat-form-field>
+            <mat-select placeholder="Select Students" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="selectedStudents" multiple>
+              <mat-option *ngFor="let student of studentList; let i = index" [value]="student">
+                {{ student.firstName }} {{ student.lastName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 form-group">
+          <mat-form-field>
+            <mat-select placeholder="Email Template" [ngModelOptions]="{standalone: true}" [(ngModel)]="emailBody">
+              <mat-option *ngFor="let res of templateList; let i = index" [value]="res.value">
+                {{ res.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="p-4 col-md-4 form-group">
+          <mat-radio-group [ngModelOptions]="{standalone: true}" [(ngModel)]="emailType">
+            <mat-radio-button [value]="1">Agency</mat-radio-button>&nbsp;&nbsp;
+            <mat-radio-button [value]="2">Custom</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field *ngIf="emailType == 1">
+            <mat-select placeholder="Agency Email" [ngModelOptions]="{standalone: true}" [(ngModel)]="studentEmail">
+              <mat-option *ngFor="let res of agentList; let i = index" [value]="res.email">
+                {{ res.email }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="emailType == 2">
+            <input matInput placeholder="Enter Email" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="studentEmail" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="isStudentInvoice" class="col-md-2">Student
+            Invoice</mat-checkbox>
+          <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="isAgentInvoice" class="col-md-2">Agent
+            Invoice</mat-checkbox>
+          <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="isLoaInvoiceWithNoPrice" class="col-md-2">LOA
+            No Price</mat-checkbox>
+          <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="isLoaInvoice" class="col-md-2">LOA With
+            Price</mat-checkbox>
+          <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="isLoaGroupInvoice" class="col-md-2">LOA -
+            Group</mat-checkbox>
+          <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="isStudentInvitation"
+            class="col-md-2">Invitation</mat-checkbox>
+          <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="isAirportInvoice" class="col-md-2">Airport
+            Doc</mat-checkbox>
+          <mat-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="isStudentCertificate"
+            class="col-md-2">Certificate</mat-checkbox>
+        </div>
+      </div>
+      <mat-card-actions>
+        <div class="action-btns text-right">
+          <button [disabled]="!(selectedStudents.length && emailBody && studentEmail)" mat-raised-button
+            class="btn btn-primary m-left" color="primary" (click)="sendEmail()">Send Email</button>
+        </div>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>
