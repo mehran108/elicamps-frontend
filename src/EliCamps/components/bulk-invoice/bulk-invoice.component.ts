@@ -25,6 +25,7 @@ export class BulkInvoiceComponent implements OnInit {
   public selectedStudents: Array<any> = new Array();
   public homeStayList: Array<any> = new Array();
   public campusList: Array<any> = new Array();
+  public allStudentList: Array<any> = new Array();
   public studentEmail = '';
   public templateList = [
     {
@@ -50,6 +51,8 @@ export class BulkInvoiceComponent implements OnInit {
   ];
   public emailBody = '';
   public emailType = 1;
+  public selectedAgent: any;
+  public selectedTemplate: any;
   constructor(public groupService: GroupService, public listService: ListService, public toast: ToastrService) { }
 
   async ngOnInit() {
@@ -77,6 +80,7 @@ export class BulkInvoiceComponent implements OnInit {
         this.studentList = ((studentList as any).data || []).sort((a, b) =>
           a.active > b.active ? -1 : 0
         );
+        this.allStudentList = [...this.studentList];
       });
   };
   public getAgentList = () => {
@@ -114,7 +118,8 @@ export class BulkInvoiceComponent implements OnInit {
         isLoaGroupInvoice: this.isLoaGroupInvoice,
         isStudentInvitation: this.isStudentInvitation,
         isAirportInvoice: this.isAirportInvoice,
-        isStudentCertificate: this.isStudentCertificate
+        isStudentCertificate: this.isStudentCertificate,
+        studentEmail: this.studentEmail
       };
       model.emailBody = this.getEmailBody(selectedTemplate, student);
       let task = this.groupService.sendEmail(model);
@@ -150,5 +155,12 @@ export class BulkInvoiceComponent implements OnInit {
       address = `${campus.addressOnReports}`;
     }
     return address;
+  }
+  onAgentSelect(agency: any) {
+    this.studentEmail = agency.email;
+    this.studentList = [...this.allStudentList.filter(row => row.agencyID === agency.id)];
+  }
+  onTemplateSelect(template: any) {
+    this.emailBody = template.value;
   }
 }

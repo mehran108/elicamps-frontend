@@ -87,6 +87,8 @@ import { RoomAvailabilityComponent } from 'src/EliCamps/components/Reports/stude
 import { StudentStatusComponent } from 'src/EliCamps/components/student-status/student-status.component';
 import { RoomsCheckInReportComponent } from 'src/EliCamps/components/Reports/rooms-check-in-report/rooms-check-in-report.component';
 import { BulkInvoiceComponent } from 'src/EliCamps/components/bulk-invoice/bulk-invoice.component';
+import {DropdownModule} from 'primeng/dropdown';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -160,6 +162,7 @@ import { BulkInvoiceComponent } from 'src/EliCamps/components/bulk-invoice/bulk-
   imports: [
     BrowserModule,
     MaterialModule,
+    MultiSelectModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     AgGridModule.withComponents([ChipRendererComponent, ButtonRendererComponent]),
@@ -169,6 +172,7 @@ import { BulkInvoiceComponent } from 'src/EliCamps/components/bulk-invoice/bulk-
     CKEditorModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
+    DropdownModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
