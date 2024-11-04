@@ -1,0 +1,126 @@
+::ng-deep.mat-drawer {
+  width: 250px !important;
+  color: #fff !important;
+  background-color: #283593 !important;
+}
+.mat-expansion-panel {
+  color: #fff !important;
+  background-color: #283593 !important;
+}
+.mat-expansion-panel-header-title {
+  color: #fff !important;
+}
+::ng-deep.mat-expansion-indicator::after, .mat-expansion-panel-header-description {
+  color: #fff !important;
+}
+.mat-list-base .mat-list-item {
+  color: #fff !important;
+}
+.mat-drawer-container {
+  height: 100vh;
+}
+.p-4 {
+  padding: 1.5rem!important;
+}
+.mb-5, .my-5 {
+  margin-bottom: 3rem!important;
+}
+.mt-3, .my-3 {
+  margin-top: 1rem!important;
+}
+.menu-title {
+  margin-left: 5px;
+  color: rgba(0,0,0,.87) !important;
+}
+.progress-bar {
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+/* Main wrapper */
+.layout-wrapper {
+  display: flex;
+  height: 100vh;
+  overflow: hidden; /* Prevents horizontal scroll */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #283593;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s;
+}
+
+.sidebar-collapsed {
+  width: 80px;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.logo img {
+  max-width: 100%;
+  height: auto;
+}
+
+.sidebar-collapsed .logo img {
+  display: none; /* Hide logo image when sidebar is collapsed */
+}
+
+.sidebar .p-menu {
+  width: 100%;
+}
+
+.sidebar .p-menuitem-link {
+  color: #fff !important;
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s;
+  // margin-left: 250px;
+}
+
+.main-content.collapsed {
+  // margin-left: 80px;
+}
+
+/* Topbar */
+.topbar {
+  background-color: #f3f3f3;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+.topbar-toggle {
+  margin-right: 1rem;
+  color: #000;
+  background: none;
+  border: none;
+}
+
+.topbar-search {
+  flex-grow: 1;
+  max-width: 400px;
+}
+
+/* Content area */
+.content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
