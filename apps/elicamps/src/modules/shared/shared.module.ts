@@ -14,6 +14,11 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
+import { BadgeModule } from 'primeng/badge';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextModule } from 'primeng/inputtext';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   imports: [
@@ -27,7 +32,12 @@ import { ButtonModule } from 'primeng/button';
     SidebarModule,
     MenubarModule,
     MenuModule,
-    ButtonModule
+    ButtonModule,
+    InputTextModule,
+    BadgeModule,
+    RadioButtonModule,
+    InputSwitchModule,
+    RippleModule
   ],
   declarations: [
     SafeHTML,
@@ -47,7 +57,12 @@ import { ButtonModule } from 'primeng/button';
     SidebarModule,
     MenubarModule,
     MenuModule,
-    ButtonModule
+    ButtonModule,
+    InputTextModule,
+    BadgeModule,
+    RadioButtonModule,
+    InputSwitchModule,
+    RippleModule
   ]
 })
 export class SharedModule { }

@@ -1,9 +1,9 @@
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from './layout.component';
+import { AppLayoutComponent } from './sidebar/app.layout.component';
 
 const routes: Routes = [
   {
-    path: '', component: LayoutComponent,
+    path: '', component: AppLayoutComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'common', loadChildren: () => import('../common/common.module').then(m => m.CommonModule)},

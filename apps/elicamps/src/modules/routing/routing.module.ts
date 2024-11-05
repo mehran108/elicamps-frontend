@@ -7,7 +7,7 @@ const routes: Routes = [
   
   { path: 'invoice', loadChildren: () => import('../invoice/invoice.module').then(m => m.InvoiceModule)},
   { path: 'auth', loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule) },
-  { path: '', canActivate: [AppMasterGuard], loadChildren: () => import('../layout/layout.module').then(m => m.LayoutModule)},
+  { path: '', canActivate: [AppMasterGuard], loadChildren: () => import('../layout/sidebar/app.layout.module').then(m => m.AppLayoutModule)},
 
 ];
 @NgModule({
