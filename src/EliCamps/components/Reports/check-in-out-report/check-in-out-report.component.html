@@ -33,6 +33,7 @@
               <mat-select
                 placeholder="Programe"
                 [(ngModel)]="program"
+                (selectionChange)="getSubProgram($event)"
                 [ngModelOptions]="{ standalone: true }"
               >
                 <mat-option
@@ -40,6 +41,17 @@
                   [value]="res"
                 >
                   {{ res.programName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 form-group">
+            <mat-form-field>
+              <mat-select placeholder="Sub Program" 
+              [(ngModel)]="selectedSubProgram"
+              [ngModelOptions]="{ standalone: true }" >
+                <mat-option *ngFor="let res of subProgramList; let i = index" [value]="res.id">
+                  {{res.subProgramName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

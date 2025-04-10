@@ -59,6 +59,8 @@ export class CheckInOutReportComponent implements OnInit {
   public homestayList: HomeStay[];
   public programList = [];
   public program: Program;
+  subProgramList: Program[] = [];
+  public selectedSubProgram: Program;
   constructor(
     public listService: ListService,
     public groupService: GroupService
@@ -121,28 +123,33 @@ export class CheckInOutReportComponent implements OnInit {
     const dates = this.enumerateDaysBetweenDates(this.startDate, this.endDate);
     let gridList = [];
     let total = 0;
+  
     dates.forEach((date) => {
+      const inCount = res.filter((el) => this.isSameDate(new Date(el.arrivalDate), date)).length;
+      const outCount = res.filter((el) => this.isSameDate(new Date(el.departureDate), date)).length;
+  
+      total += inCount;
+      total -= outCount;
+  
       let row = {
         date: date.toDateString(),
-        in: res.filter(
-          (el) =>
-            new Date(el.arrivalDate).toLocaleDateString() ===
-            date.toLocaleDateString()
-        ).length,
-        out: res.filter(
-          (el) =>
-            new Date(el.departureDate).toLocaleDateString() ===
-            date.toLocaleDateString()
-        ).length,
+        in: inCount,
+        out: outCount,
         total: total,
       };
-      total += row.in;
-      total -= row.out;
-      row.total = total;
+  
       gridList.push(row);
     });
+  
     this.gridApi.setRowData(gridList);
   }
+  
+  private isSameDate(d1, d2) {
+    return d1.getFullYear() === d2.getFullYear() &&
+           d1.getMonth() === d2.getMonth() &&
+           d1.getDate() === d2.getDate();
+  }
+  
   enumerateDaysBetweenDates = (startDate, endDate) => {
     var dates = [];
     dates.push(startDate);
@@ -169,19 +176,28 @@ export class CheckInOutReportComponent implements OnInit {
       this.createUIList(this.studentList);
     } else if (this.startDate && this.endDate && this.campus && !this.program) {
       let list = this.studentList.filter((el) => {
-        return el.campusName === this.campus.campus;
+        return el.campus === this.campus.id;
       });
       this.createUIList(list);
     } else if (this.startDate && this.endDate && !this.campus && this.program) {
       let list = this.studentList.filter((el) => {
-        return el.programName === this.program.programName;
+        return el.programID === this.program.id;
       });
       this.createUIList(list);
-    } else if (this.campus && this.program && this.startDate && this.endDate) {
+    } else if (this.campus && this.program && this.startDate && this.endDate && !this.selectedSubProgram) {
       let list = this.studentList.filter((el) => {
         return (
-          el.campusName === this.campus.campus &&
-          el.programName === this.program.programName
+          el.campus === this.campus.id &&
+          el.programID === this.program.id
+        );
+      });
+      this.createUIList(list);
+    }  else if (this.campus && this.program && this.startDate && this.endDate && this.selectedSubProgram) {
+      let list = this.studentList.filter((el) => {
+        return (
+          el.campus === this.campus.id &&
+          el.programID === this.program.id &&
+          el.subProgramID === this.selectedSubProgram
         );
       });
       this.createUIList(list);
@@ -193,6 +209,12 @@ export class CheckInOutReportComponent implements OnInit {
   public clear() {
     this.program = null;
     this.campus = null;
+    this.selectedSubProgram = null;
     this.createUIList(this.studentList);
+  }
+  public getSubProgram = (program) => {
+    this.listService.getSubProgramByProgramId(program.value.id).subscribe(res => {
+      this.subProgramList = res.data;
+    });
   }
 }

@@ -77,7 +77,12 @@ export class BulkInvoiceComponent implements OnInit {
     this.groupService
       .getAllElicampsStudents(params)
       .subscribe((studentList: Student[]) => {
-        this.studentList = ((studentList as any).data || []).sort((a, b) =>
+        this.studentList = ((studentList as any).data || []).map(el => {
+          return {
+            ...el,
+            name: `${el.firstName} ${el.lastName}`
+          }
+        }).sort((a, b) =>
           a.active > b.active ? -1 : 0
         );
         this.allStudentList = [...this.studentList];
