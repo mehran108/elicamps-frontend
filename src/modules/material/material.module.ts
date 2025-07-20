@@ -61,7 +61,7 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
     MatMenuModule,
     FlexLayoutModule,
     ToastrModule.forRoot(),
-    FileManagerAllModule
+    FileManagerAllModule,
   ],
   exports: [
     MatButtonModule,

@@ -629,3 +629,71 @@ h6 {
 .ag-watermark {
   display: none !important;
 }
+.w-100 {
+  width: 100% !important;
+}
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 5px;
+  width: 100%;
+  .p-button {
+    margin-left: 10px;
+  }
+}
+.p-dropdown {
+  font-size: 12px !important;        // smaller font
+  height: 32px !important;           // reduced height
+}
+
+.p-dropdown .p-dropdown-label {
+  padding: 4px 8px !important;       // label padding
+  font-size: 12px !important;
+  // line-height: 1.4 !important;
+}
+
+.p-dropdown .p-dropdown-trigger {
+  width: 1.5rem !important;
+}
+
+.p-dropdown-items .p-dropdown-item {
+  padding: 6px 8px !important;       // dropdown item padding
+  font-size: 12px !important;
+}
+.p-calendar {
+  font-size: 12px;
+  height: 32px;
+}
+
+.p-calendar .p-inputtext {
+  padding: 4px 8px;
+  font-size: 12px;
+  height: 32px;
+  // line-height: 1.4;
+}
+
+.p-datepicker {
+  font-size: 12px;
+}
+
+.p-datepicker .p-datepicker-header,
+.p-datepicker-calendar td > span {
+  padding: 4px;
+}
+
+.p-datepicker .p-timepicker {
+  font-size: 12px;
+}
+.p-dropdown-filter {
+  padding: 4px 8px;
+  font-size: 12px;
+  height: 28px;
+}
+.date-filters {
+  .form-group {
+    width: 226px;
+  }
+  display: flex;
+  gap: 28px;
+}

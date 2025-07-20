@@ -148,7 +148,6 @@ exportInsuranceEnrollment(data: Array<any>): void {
     row.lastName,
     row.dob ? moment(row.dob).format('MM-DD-YYYY') : '',
     row.gender,
-    '',
     row.country,
     row.destinationTo,
     row.city,
@@ -156,7 +155,7 @@ exportInsuranceEnrollment(data: Array<any>): void {
     moment(row.programeEndDate).format('MM-DD-YYYY'),
     '',
     '',
-    '',
+    row.agencyRef,
     '',
     row.email,
     row.numberOfNights,
@@ -177,7 +176,7 @@ exportInsuranceEnrollment(data: Array<any>): void {
     ['', ],
     [
       '', 'Status', 'Student #', 'First Name*', 'Last Name*', 'Birthdate*',
-      'Gender*', 'Select from the list', 'Origin', 'Destination Country*',
+      'Gender*', 'Origin', 'Destination Country*',
       'City', 'Start Date*', 'End Date*', 'ER Date', 'Policy#',
       'Group Name', 'Comments', 'Email*', 'Number of Days'
     ],

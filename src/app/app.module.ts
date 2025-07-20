@@ -89,6 +89,9 @@ import { RoomsCheckInReportComponent } from 'src/EliCamps/components/Reports/roo
 import { BulkInvoiceComponent } from 'src/EliCamps/components/bulk-invoice/bulk-invoice.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {MultiSelectModule} from 'primeng/multiselect';
+import { ButtonModule  } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+
 
 @NgModule({
   declarations: [
@@ -173,6 +176,8 @@ import {MultiSelectModule} from 'primeng/multiselect';
     ToastrModule.forRoot(),
     NgxSpinnerModule,
     DropdownModule,
+    ButtonModule,
+    CalendarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

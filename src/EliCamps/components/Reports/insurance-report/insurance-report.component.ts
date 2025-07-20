@@ -26,6 +26,7 @@ export class InsuranceReportComponent implements OnInit {
   public info: string;
   private gridApi: any;
   public paymentReport = [];
+  public filteredReport = [];
   public statusList = [];
   public modules = AllModules;
   public gridColumnApi: any;
@@ -137,7 +138,7 @@ export class InsuranceReportComponent implements OnInit {
     this.gridOptions.api.setQuickFilter(event.target.value);
   }
   onBtnExport(): void {
-    this.shared.exportInsuranceEnrollment(this.paymentReport);
+    this.shared.exportInsuranceEnrollment(this.filteredReport.length > 0 ? this.filteredReport : this.paymentReport);
   }
   public clear() {
     this.startDate = null;
@@ -186,6 +187,7 @@ export class InsuranceReportComponent implements OnInit {
       list = list.filter((el) => new Date(el.arrivalDate) <= this.endDate);
     }
     // this.setPinnedRowData(list);
+    this.filteredReport = [...list];
     this.gridApi.setRowData(list);
   }
 }

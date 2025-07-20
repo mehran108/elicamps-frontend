@@ -1,7 +1,7 @@
-const env = 'http://108.181.153.115:3300/api';
+const env = 'https://api.elicamps.com/api';
 export const environment = {
   production: true,
-  appRoot: 'http://108.181.153.115:3300/api',
+  appRoot: 'https://api.elicamps.com/api',
   appGroup: `${env}/Groups`,
   appList: `${env}/List`,
   appUser: `${env}/users`,
